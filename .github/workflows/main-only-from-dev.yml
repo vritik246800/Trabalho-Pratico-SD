@@ -1,0 +1,13 @@
+name: main-only-from-dev
+on:
+  pull_request:
+    branches: [main]
+jobs:
+  check-source:
+    runs-on: ubuntu-latest
+    steps:
+      - name: PR para main tem de vir de dev
+        if: github.head_ref != 'dev'
+        run: |
+          echo "PR para main só a partir de dev (veio de ${{ github.head_ref }})"
+          exit 1
