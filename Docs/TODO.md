@@ -27,12 +27,12 @@ Requisitos completos: `Docs/Enunciado AgroGest 2026.pdf`.
 | A3 | Listagens + compras detalhadas | A | ✅ Vritik |
 | A4 | Relatórios de clientes | A | ✅ Vritik |
 | A5 | Dashboard admin | A | ✅ Vritik |
-| B1 | Auto-registo | B | 🔒 Yannis |
-| B2 | Catálogo com filtro | B | 🔒 Yannis |
-| B3 | Carrinho em sessão | B | 🔒 Yannis |
-| B4 | Compra (RN01 + RN02) | B | 🔒 Yannis |
-| B5 | Factura (RN03 + impressão) | B | 🔒 Yannis |
-| B6 | Minhas compras | B | 🔒 Yannis |
+| B1 | Auto-registo | B | ✅ Yannis |
+| B2 | Catálogo com filtro | B | ✅ Yannis |
+| B3 | Carrinho em sessão | B | ✅ Yannis |
+| B4 | Compra (RN01 + RN02) | B | ✅ Yannis |
+| B5 | Factura (RN03 + impressão) | B | ✅ Yannis |
+| B6 | Minhas compras | B | ✅ Yannis |
 | C1 | Campanhas | C | 🔒 Yasin |
 | C2 | Cultivos | C | 🔒 Yasin |
 | C3 | Colheitas | C | 🔒 Yasin |

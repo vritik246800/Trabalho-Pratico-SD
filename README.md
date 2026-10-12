@@ -89,6 +89,17 @@ Tomcat na porta 8081 e serviço systemd :: ver `Docs/deploy/` (a completar na ta
 | Cliente | `joao@teste.mz` | `1234` |
 | Cliente | `maria@teste.mz` · `carlos@teste.mz` · `ana@teste.mz` · `pedro@teste.mz` | `1234` |
 
+## Cliente (pacote B)
+
+| Rota | O que faz | Regras |
+|---|---|---|
+| `GET/POST /registo` | auto-registo (nome, email, telefone, endereço, palavra-passe) e entrada automática | email único · palavra-passe guardada só como hash |
+| `GET /catalogo?categoria=` | produtos em cartões (foto, preço, validade, stock, fornecedor), filtro por categoria | esgotado = sem botão de adicionar |
+| `GET /carrinho` · `POST /carrinho/{add,update,remove,limpar}` | carrinho na sessão com subtotal, IVA 16 % e total | RN01: quantidade acima do stock recusada com aviso |
+| `GET/POST /compra` | rever, confirmar e emitir a factura | RN01 + RN02: valida todos os itens e só depois desconta o stock (`synchronized`) |
+| `GET /factura?id=` | factura `FT-<ano>-<n>` imprimível | RN03: cliente só vê as suas (403), admin vê todas · `/factura` sem id = lista do admin |
+| `GET /minhas-compras` | histórico com link para cada factura | só as compras do cliente da sessão |
+
 ## Documentação
 
 Índice de `Docs/` :: [[Docs/INDEX]].
