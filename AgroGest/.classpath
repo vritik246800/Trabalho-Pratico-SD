@@ -5,15 +5,7 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="lib/bcel-6.13.0.jar"/>
-	<classpathentry kind="lib" path="lib/commons-codec-1.19.0.jar"/>
-	<classpathentry kind="lib" path="lib/commons-compress-1.28.0.jar"/>
-	<classpathentry kind="lib" path="lib/commons-io-2.22.0.jar"/>
-	<classpathentry kind="lib" path="lib/commons-lang3-3.20.0.jar"/>
-	<classpathentry kind="lib" path="lib/jakartaee-migration-1.0.13.jar"/>
-	<classpathentry kind="lib" path="lib/jakartaee-migration-1.0.13-shaded.jar"/>
-	<classpathentry kind="lib" path="lib/org.eclipse.osgi-3.24.300.jar"/>
+	<classpathentry kind="src" path="src/main/java"/>
 	<classpathentry kind="lib" path="lib/jakarta.servlet.jsp.jstl-3.0.1.jar"/>
 	<classpathentry kind="lib" path="lib/jakarta.servlet.jsp.jstl-api-3.0.0.jar"/>
 	<classpathentry kind="lib" path="lib/jakarta.servlet.jsp-api-3.1.1.jar"/>
