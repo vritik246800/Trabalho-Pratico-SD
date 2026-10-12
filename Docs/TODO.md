@@ -20,7 +20,7 @@ Requisitos completos: `Docs/Enunciado AgroGest 2026.pdf`.
 
 | ID | Tarefa | Pacote | Estado |
 |---|---|---|---|
-| T0 | Base comum (bloqueante) | — | ⬜ livre |
+| T0 | Base comum (bloqueante) | — | 🔒 Vritik |
 | A1 | Fornecedores | A | 🔒 Vritik |
 | A2 | Produtos + repor stock | A | 🔒 Vritik |
 | A3 | Listagens + compras detalhadas | A | 🔒 Vritik |
