@@ -6,11 +6,12 @@ Requisitos completos: `Docs/Enunciado AgroGest 2026.pdf`.
 
 ## Como escolher uma tarefa
 
-1. `git checkout dev && git pull origin dev`.
+1. Na própria branch :: `git pull origin dev` (Yannis/Yasin nunca fazem checkout de `dev`).
 2. Na tabela **Estado**, trocar `⬜ livre` por `🔒 <Nome>` no pacote (ou tarefa) escolhido **e**
    pôr o(s) ID(s) na tua linha da coluna Tarefas do `README.md` (tabela Colaboradores).
-3. Commit `update: Docs/TODO.md, README.md` e push **imediato** para `dev` (reserva fica visível aos outros).
-4. `git checkout <tua branch> && git merge dev` e trabalhar só nos ficheiros do teu pacote.
+3. Commit `update: Docs/TODO.md, README.md` e push **imediato** :: Vritik para `dev`; Yannis/Yasin
+   para a própria branch + PR para `dev` (reserva fica visível quando o Vritik fizer merge).
+4. Trabalhar só nos ficheiros do teu pacote, na tua branch.
 5. Tarefa acabada → `✅ <Nome>` no TODO + entrada no `Docs/CHANGELOG-<branch>.md`.
 
 >[!tip] Pacote reservado por outra pessoa = não tocar. Precisas de algo dele? Abre issue/fala no

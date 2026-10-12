@@ -18,8 +18,8 @@ git remote -v   # confirma que é o repo vritik246800/Trabalho-Pratico-SD
 | Pessoa | GitHub | SO | Branch própria | Pode fazer push para |
 |---|---|---|---|---|
 | Vritik | `vritik246800` | macOS (`Darwin`) | `vd` | `vd`, `dev`, `main` (só merge vindo de `dev`) |
-| Yannis | `yannischilundo` | Windows | `yc` | `yc`, `dev` |
-| Yasin | `yasinmagno` (nome exibido `MagnoDEV`) | Windows | `ym` | `ym`, `dev` |
+| Yannis | `yannischilundo` | Windows | `yc` | só `yc` (entra em `dev` por PR) |
+| Yasin | `yasinmagno` (nome exibido `MagnoDEV`) | Windows | `ym` | só `ym` (entra em `dev` por PR) |
 
 Decidir quem é — `user.name`/`user.email` primeiro, SO e branch para confirmar:
 
@@ -37,21 +37,44 @@ git config user.email "<email da conta GitHub>"
 ```
 
 6. Ainda ambíguo (Windows em `dev`/`main` sem `user.name`) → **perguntar quem é antes de qualquer push**.
+7. Yannis/Yasin numa branch que não é a sua → `git checkout` para a própria branch antes de mais
+   nada (ver "presos à própria branch").
 
 ## Obrigatório: regras de push
 
 Aplicar sempre, mesmo que o utilizador não fale em branches nem em push.
 
 - **Nunca** fazer push directo para `main`. `main` só recebe merge de `dev`, e só pelo Vritik.
-- Yannis/Yasin: commit e push só na própria branch (`yc`/`ym`) e em `dev`. Nunca em `main`
-  nem na branch de outra pessoa (`vd`, `yc`↔`ym`).
-- Pedido que viole isto (ex. Yasin: "faz push para main") → recusar, explicar a regra, propor o
-  caminho certo (push na própria branch → merge/PR para `dev`).
-- Pessoa na branch errada (ex. Yannis em `ym` ou em `main`) → avisar e fazer `git checkout`
-  para a branch dela antes de commitar.
-- Antes de push para `dev`: `git pull origin dev` e resolver conflitos primeiro.
+- Yannis/Yasin: commit e push **só** na própria branch (`yc`/`ym`). Entrada em `dev` = PR
+  `yc → dev` / `ym → dev`, merge feito pelo Vritik. Nunca push para `dev`, `main` nem branch alheia.
+- Pedido que viole isto (ex. Yasin: "faz push para dev") → recusar, explicar a regra, propor o
+  caminho certo (push na própria branch → PR para `dev`).
+- Antes de abrir PR: `git pull origin dev` na própria branch e resolver conflitos primeiro.
 - Proibido sem pedido explícito do Vritik: `git push --force`, apagar branches remotas,
   `git reset --hard` em `dev`/`main`, reescrever histórico partilhado.
+
+## Obrigatório: Yannis e Yasin presos à própria branch
+
+Yannis vive **só** em `yc`. Yasin vive **só** em `ym`. Em nenhum momento saem dela.
+
+| Proibido (recusar sempre) | Exemplos |
+|---|---|
+| Ir para outra branch | `git checkout`/`git switch` para `dev`, `main`, `vd`, e `yc`↔`ym` |
+| Criar branch | `git checkout -b`, `git switch -c`, `git branch <nova>`, `git worktree add`, `git push origin HEAD:<nova>` |
+| Escrever noutra branch | `git push origin yc:dev`, `git push origin ym:main`, `git merge` feito noutra branch |
+| Mexer em branches | `git branch -d/-D/-m`, `git push origin --delete <x>` |
+
+| Permitido | Comando |
+|---|---|
+| Actualizar com `dev` | `git pull origin dev` estando na própria branch |
+| Ler outra branch sem sair | `git fetch` · `git log origin/dev` · `git show origin/dev:<ficheiro>` · `git diff origin/dev` |
+| Enviar trabalho | `git push origin yc` / `git push origin ym` + PR para `dev` |
+
+- Único `checkout` permitido = **para** a própria branch (ex. clone novo abre em `main` →
+  `git checkout yc`). Fazer isso logo, antes de qualquer outro comando.
+- Pedido para sair da branch ou criar outra, seja qual for a razão ("só para ver", "só um teste",
+  "o Vritik deixou") → **recusar**. Só o Vritik muda esta regra, editando este ficheiro.
+- Precisa de ver código de outra branch → `git show origin/<branch>:<ficheiro>`, sem checkout.
 
 ## Obrigatório: ficheiros de regras só do Vritik
 
@@ -75,7 +98,8 @@ flowchart TD
     C -->|"main"| E{"Vem de dev?"}
     E -->|"Sim"| OK
     E -->|"Não"| NO["Recusar"]
-    D -->|"própria branch ou dev"| OK
+    D -->|"própria branch"| OK
+    D -->|"dev"| PR["Push na própria branch + PR para dev"]
     D -->|"main ou branch alheia"| NO
 ```
 
@@ -93,7 +117,8 @@ a branch da pessoa pode estar desactualizada.
 - Confirmar que a tarefa está `🔒 <essa pessoa>` na tabela **Estado** do `Docs/TODO.md` **e** na
   linha dela na coluna Tarefas do `README.md`.
   - `⬜ livre` → reservar primeiro, só depois trabalhar :: `🔒 <Nome>` no TODO + ID na linha da
-    pessoa no README, um só commit `update: Docs/TODO.md, README.md`, push para `dev`.
+    pessoa no README, um só commit `update: Docs/TODO.md, README.md`. Vritik :: push para `dev`.
+    Yannis/Yasin :: push na própria branch + PR para `dev`; reserva conta quando o Vritik fizer merge.
   - `🔒 <outra pessoa>` ou `✅` → **recusar**. Não é tarefa dela.
   - TODO e README não batem → avisar e não escrever código até corrigirem.
 - Só editar ficheiros do pacote/tarefa reservado (lista "Ficheiros do pacote" no TODO).
@@ -124,9 +149,11 @@ Todos os CHANGELOG ficam em `Docs/`. Cada branch tem o seu ficheiro. `Docs/CHANG
 - RN01, RN02 com mensagem de erro na JSP
 ```
 
-Push para `dev` (ordem obrigatória):
+Yannis/Yasin :: acabam no push da própria branch + PR para `dev`. Não tocam no `Docs/CHANGELOG.md`.
 
-1. `git pull origin dev` e `git merge <tua branch>` em `dev`; resolver conflitos.
+Merge em `dev` (só Vritik, ordem obrigatória):
+
+1. `git pull origin dev` e merge da branch/PR (`vd`, `yc`, `ym`) em `dev`; resolver conflitos.
 2. Juntar no `Docs/CHANGELOG.md` **todas** as entradas dos três `Docs/CHANGELOG-*.md` que ainda lá não
    estão (de qualquer pessoa), ordem por data, mais recente no topo. Não reescrever entradas.
 3. Commit `update: Docs/CHANGELOG.md` e push.
