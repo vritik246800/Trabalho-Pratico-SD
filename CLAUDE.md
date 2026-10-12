@@ -10,19 +10,32 @@ No início de cada sessão, antes de qualquer `git commit`/`git push`/`git merge
 uname -s 2>/dev/null || echo Windows   # Darwin = macOS · MINGW*/MSYS*/CYGWIN*/Windows = Windows
 git branch --show-current
 git config user.name
+git config user.email
+git remote -v   # confirma que é o repo vritik246800/Trabalho-Pratico-SD
 ```
 
-| Pessoa | SO | Branch própria | Pode fazer push para |
-|---|---|---|---|
-| Vritik (`vritik246800`) | macOS (`Darwin`) | `vd` | `vd`, `dev`, `main` (só merge vindo de `dev`) |
-| Yannis | Windows | `yc` | `yc`, `dev` |
-| Yasin | Windows | `ym` | `ym`, `dev` |
+| Pessoa | GitHub | SO | Branch própria | Pode fazer push para |
+|---|---|---|---|---|
+| Vritik | `vritik246800` | macOS (`Darwin`) | `vd` | `vd`, `dev`, `main` (só merge vindo de `dev`) |
+| Yannis | `yannischilundo` | Windows | `yc` | `yc`, `dev` |
+| Yasin | `yasinmagno` (nome exibido `MagnoDEV`) | Windows | `ym` | `ym`, `dev` |
 
-Decidir quem é:
+Decidir quem é — `user.name`/`user.email` primeiro, SO e branch para confirmar:
 
-1. SO macOS e `user.name` = `vritik246800` → Vritik.
-2. SO Windows → Yannis ou Yasin. Desempatar pela branch actual (`yc` → Yannis, `ym` → Yasin) e pelo `user.name`.
-3. Ainda ambíguo (Windows em `dev`/`main`, `user.name` desconhecido) → **perguntar quem é antes de qualquer push**.
+1. `vritik246800` (ou email `vritikvalabdas@gmail.com`) + macOS → Vritik.
+2. `yannischilundo` + Windows → Yannis.
+3. `yasinmagno` ou `MagnoDEV` + Windows → Yasin.
+4. Identidade e SO não batem (ex. `vritik246800` em Windows, `yasinmagno` em macOS) → avisar e
+   **perguntar quem é** antes de commit/push.
+5. `user.name` desconhecido/vazio → desempatar pela branch (`yc` → Yannis, `ym` → Yasin), e
+   **pedir para configurar** antes do primeiro commit:
+
+```bash
+git config user.name "yannischilundo"   # ou "yasinmagno"
+git config user.email "<email da conta GitHub>"
+```
+
+6. Ainda ambíguo (Windows em `dev`/`main` sem `user.name`) → **perguntar quem é antes de qualquer push**.
 
 ## Obrigatório: regras de push
 
