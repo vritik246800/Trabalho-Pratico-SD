@@ -38,7 +38,7 @@ gitGraph
 - Ninguém faz push directo para `main`.
 - `main` só recebe PR com origem `dev` (workflow `main-only-from-dev`).
 - PR `dev` → `main` só merge pelo Vritik (`CODEOWNERS` + ruleset).
-- Trabalho diário: `vd` / `yc` / `ym` → PR para `dev`.
+- Yannis/Yasin: push só na própria branch (`yc`/`ym`) e em `dev`. Nunca `main`.
 
 ```bash
 git checkout dev && git pull
