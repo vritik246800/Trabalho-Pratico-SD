@@ -21,11 +21,11 @@ Requisitos completos: `Docs/Enunciado AgroGest 2026.pdf`.
 | ID | Tarefa | Pacote | Estado |
 |---|---|---|---|
 | T0 | Base comum (bloqueante) | — | ✅ Vritik |
-| A1 | Fornecedores | A | 🔒 Vritik |
-| A2 | Produtos + repor stock | A | 🔒 Vritik |
-| A3 | Listagens + compras detalhadas | A | 🔒 Vritik |
-| A4 | Relatórios de clientes | A | 🔒 Vritik |
-| A5 | Dashboard admin | A | 🔒 Vritik |
+| A1 | Fornecedores | A | ✅ Vritik |
+| A2 | Produtos + repor stock | A | ✅ Vritik |
+| A3 | Listagens + compras detalhadas | A | ✅ Vritik |
+| A4 | Relatórios de clientes | A | ✅ Vritik |
+| A5 | Dashboard admin | A | ✅ Vritik |
 | B1 | Auto-registo | B | 🔒 Yannis |
 | B2 | Catálogo com filtro | B | 🔒 Yannis |
 | B3 | Carrinho em sessão | B | 🔒 Yannis |
