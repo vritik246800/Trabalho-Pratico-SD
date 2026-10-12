@@ -39,6 +39,7 @@ gitGraph
 - `main` só recebe PR com origem `dev` (workflow `main-only-from-dev`).
 - PR `dev` → `main` só merge pelo Vritik (`CODEOWNERS` + ruleset).
 - Yannis/Yasin: push só na própria branch (`yc`/`ym`) e em `dev`. Nunca `main`.
+- `CLAUDE.md` e `Docs/BRANCH.md` só o Vritik altera. Mudança vinda de `yc`/`ym` não entra em `dev`.
 
 ```bash
 git checkout dev && git pull
