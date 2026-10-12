@@ -66,6 +66,50 @@ flowchart TD
     D -->|"main ou branch alheia"| NO
 ```
 
+## Obrigatório: tarefa da sessão
+
+Divisão do trabalho em [Docs/TODO.md](Docs/TODO.md) (T0 + pacotes A, B, C).
+
+- Depois de identificar a pessoa e **antes de escrever qualquer código**, perguntar:
+  **"Qual é a tarefa (ID do TODO) que estás a fazer?"** Não adivinhar pela branch nem pelo pedido.
+- Confirmar na tabela **Estado** do `Docs/TODO.md` que a tarefa está `🔒 <essa pessoa>`.
+  - `⬜ livre` → reservar primeiro (editar TODO, commit, push para `dev`), só depois trabalhar.
+  - `🔒 <outra pessoa>` ou `✅` → **recusar**. Não é tarefa dela.
+- Só editar ficheiros do pacote/tarefa reservado (lista "Ficheiros do pacote" no TODO).
+  Pedido que toque ficheiro de outro pacote → recusar, explicar, sugerir falar com o dono.
+- Ficheiros partilhados (`model/*`, `DataStore`, `_header.jspf`, `style.css`, `pom.xml`) → só
+  com acordo do grupo, conforme tabela "Ficheiros partilhados" do TODO.
+- Pedido fora de qualquer tarefa do TODO → perguntar se é para acrescentar ao TODO antes de fazer.
+
+## Obrigatório: CHANGELOG
+
+Todos os CHANGELOG ficam em `Docs/`. Cada branch tem o seu ficheiro. `Docs/CHANGELOG.md` (em `dev`/`main`) é o consolidado.
+
+| Branch | Ficheiro |
+|---|---|
+| `vd` | `Docs/CHANGELOG-vd.md` |
+| `yc` | `Docs/CHANGELOG-yc.md` |
+| `ym` | `Docs/CHANGELOG-ym.md` |
+| `dev`/`main` | `Docs/CHANGELOG.md` (junção dos três) |
+
+- Sempre que uma tarefa fica completa → entrada nova no topo do `Docs/CHANGELOG-<branch>.md` **e**
+  `✅ <Nome>` na tabela Estado do TODO, no mesmo commit da conclusão. Tarefa sem entrada = por acabar.
+- Nunca editar o `Docs/CHANGELOG-<branch>.md` de outra pessoa.
+
+```markdown
+## [B4] Compra (RN01 + RN02) — 2026-10-12 · Yannis
+- create: AgroGest/src/main/java/mz/agrogest/service/VendaService.java
+- update: AgroGest/src/main/webapp/WEB-INF/views/compra.jsp
+- RN01, RN02 com mensagem de erro na JSP
+```
+
+Push para `dev` (ordem obrigatória):
+
+1. `git pull origin dev` e `git merge <tua branch>` em `dev`; resolver conflitos.
+2. Juntar no `Docs/CHANGELOG.md` **todas** as entradas dos três `Docs/CHANGELOG-*.md` que ainda lá não
+   estão (de qualquer pessoa), ordem por data, mais recente no topo. Não reescrever entradas.
+3. Commit `update: Docs/CHANGELOG.md` e push.
+
 ## Windows (Yannis, Yasin)
 
 - Shell pode ser PowerShell ou Git Bash :: usar comandos `git` (iguais nos dois), evitar
@@ -240,7 +284,20 @@ Entregáveis :: código (este repo), WAR, `README.md` (instalação, deploy, cre
 arquitectura), manual de utilização PDF (admin + cliente), demo ao vivo.
 
 >[!tip] Antes de dar uma tarefa por feita: compila (`mvn package`), respeita a tabela de
->restrições, e a RN tocada tem caso de erro tratado (mensagem na JSP, não stack trace).
+>restrições, a RN tocada tem caso de erro tratado (mensagem na JSP, não stack trace), TODO
+>marcado `✅` e entrada no `Docs/CHANGELOG-<branch>.md`.
+
+### Bibliotecas
+
+`AgroGest/lib/` (compilar no Eclipse sem Maven). Jar em falta → copiar de
+`~/Documents/GIT/JAR_java` (só Vritik tem esta pasta) ou Maven Central. Só estas são usadas:
+
+| Jar | Vai no WAR? |
+|---|---|
+| `jakarta.servlet-api-6.0.0` | não (Tomcat fornece) |
+| `jakarta.servlet.jsp-api-3.1.1` | não (Tomcat fornece) |
+| `jakarta.servlet.jsp.jstl-api-3.0.0` | sim (`WEB-INF/lib`) |
+| `jakarta.servlet.jsp.jstl-3.0.1` (GlassFish, implementação) | sim (`WEB-INF/lib`) |
 
 ## Git
 
