@@ -1,0 +1,125 @@
+/* AgroGest · base comum (T0). Estilo de cada pacote vai no seu css/*-a/b/c.css */
+
+:root {
+    --verde: #2f6b3a;
+    --verde-escuro: #224f2b;
+    --verde-claro: #e8f2e9;
+    --terra: #8a5a2b;
+    --texto: #1f2a22;
+    --suave: #5f6b62;
+    --borda: #d6ddd7;
+    --fundo: #f6f7f4;
+    --branco: #fff;
+    --erro: #b42318;
+    --erro-fundo: #fdecea;
+    --ok-fundo: #e7f4ea;
+    --raio: 8px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    color: var(--texto);
+    background: var(--fundo);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main { flex: 1; padding-top: 24px; padding-bottom: 32px; }
+h1 { font-size: 1.6rem; margin: 0 0 16px; }
+h2 { font-size: 1.25rem; margin: 24px 0 12px; }
+a { color: var(--verde); }
+
+.container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 16px; }
+
+/* --- topo e menu --- */
+.topo { background: var(--verde); color: var(--branco); }
+.topo-barra { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; min-height: 56px; }
+.marca { color: var(--branco); font-weight: 700; font-size: 1.2rem; text-decoration: none; margin-right: auto; }
+.menu { display: flex; flex-wrap: wrap; align-items: center; gap: 4px; }
+.menu a { color: var(--branco); text-decoration: none; padding: 6px 10px; border-radius: 6px; }
+.menu a:hover { background: var(--verde-escuro); }
+.menu-user { opacity: .8; padding: 0 8px; font-size: .9rem; }
+.menu-toggle, .menu-botao { display: none; }
+
+/* --- grelha e cartões --- */
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; }
+.card {
+    background: var(--branco);
+    border: 1px solid var(--borda);
+    border-radius: var(--raio);
+    padding: 20px;
+    margin-bottom: 16px;
+}
+.card-estreito { max-width: 420px; margin: 40px auto; }
+
+/* --- botões --- */
+.btn {
+    display: inline-block;
+    background: var(--verde);
+    color: var(--branco);
+    border: 0;
+    border-radius: 6px;
+    padding: 9px 16px;
+    font: inherit;
+    text-decoration: none;
+    cursor: pointer;
+}
+.btn:hover { background: var(--verde-escuro); }
+.btn-danger { background: var(--erro); }
+.btn-danger:hover { background: #8f1c13; }
+.btn-sec { background: var(--branco); color: var(--verde); border: 1px solid var(--verde); }
+.btn-sec:hover { background: var(--verde-claro); }
+.btn-peq { padding: 4px 10px; font-size: .875rem; }
+
+/* --- tabelas (scroll horizontal em ecrã pequeno) --- */
+.tabela-wrap { overflow-x: auto; }
+.tabela { width: 100%; border-collapse: collapse; background: var(--branco); }
+.tabela th, .tabela td { padding: 8px 10px; border-bottom: 1px solid var(--borda); text-align: left; vertical-align: top; }
+.tabela th { background: var(--verde-claro); white-space: nowrap; }
+.tabela tr:hover td { background: #fafbf9; }
+.tabela .num { text-align: right; white-space: nowrap; }
+.tabela .acoes { white-space: nowrap; }
+.tabela form { display: inline; }
+
+/* --- formulários --- */
+.form { display: grid; gap: 12px; }
+.form label { display: grid; gap: 4px; font-weight: 600; font-size: .9rem; }
+.form input, .form select, .form textarea {
+    font: inherit;
+    font-weight: 400;
+    padding: 8px 10px;
+    border: 1px solid var(--borda);
+    border-radius: 6px;
+    background: var(--branco);
+    width: 100%;
+}
+.form input:focus, .form select:focus, .form textarea:focus { outline: 2px solid var(--verde); border-color: var(--verde); }
+.form-linha { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+
+/* --- mensagens --- */
+.alerta { padding: 12px 16px; border-radius: 6px; margin-bottom: 16px; border-left: 4px solid; }
+.alerta-erro { background: var(--erro-fundo); border-color: var(--erro); color: var(--erro); }
+.alerta-ok { background: var(--ok-fundo); border-color: var(--verde); color: var(--verde-escuro); }
+.nota { color: var(--suave); font-size: .9rem; }
+
+.rodape { background: var(--branco); border-top: 1px solid var(--borda); color: var(--suave); font-size: .85rem; padding: 16px 0; }
+
+/* --- telemóvel: menu recolhido --- */
+@media (max-width: 760px) {
+    .menu-botao { display: block; cursor: pointer; font-size: 1.5rem; padding: 4px 8px; }
+    .menu { display: none; width: 100%; flex-direction: column; align-items: stretch; padding-bottom: 8px; }
+    .menu-toggle:checked ~ .menu { display: flex; }
+    h1 { font-size: 1.35rem; }
+}
+
+@media print {
+    .topo, .rodape, .btn, .nao-imprimir { display: none !important; }
+    body { background: var(--branco); }
+    .card { border: 0; padding: 0; }
+}

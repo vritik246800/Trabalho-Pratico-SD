@@ -87,6 +87,7 @@ Tomcat na porta 8081 e serviço systemd :: ver `Docs/deploy/` (a completar na ta
 |---|---|---|
 | Admin | `admin@agro.mz` | `admin234` |
 | Cliente | `joao@teste.mz` | `1234` |
+| Cliente | `maria@teste.mz` · `carlos@teste.mz` · `ana@teste.mz` · `pedro@teste.mz` | `1234` |
 
 ## Documentação
 

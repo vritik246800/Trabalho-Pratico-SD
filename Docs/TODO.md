@@ -20,12 +20,12 @@ Requisitos completos: `Docs/Enunciado AgroGest 2026.pdf`.
 
 | ID | Tarefa | Pacote | Estado |
 |---|---|---|---|
-| T0 | Base comum (bloqueante) | — | 🔒 Vritik |
-| A1 | Fornecedores | A | 🔒 Vritik |
-| A2 | Produtos + repor stock | A | 🔒 Vritik |
-| A3 | Listagens + compras detalhadas | A | 🔒 Vritik |
-| A4 | Relatórios de clientes | A | 🔒 Vritik |
-| A5 | Dashboard admin | A | 🔒 Vritik |
+| T0 | Base comum (bloqueante) | — | ✅ Vritik |
+| A1 | Fornecedores | A | ✅ Vritik |
+| A2 | Produtos + repor stock | A | ✅ Vritik |
+| A3 | Listagens + compras detalhadas | A | ✅ Vritik |
+| A4 | Relatórios de clientes | A | ✅ Vritik |
+| A5 | Dashboard admin | A | ✅ Vritik |
 | B1 | Auto-registo | B | 🔒 Yannis |
 | B2 | Catálogo com filtro | B | 🔒 Yannis |
 | B3 | Carrinho em sessão | B | 🔒 Yannis |
@@ -137,8 +137,10 @@ public final class DataStore implements Serializable {
     public Campanha campanha(int id);     Venda venda(int id);     // null se não existe
     public Utilizador utilizadorPorEmail(String email);
 
-    public void seed();  // admin@agro.mz/admin234, 3 fornecedores, 3 produtos, 2 clientes,
-                         // 2 vendas, 1 campanha — igual ao exemplo do enunciado
+    public void seed();  // admin@agro.mz/admin234, 3 fornecedores, 3 produtos, 5 clientes,
+                         // 4 vendas, 1 campanha — igual ao dashboard do enunciado
+    public void garantirAdmin();                   // cria admin se faltar (C4 chama depois de carregar)
+    public static <T> List<T> copia(List<T> l);    // cópia segura para iterar uma synchronizedList
 }
 ```
 
@@ -152,7 +154,22 @@ public final class DataStore implements Serializable {
 
 - Contexto da app :: `/agrogest` → `http://localhost:8081/agrogest/`.
 - Após login :: admin → `/admin`, cliente → `/catalogo`.
-- `AuthFilter` :: `/admin/*` sem admin → `403`; rotas RN05 sem sessão → redirect `/login`.
+- `AuthFilter` :: `/admin/*` sem admin → `403` (`WEB-INF/views/403.jsp`); rotas RN05 sem sessão → redirect `/login`.
+  Também põe UTF-8 em todos os pedidos (não é preciso `setCharacterEncoding` nos servlets).
+
+### Convenções da base (T0 feito)
+
+- Seed :: clientes `joao`, `maria`, `carlos`, `ana`, `pedro` `@teste.mz`, todos com pass `1234`
+  (`ana` e `pedro` sem compras) · vendas seed já usam `FT-<ano>-1..4`, a próxima é `-5`.
+- Escrita que lê e altera (stock, remover com dependências) :: `synchronized (DataStore.get()) { ... }`.
+  Mesmo lock para todos — a venda (B4) e o repor stock (A2) mexem no mesmo `Produto.quantidade`.
+- Erro de regra :: service lança `NegocioException` → servlet faz `req.setAttribute("erro", msg)` e
+  `forward` para a JSP (o `_header.jspf` mostra `${erro}` e o `flash` de sessão).
+- JSP :: 1.ª linha `<%@ page pageEncoding="UTF-8" %>`, `<c:set var="titulo">`, opcional
+  `<c:set var="estilos" value="${['cliente-b.css']}"/>`, depois `<%@ include file="_header.jspf" %>`.
+  O header já declara `c`, `fmt`, `fn` e `ctx` (= context path).
+- Texto vindo do utilizador :: sempre `<c:out>` ou `fn:escapeXml` (EL `${}` não escapa HTML).
+- Datas :: `getXxxFmt()` nos modelos (`dd/MM/yyyy`; `Venda.getDataFmt()` com hora).
 
 ### Feito quando
 

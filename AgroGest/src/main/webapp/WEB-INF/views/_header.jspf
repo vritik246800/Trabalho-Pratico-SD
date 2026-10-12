@@ -1,0 +1,61 @@
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" trimDirectiveWhitespaces="true" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>
+<%@ taglib prefix="fn" uri="jakarta.tags.functions" %>
+<fmt:setLocale value="pt_PT"/>
+<c:set var="ctx" value="${pageContext.request.contextPath}"/>
+<c:set var="eu" value="${sessionScope.utilizador}"/>
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AgroGest<c:if test="${not empty titulo}"> · <c:out value="${titulo}"/></c:if></title>
+    <link rel="stylesheet" href="${ctx}/css/style.css">
+    <c:forEach var="css" items="${estilos}"><link rel="stylesheet" href="${ctx}/css/${css}"></c:forEach>
+</head>
+<body>
+<header class="topo">
+    <div class="container topo-barra">
+        <a class="marca" href="${ctx}/">🌱 AgroGest</a>
+        <input type="checkbox" id="menu-toggle" class="menu-toggle">
+        <label for="menu-toggle" class="menu-botao" aria-label="Abrir menu">☰</label>
+        <nav class="menu">
+            <c:choose>
+                <c:when test="${eu.admin}">
+                    <a href="${ctx}/admin">Dashboard</a>
+                    <a href="${ctx}/admin/fornecedores">Fornecedores</a>
+                    <a href="${ctx}/admin/produtos">Produtos</a>
+                    <a href="${ctx}/admin/campanhas">Campanhas</a>
+                    <a href="${ctx}/admin/cultivos">Cultivos</a>
+                    <a href="${ctx}/admin/colheitas">Colheitas</a>
+                    <a href="${ctx}/admin/listagens">Listagens</a>
+                    <a href="${ctx}/admin/relatorios">Relatórios</a>
+                    <a href="${ctx}/admin/persistencia">Persistência</a>
+                    <a href="${ctx}/factura">Facturas</a>
+                </c:when>
+                <c:when test="${not empty eu}">
+                    <a href="${ctx}/catalogo">Catálogo</a>
+                    <a href="${ctx}/carrinho">Carrinho<c:if test="${not empty sessionScope.carrinho}"> (${fn:length(sessionScope.carrinho)})</c:if></a>
+                    <a href="${ctx}/minhas-compras">Minhas compras</a>
+                </c:when>
+                <c:otherwise>
+                    <a href="${ctx}/login">Entrar</a>
+                    <a href="${ctx}/registo">Registar</a>
+                </c:otherwise>
+            </c:choose>
+            <c:if test="${not empty eu}">
+                <span class="menu-user"><c:out value="${eu.nome}"/></span>
+                <a href="${ctx}/logout">Sair</a>
+            </c:if>
+        </nav>
+    </div>
+</header>
+<main class="container">
+<c:if test="${not empty sessionScope.flash}">
+    <div class="alerta alerta-ok"><c:out value="${sessionScope.flash}"/></div>
+    <c:remove var="flash" scope="session"/>
+</c:if>
+<c:if test="${not empty erro}">
+    <div class="alerta alerta-erro"><c:out value="${erro}"/></div>
+</c:if>
