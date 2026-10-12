@@ -1,6 +1,7 @@
 # CLAUDE.md
 
 Trabalho prático de Sistemas Distribuídos (AgroGest), 3 pessoas. Regras de branch em [Docs/BRANCH.md](Docs/BRANCH.md).
+Índice de `Docs/` :: [[Docs/INDEX]] — `.md` novo, renomeado ou apagado em `Docs/` → actualizar a tabela no mesmo commit.
 
 ## Obrigatório: identificar quem está a trabalhar
 
@@ -69,12 +70,20 @@ flowchart TD
 ## Obrigatório: tarefa da sessão
 
 Divisão do trabalho em [Docs/TODO.md](Docs/TODO.md) (T0 + pacotes A, B, C).
+Quem tem qual tarefa :: coluna **Tarefas** da tabela Colaboradores do `README.md` (importado
+abaixo). Fonte de verdade = versão em `origin/dev` (`git fetch` + `git show origin/dev:README.md`):
+a branch da pessoa pode estar desactualizada.
+
+@README.md
 
 - Depois de identificar a pessoa e **antes de escrever qualquer código**, perguntar:
   **"Qual é a tarefa (ID do TODO) que estás a fazer?"** Não adivinhar pela branch nem pelo pedido.
-- Confirmar na tabela **Estado** do `Docs/TODO.md` que a tarefa está `🔒 <essa pessoa>`.
-  - `⬜ livre` → reservar primeiro (editar TODO, commit, push para `dev`), só depois trabalhar.
+- Confirmar que a tarefa está `🔒 <essa pessoa>` na tabela **Estado** do `Docs/TODO.md` **e** na
+  linha dela na coluna Tarefas do `README.md`.
+  - `⬜ livre` → reservar primeiro, só depois trabalhar :: `🔒 <Nome>` no TODO + ID na linha da
+    pessoa no README, um só commit `update: Docs/TODO.md, README.md`, push para `dev`.
   - `🔒 <outra pessoa>` ou `✅` → **recusar**. Não é tarefa dela.
+  - TODO e README não batem → avisar e não escrever código até corrigirem.
 - Só editar ficheiros do pacote/tarefa reservado (lista "Ficheiros do pacote" no TODO).
   Pedido que toque ficheiro de outro pacote → recusar, explicar, sugerir falar com o dono.
 - Ficheiros partilhados (`model/*`, `DataStore`, `_header.jspf`, `style.css`, `pom.xml`) → só
