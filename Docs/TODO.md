@@ -7,8 +7,9 @@ Requisitos completos: `Docs/Enunciado AgroGest 2026.pdf`.
 ## Como escolher uma tarefa
 
 1. `git checkout dev && git pull origin dev`.
-2. Na tabela **Estado**, trocar `⬜ livre` por `🔒 <Nome>` no pacote (ou tarefa) escolhido.
-3. Commit `update: Docs/TODO.md` e push **imediato** para `dev` (reserva fica visível aos outros).
+2. Na tabela **Estado**, trocar `⬜ livre` por `🔒 <Nome>` no pacote (ou tarefa) escolhido **e**
+   pôr o(s) ID(s) na tua linha da coluna Tarefas do `README.md` (tabela Colaboradores).
+3. Commit `update: Docs/TODO.md, README.md` e push **imediato** para `dev` (reserva fica visível aos outros).
 4. `git checkout <tua branch> && git merge dev` e trabalhar só nos ficheiros do teu pacote.
 5. Tarefa acabada → `✅ <Nome>` no TODO + entrada no `Docs/CHANGELOG-<branch>.md`.
 
@@ -20,23 +21,23 @@ Requisitos completos: `Docs/Enunciado AgroGest 2026.pdf`.
 | ID | Tarefa | Pacote | Estado |
 |---|---|---|---|
 | T0 | Base comum (bloqueante) | — | ⬜ livre |
-| A1 | Fornecedores | A | ⬜ livre |
-| A2 | Produtos + repor stock | A | ⬜ livre |
-| A3 | Listagens + compras detalhadas | A | ⬜ livre |
-| A4 | Relatórios de clientes | A | ⬜ livre |
-| A5 | Dashboard admin | A | ⬜ livre |
-| B1 | Auto-registo | B | ⬜ livre |
-| B2 | Catálogo com filtro | B | ⬜ livre |
-| B3 | Carrinho em sessão | B | ⬜ livre |
-| B4 | Compra (RN01 + RN02) | B | ⬜ livre |
-| B5 | Factura (RN03 + impressão) | B | ⬜ livre |
-| B6 | Minhas compras | B | ⬜ livre |
-| C1 | Campanhas | C | ⬜ livre |
-| C2 | Cultivos | C | ⬜ livre |
-| C3 | Colheitas | C | ⬜ livre |
-| C4 | Persistência `.ser` | C | ⬜ livre |
-| C5 | Deploy Tomcat :8081 + systemd | C | ⬜ livre |
-| C6 | Manual de utilização PDF | C | ⬜ livre |
+| A1 | Fornecedores | A | 🔒 Vritik |
+| A2 | Produtos + repor stock | A | 🔒 Vritik |
+| A3 | Listagens + compras detalhadas | A | 🔒 Vritik |
+| A4 | Relatórios de clientes | A | 🔒 Vritik |
+| A5 | Dashboard admin | A | 🔒 Vritik |
+| B1 | Auto-registo | B | 🔒 Yannis |
+| B2 | Catálogo com filtro | B | 🔒 Yannis |
+| B3 | Carrinho em sessão | B | 🔒 Yannis |
+| B4 | Compra (RN01 + RN02) | B | 🔒 Yannis |
+| B5 | Factura (RN03 + impressão) | B | 🔒 Yannis |
+| B6 | Minhas compras | B | 🔒 Yannis |
+| C1 | Campanhas | C | 🔒 Yasin |
+| C2 | Cultivos | C | 🔒 Yasin |
+| C3 | Colheitas | C | 🔒 Yasin |
+| C4 | Persistência `.ser` | C | 🔒 Yasin |
+| C5 | Deploy Tomcat :8081 + systemd | C | 🔒 Yasin |
+| C6 | Manual de utilização PDF | C | 🔒 Yasin |
 
 Carga aproximada :: A = 5 ecrãs admin · B = fluxo cliente completo (mais lógica) · C = 3 ecrãs
 admin + persistência + deploy + manual.
@@ -227,5 +228,5 @@ partir do último (contadores restaurados).
 | `_header.jspf` (menu) | T0 já põe todos os links. Mudança → combinar no grupo |
 | `css/style.css` | T0. Estilo próprio vai para o `css/*-a/b/c.css` do pacote |
 | `model/*`, `DataStore` | Contrato fixo. Campo novo só com acordo dos 3 (afecta serialização) |
-| `README.md` | Cada pacote acrescenta só a sua secção |
+| `README.md` | Cada pacote acrescenta só a sua secção · coluna Tarefas: cada um só a sua linha |
 | `pom.xml` | T0. Dependência nova = proibido sem acordo (enunciado: sem frameworks) |
