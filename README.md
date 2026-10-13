@@ -79,7 +79,9 @@ $CATALINA_HOME/bin/startup.sh
 ```
 
 Abrir `http://localhost:8081/agrogest/`.
-Tomcat na porta 8081 e serviço systemd :: ver `Docs/deploy/` (a completar na tarefa C5).
+Tomcat na porta 8081 — alterar `conf/server.xml`: `port="8080"` → `port="8081"`.
+
+Deploy com systemd (Linux) :: ver [`Docs/deploy/DEPLOY.md`](Docs/deploy/DEPLOY.md) e [`Docs/deploy/agrogest.service`](Docs/deploy/agrogest.service).
 
 ## Credenciais de teste
 

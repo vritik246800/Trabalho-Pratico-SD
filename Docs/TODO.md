@@ -33,11 +33,11 @@ Requisitos completos: `Docs/Enunciado AgroGest 2026.pdf`.
 | B4 | Compra (RN01 + RN02) | B | ✅ Yannis |
 | B5 | Factura (RN03 + impressão) | B | ✅ Yannis |
 | B6 | Minhas compras | B | ✅ Yannis |
-| C1 | Campanhas | C | 🔒 Yasin |
-| C2 | Cultivos | C | 🔒 Yasin |
-| C3 | Colheitas | C | 🔒 Yasin |
-| C4 | Persistência `.ser` | C | 🔒 Yasin |
-| C5 | Deploy Tomcat :8081 + systemd | C | 🔒 Yasin |
+| C1 | Campanhas | C | ✅ Yasin |
+| C2 | Cultivos | C | ✅ Yasin |
+| C3 | Colheitas | C | ✅ Yasin |
+| C4 | Persistência `.ser` | C | ✅ Yasin |
+| C5 | Deploy Tomcat :8081 + systemd | C | ✅ Yasin |
 | C6 | Manual de utilização PDF | C | 🔒 Yasin |
 
 Carga aproximada :: A = 5 ecrãs admin · B = fluxo cliente completo (mais lógica) · C = 3 ecrãs
