@@ -1,0 +1,90 @@
+/* Pacote C · admin: campanhas, cultivos, colheitas, persistência */
+
+.sem-margem { margin-top: 0; }
+
+/* ── Selectores de campanha/cultivo ──────────────────────────────────────── */
+
+.sel-campanha,
+.sel-cultivo {
+    padding: 14px 20px;
+    margin-bottom: 16px;
+}
+
+.form-inline-sel {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.form-inline-sel label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: .95rem;
+}
+
+.sel-campo {
+    font: inherit;
+    padding: 6px 10px;
+    border: 1px solid var(--borda);
+    border-radius: 6px;
+    background: var(--branco);
+    min-width: 280px;
+    max-width: 500px;
+}
+
+.sel-campo:focus { outline: 2px solid var(--verde); border-color: var(--verde); }
+
+/* ── Etiquetas de estado ──────────────────────────────────────────────────── */
+
+.etiqueta {
+    display: inline-block;
+    font-size: .75rem;
+    font-weight: 600;
+    letter-spacing: .02em;
+    padding: 2px 8px;
+    border-radius: 999px;
+}
+
+.estado-aberta {
+    background: var(--ok-fundo);
+    color: var(--verde-escuro);
+    border: 1px solid var(--verde);
+}
+
+.estado-fechada {
+    background: #f0f0f0;
+    color: #555;
+    border: 1px solid #ccc;
+}
+
+/* ── Valores monetários ───────────────────────────────────────────────────── */
+
+.valor-total { font-variant-numeric: tabular-nums; }
+
+.tabela tfoot td { border-bottom: 0; }
+.tabela tfoot .total td { font-weight: 700; border-top: 2px solid var(--borda); }
+
+/* ── Página de persistência ──────────────────────────────────────────────── */
+
+.aviso-persistencia {
+    border-left: 4px solid var(--terra);
+    background: #fdf8f3;
+}
+
+.aviso-persistencia code {
+    background: #eee;
+    padding: 1px 5px;
+    border-radius: 4px;
+    font-family: monospace;
+    font-size: .9em;
+}
+
+.acoes-persistencia {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+}
+
+.card-perigo { border-left: 4px solid var(--erro); }
