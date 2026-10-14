@@ -36,7 +36,7 @@ e limitações conhecidas. Estado do branch `dev` em 2026-10-14.
 | `.github/CODEOWNERS` | `* @vritik246800` :: todo PR pede revisão do dono |
 | `.github/workflows/main-only-from-dev.yml` | PR para `main` só aceite vindo de `dev` · `permissions: {}` (token sem permissões) |
 | `.github/dependabot.yml` | actualizações semanais de dependências Maven (`AgroGest/`) e GitHub Actions, PR para `dev` · ignora saltos de Servlet/JSP API (Tomcat 10.1 = Servlet 6.0) |
-| `.gitignore` | `*.ser`, `target/`, `*.class` :: dados de utilizadores e builds nunca entram no git · `/.metadata/` está no `.gitignore` mas ainda é seguido (logs do Eclipse com caminhos locais) → `git rm -r --cached .metadata` |
+| `.gitignore` | `*.ser`, `target/`, `*.class` :: dados de utilizadores e builds nunca entram no git · `/.metadata/` :: workspace do Eclipse (logs com caminhos locais) fora do git |
 | `SECURITY.md` | esta política · aparece em **Security → Policy** |
 
 ### Activar nas definições (só o dono — `Settings`)
