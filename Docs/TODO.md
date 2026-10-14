@@ -19,26 +19,26 @@ Requisitos completos: `Docs/Enunciado AgroGest 2026.pdf`.
 
 ## Estado
 
-| ID | Tarefa | Pacote | Estado |
-|---|---|---|---|
-| T0 | Base comum (bloqueante) | — | ✅ Vritik |
-| A1 | Fornecedores | A | ✅ Vritik |
-| A2 | Produtos + repor stock | A | ✅ Vritik |
-| A3 | Listagens + compras detalhadas | A | ✅ Vritik |
-| A4 | Relatórios de clientes | A | ✅ Vritik |
-| A5 | Dashboard admin | A | ✅ Vritik |
-| B1 | Auto-registo | B | 🔒 Yannis |
-| B2 | Catálogo com filtro | B | 🔒 Yannis |
-| B3 | Carrinho em sessão | B | 🔒 Yannis |
-| B4 | Compra (RN01 + RN02) | B | 🔒 Yannis |
-| B5 | Factura (RN03 + impressão) | B | 🔒 Yannis |
-| B6 | Minhas compras | B | 🔒 Yannis |
-| C1 | Campanhas | C | 🔒 Yasin |
-| C2 | Cultivos | C | 🔒 Yasin |
-| C3 | Colheitas | C | 🔒 Yasin |
-| C4 | Persistência `.ser` | C | 🔒 Yasin |
-| C5 | Deploy Tomcat :8081 + systemd | C | 🔒 Yasin |
-| C6 | Manual de utilização PDF | C | 🔒 Yasin |
+| ID  | Tarefa                         | Pacote | Estado    |
+| --- | ------------------------------ | ------ | --------- |
+| T0  | Base comum (bloqueante)        | —      | ✅ Vritik  |
+| A1  | Fornecedores                   | A      | ✅ Vritik  |
+| A2  | Produtos + repor stock         | A      | ✅ Vritik  |
+| A3  | Listagens + compras detalhadas | A      | ✅ Vritik  |
+| A4  | Relatórios de clientes         | A      | ✅ Vritik  |
+| A5  | Dashboard admin                | A      | ✅ Vritik  |
+| B1  | Auto-registo                   | B      | 🔒 Yannis |
+| B2  | Catálogo com filtro            | B      | 🔒 Yannis |
+| B3  | Carrinho em sessão             | B      | 🔒 Yannis |
+| B4  | Compra (RN01 + RN02)           | B      | 🔒 Yannis |
+| B5  | Factura (RN03 + impressão)     | B      | 🔒 Yannis |
+| B6  | Minhas compras                 | B      | 🔒 Yannis |
+| C1  | Campanhas                      | C      | 🔒 Yasin  |
+| C2  | Cultivos                       | C      | 🔒 Yasin  |
+| C3  | Colheitas                      | C      | 🔒 Yasin  |
+| C4  | Persistência `.ser`            | C      | 🔒 Yasin  |
+| C5  | Deploy Tomcat :8081 + systemd  | C      | 🔒 Yasin  |
+| C6  | Manual de utilização PDF       | C      | 🔒 Yasin  |
 
 Carga aproximada :: A = 5 ecrãs admin · B = fluxo cliente completo (mais lógica) · C = 3 ecrãs
 admin + persistência + deploy + manual.
@@ -75,12 +75,12 @@ Uma pessoa só. Fazer primeiro e o mais rápido possível; merge em `dev` desblo
 - `pom.xml` :: `<packaging>war</packaging>`, `finalName` = `agrogest`, Java 17,
   `maven-war-plugin` com `failOnMissingWebXml=false`.
 
-| Dependência | Versão | Scope | Em `AgroGest/lib/` |
-|---|---|---|---|
-| `jakarta.servlet:jakarta.servlet-api` | 6.0.0 | `provided` (Tomcat já tem) | ✔ |
-| `jakarta.servlet.jsp:jakarta.servlet.jsp-api` | 3.1.1 | `provided` | ✔ |
-| `jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api` | 3.0.0 | compile (vai no WAR) | ✔ |
-| `org.glassfish.web:jakarta.servlet.jsp.jstl` | 3.0.1 | compile (vai no WAR, implementação) | ✔ |
+| Dependência                                             | Versão | Scope                               | Em `AgroGest/lib/` |
+| ------------------------------------------------------- | ------ | ----------------------------------- | ------------------ |
+| `jakarta.servlet:jakarta.servlet-api`                   | 6.0.0  | `provided` (Tomcat já tem)          | ✔                  |
+| `jakarta.servlet.jsp:jakarta.servlet.jsp-api`           | 3.1.1  | `provided`                          | ✔                  |
+| `jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api` | 3.0.0  | compile (vai no WAR)                | ✔                  |
+| `org.glassfish.web:jakarta.servlet.jsp.jstl`            | 3.0.1  | compile (vai no WAR, implementação) | ✔                  |
 
 - `AgroGest/lib/` serve para quem compila no Eclipse sem Maven. Jars lá sem uso no projecto ::
   `bcel`, `commons-*`, `jakartaee-migration*`, `org.eclipse.osgi` — podem ser removidos.
@@ -88,27 +88,27 @@ Uma pessoa só. Fazer primeiro e o mais rápido possível; merge em `dev` desblo
 
 ### Ficheiros que T0 cria (depois disto, dono = quem os usa — ver tabela de posse)
 
-| Ficheiro | Conteúdo |
-|---|---|
-| `model/Utilizador` | `id, nome, email, passHash, perfil, ativo, telefone, endereco` |
-| `model/Fornecedor` | `id, nome, tipo, contacto, provincia` |
-| `model/Produto` | `id, nome, categoria, fornecedorId, preco, quantidade, unidade, descricao, foto, validade` |
-| `model/Campanha` | `id, nome, inicio, fim, fechada, List<Cultivo> cultivos` |
-| `model/Cultivo` | `id, campanhaId, cultura, variedade, hectares, plantio, List<Colheita> colheitas` |
-| `model/Colheita` | `id, cultivoId, data, kg, precoKg, valorTotal` |
-| `model/Venda` | `id, clienteId, data, List<VendaItem> itens, subtotal, iva, total, numeroFactura` |
-| `model/VendaItem` | `produtoId, nomeProduto, quantidade, precoUnit, subtotal` |
-| `model/Perfil`, `TipoFornecedor`, `Categoria` | enums (ver CLAUDE.md) |
-| `repo/DataStore` | singleton, listas + contadores + `seed()` |
-| `service/NegocioException` | `RuntimeException` com mensagem para mostrar na JSP |
-| `util/PasswordUtil` | `hash(String)` → `"saltBase64:hashBase64"` (SHA-256 + salt 16 bytes), `verificar(pass, guardado)` |
-| `filter/AuthFilter` | RN04 + RN05 completos |
-| `listener/AppListener` | `contextInitialized` → `DataStore.get().seed()` se vazio. C4 completa depois |
-| `servlet/LoginServlet` | `GET/POST /login`, `GET /logout` |
-| `webapp/WEB-INF/views/_header.jspf` | `<head>`, CSS, **menu completo** com todos os links (admin e cliente) |
-| `webapp/WEB-INF/views/_footer.jspf` | fecho |
-| `webapp/WEB-INF/views/login.jsp` | form login + mensagem de erro |
-| `webapp/css/style.css` | classes base: `.container .grid .card .btn .btn-danger .tabela .form .alerta .alerta-erro .alerta-ok`, responsivo |
+| Ficheiro                                      | Conteúdo                                                                                                          |
+| --------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| `model/Utilizador`                            | `id, nome, email, passHash, perfil, ativo, telefone, endereco`                                                    |
+| `model/Fornecedor`                            | `id, nome, tipo, contacto, provincia`                                                                             |
+| `model/Produto`                               | `id, nome, categoria, fornecedorId, preco, quantidade, unidade, descricao, foto, validade`                        |
+| `model/Campanha`                              | `id, nome, inicio, fim, fechada, List<Cultivo> cultivos`                                                          |
+| `model/Cultivo`                               | `id, campanhaId, cultura, variedade, hectares, plantio, List<Colheita> colheitas`                                 |
+| `model/Colheita`                              | `id, cultivoId, data, kg, precoKg, valorTotal`                                                                    |
+| `model/Venda`                                 | `id, clienteId, data, List<VendaItem> itens, subtotal, iva, total, numeroFactura`                                 |
+| `model/VendaItem`                             | `produtoId, nomeProduto, quantidade, precoUnit, subtotal`                                                         |
+| `model/Perfil`, `TipoFornecedor`, `Categoria` | enums (ver CLAUDE.md)                                                                                             |
+| `repo/DataStore`                              | singleton, listas + contadores + `seed()`                                                                         |
+| `service/NegocioException`                    | `RuntimeException` com mensagem para mostrar na JSP                                                               |
+| `util/PasswordUtil`                           | `hash(String)` → `"saltBase64:hashBase64"` (SHA-256 + salt 16 bytes), `verificar(pass, guardado)`                 |
+| `filter/AuthFilter`                           | RN04 + RN05 completos                                                                                             |
+| `listener/AppListener`                        | `contextInitialized` → `DataStore.get().seed()` se vazio. C4 completa depois                                      |
+| `servlet/LoginServlet`                        | `GET/POST /login`, `GET /logout`                                                                                  |
+| `webapp/WEB-INF/views/_header.jspf`           | `<head>`, CSS, **menu completo** com todos os links (admin e cliente)                                             |
+| `webapp/WEB-INF/views/_footer.jspf`           | fecho                                                                                                             |
+| `webapp/WEB-INF/views/login.jsp`              | form login + mensagem de erro                                                                                     |
+| `webapp/css/style.css`                        | classes base: `.container .grid .card .btn .btn-danger .tabela .form .alerta .alerta-erro .alerta-ok`, responsivo |
 
 Tipos :: datas `LocalDate` (`Venda.data` = `LocalDateTime`), dinheiro e kg `double`,
 quantidade de produto `int`. Todos os modelos `implements Serializable` com `serialVersionUID = 1L`.
@@ -186,13 +186,13 @@ Ficheiros do pacote :: `service/FornecedorService`, `service/ProdutoService`,
 `service/RelatorioService`, `servlet/admin/{Fornecedor,Produto,Listagem,Relatorio,Dashboard}Servlet`,
 `views/admin/{fornecedores,produtos,listagens,relatorios,dashboard}.jsp`, `css/admin-a.css`.
 
-| ID | Rota | Requisitos | Validações / regras |
-|---|---|---|---|
-| A1 | `/admin/fornecedores` | criar, listar, remover · campos `nome, tipo, contacto, provincia` | campos obrigatórios · não remover fornecedor com produtos (mensagem) |
-| A2 | `/admin/produtos` | criar, listar, repor stock (`+qtd`), remover · todos os campos de `Produto` · `<select>` de fornecedores e categorias | preço > 0, quantidade ≥ 0, validade data válida, fornecedor existe · escrita `synchronized` |
-| A3 | `/admin/listagens?tipo=&ordem=` | `tipo` ∈ `produtos, fornecedores, clientes, armazem, compras` · `ordem` ∈ `nome, preco, stock, data, valor` | `armazem` = stock > 0 · `compras` = compras detalhadas: cliente, endereço, telefone, produtos, qtd, preço unit., subtotal, total, data |
-| A4 | `/admin/relatorios` | clientes por nome ↑ · clientes que compraram por volume (soma `total`) ↓ · mais assíduos (nº compras) ↓ · extra: clientes sem compras | só perfil `CLIENTE` · `Comparator` + streams |
-| A5 | `/admin` | contagens: fornecedores, produtos, clientes, vendas, campanhas · links para cada módulo | — |
+| ID  | Rota                            | Requisitos                                                                                                                            | Validações / regras                                                                                                                    |
+| --- | ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
+| A1  | `/admin/fornecedores`           | criar, listar, remover · campos `nome, tipo, contacto, provincia`                                                                     | campos obrigatórios · não remover fornecedor com produtos (mensagem)                                                                   |
+| A2  | `/admin/produtos`               | criar, listar, repor stock (`+qtd`), remover · todos os campos de `Produto` · `<select>` de fornecedores e categorias                 | preço > 0, quantidade ≥ 0, validade data válida, fornecedor existe · escrita `synchronized`                                            |
+| A3  | `/admin/listagens?tipo=&ordem=` | `tipo` ∈ `produtos, fornecedores, clientes, armazem, compras` · `ordem` ∈ `nome, preco, stock, data, valor`                           | `armazem` = stock > 0 · `compras` = compras detalhadas: cliente, endereço, telefone, produtos, qtd, preço unit., subtotal, total, data |
+| A4  | `/admin/relatorios`             | clientes por nome ↑ · clientes que compraram por volume (soma `total`) ↓ · mais assíduos (nº compras) ↓ · extra: clientes sem compras | só perfil `CLIENTE` · `Comparator` + streams                                                                                           |
+| A5  | `/admin`                        | contagens: fornecedores, produtos, clientes, vendas, campanhas · links para cada módulo                                               | —                                                                                                                                      |
 
 Testar sem B :: vendas e clientes seed chegam para A3/A4.
 
@@ -204,14 +204,14 @@ Ficheiros do pacote :: `service/ClienteService`, `service/CatalogoService`, `ser
 `servlet/{Registo,Catalogo,Carrinho,Compra,Factura,MinhasCompras}Servlet`,
 `views/{registo,catalogo,carrinho,compra,factura,minhas-compras}.jsp`, `css/cliente-b.css`.
 
-| ID | Rota | Requisitos | Validações / regras |
-|---|---|---|---|
-| B1 | `/registo` | `nome, email, pass, telefone, endereco` · perfil `CLIENTE` · login automático | email único (`synchronized`) · pass guardada com `PasswordUtil.hash` |
-| B2 | `/catalogo?categoria=` | cards: nome, descrição, foto, preço, validade, stock, fornecedor, categoria · filtro por categoria | só produtos com stock > 0 com botão "adicionar" activo |
-| B3 | `/carrinho`, `POST /carrinho/{add,update,remove,limpar}` | carrinho em sessão · linhas com subtotal e total | qtd > 0 · aviso se qtd > stock (RN01) · PRG após cada POST |
-| B4 | `GET /compra` (confirmar) · `POST /compra` (finalizar) | resumo + confirmar · cria `Venda`, esvazia carrinho, redirect para factura | **RN01** stock insuficiente → mensagem na JSP · **RN02** `VendaService.finalizar` `synchronized`, valida tudo antes de descontar (ver CLAUDE.md) |
-| B5 | `/factura?id=` | `FT-<ano>-<n>`, dados do cliente, itens, subtotal, IVA 16 %, total · botão imprimir (`window.print()`) · `@media print` esconde menu | **RN03** cliente só a sua (outra → 403) · admin vê todas |
-| B6 | `/minhas-compras` | histórico do cliente com link para cada factura | só vendas de `clienteId` da sessão |
+| ID  | Rota                                                     | Requisitos                                                                                                                           | Validações / regras                                                                                                                              |
+| --- | -------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| B1  | `/registo`                                               | `nome, email, pass, telefone, endereco` · perfil `CLIENTE` · login automático                                                        | email único (`synchronized`) · pass guardada com `PasswordUtil.hash`                                                                             |
+| B2  | `/catalogo?categoria=`                                   | cards: nome, descrição, foto, preço, validade, stock, fornecedor, categoria · filtro por categoria                                   | só produtos com stock > 0 com botão "adicionar" activo                                                                                           |
+| B3  | `/carrinho`, `POST /carrinho/{add,update,remove,limpar}` | carrinho em sessão · linhas com subtotal e total                                                                                     | qtd > 0 · aviso se qtd > stock (RN01) · PRG após cada POST                                                                                       |
+| B4  | `GET /compra` (confirmar) · `POST /compra` (finalizar)   | resumo + confirmar · cria `Venda`, esvazia carrinho, redirect para factura                                                           | **RN01** stock insuficiente → mensagem na JSP · **RN02** `VendaService.finalizar` `synchronized`, valida tudo antes de descontar (ver CLAUDE.md) |
+| B5  | `/factura?id=`                                           | `FT-<ano>-<n>`, dados do cliente, itens, subtotal, IVA 16 %, total · botão imprimir (`window.print()`) · `@media print` esconde menu | **RN03** cliente só a sua (outra → 403) · admin vê todas                                                                                         |
+| B6  | `/minhas-compras`                                        | histórico do cliente com link para cada factura                                                                                      | só vendas de `clienteId` da sessão                                                                                                               |
 
 IVA :: `subtotal = Σ itens`, `iva = subtotal × 0.16`, `total = subtotal + iva`.
 Testar sem A :: produtos seed chegam para B2–B6.
@@ -225,14 +225,14 @@ Ficheiros do pacote :: `service/CampanhaService`, `repo/Persistencia`, `listener
 `views/admin/{campanhas,cultivos,colheitas,persistencia}.jsp`, `css/admin-c.css`, `Docs/deploy/**`,
 `Docs/Manual AgroGest.pdf`.
 
-| ID | Rota | Requisitos | Validações / regras |
-|---|---|---|---|
-| C1 | `/admin/campanhas` | criar (`nome, inicio, fim`), listar, fechar, reabrir, remover | `fim` ≥ `inicio` · **não remover com cultivos** |
-| C2 | `/admin/cultivos?campanha=` | registar `cultura, variedade, hectares, plantio` na campanha | hectares > 0 · campanha fechada não aceita cultivos · **não remover com colheitas** |
-| C3 | `/admin/colheitas?cultivo=` | registar `data, kg, precoKg` | `valorTotal = kg × precoKg` calculado no service · kg > 0, precoKg > 0 |
-| C4 | `/admin/persistencia` | botões "gravar agora" e "apagar ficheiro" · `AppListener`: init carrega `.ser` (senão `seed()`), garante admin; destroy grava | escrita atómica `.tmp` → `Files.move(ATOMIC_MOVE, REPLACE_EXISTING)` · ficheiro corrompido → log + `seed()`, não rebenta o arranque · caminho do `.ser` em `${catalina.base}/data/agrogest.ser` |
-| C5 | — | Tomcat 10.1 `server.xml` porta **8081** · `Docs/deploy/agrogest.service` (systemd: `User=tomcat`, `ExecStart/ExecStop` com `startup.sh`/`shutdown.sh`, `Restart=on-failure`) · secção Deploy no `README.md` | testar `systemctl stop` grava o `.ser` (contextDestroyed) |
-| C6 | — | `Docs/Manual AgroGest.pdf` :: passo a passo admin (fluxo do enunciado secção VIII) + cliente (registo → factura → histórico), com screenshots | **no fim**, depois de A e B em `dev` |
+| ID  | Rota                        | Requisitos                                                                                                                                                                                                  | Validações / regras                                                                                                                                                                             |
+| --- | --------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| C1  | `/admin/campanhas`          | criar (`nome, inicio, fim`), listar, fechar, reabrir, remover                                                                                                                                               | `fim` ≥ `inicio` · **não remover com cultivos**                                                                                                                                                 |
+| C2  | `/admin/cultivos?campanha=` | registar `cultura, variedade, hectares, plantio` na campanha                                                                                                                                                | hectares > 0 · campanha fechada não aceita cultivos · **não remover com colheitas**                                                                                                             |
+| C3  | `/admin/colheitas?cultivo=` | registar `data, kg, precoKg`                                                                                                                                                                                | `valorTotal = kg × precoKg` calculado no service · kg > 0, precoKg > 0                                                                                                                          |
+| C4  | `/admin/persistencia`       | botões "gravar agora" e "apagar ficheiro" · `AppListener`: init carrega `.ser` (senão `seed()`), garante admin; destroy grava                                                                               | escrita atómica `.tmp` → `Files.move(ATOMIC_MOVE, REPLACE_EXISTING)` · ficheiro corrompido → log + `seed()`, não rebenta o arranque · caminho do `.ser` em `${catalina.base}/data/agrogest.ser` |
+| C5  | —                           | Tomcat 10.1 `server.xml` porta **8081** · `Docs/deploy/agrogest.service` (systemd: `User=tomcat`, `ExecStart/ExecStop` com `startup.sh`/`shutdown.sh`, `Restart=on-failure`) · secção Deploy no `README.md` | testar `systemctl stop` grava o `.ser` (contextDestroyed)                                                                                                                                       |
+| C6  | —                           | `Docs/Manual AgroGest.pdf` :: passo a passo admin (fluxo do enunciado secção VIII) + cliente (registo → factura → histórico), com screenshots                                                               | **no fim**, depois de A e B em `dev`                                                                                                                                                            |
 
 Testar C4 sem A/B :: gravar com dados seed, reiniciar Tomcat, confirmar que IDs continuam a
 partir do último (contadores restaurados).
@@ -241,10 +241,10 @@ partir do último (contadores restaurados).
 
 ## Ficheiros partilhados
 
-| Ficheiro | Regra |
-|---|---|
-| `_header.jspf` (menu) | T0 já põe todos os links. Mudança → combinar no grupo |
-| `css/style.css` | T0. Estilo próprio vai para o `css/*-a/b/c.css` do pacote |
-| `model/*`, `DataStore` | Contrato fixo. Campo novo só com acordo dos 3 (afecta serialização) |
-| `README.md` | Cada pacote acrescenta só a sua secção · coluna Tarefas: cada um só a sua linha |
-| `pom.xml` | T0. Dependência nova = proibido sem acordo (enunciado: sem frameworks) |
+| Ficheiro               | Regra                                                                           |
+| ---------------------- | ------------------------------------------------------------------------------- |
+| `_header.jspf` (menu)  | T0 já põe todos os links. Mudança → combinar no grupo                           |
+| `css/style.css`        | T0. Estilo próprio vai para o `css/*-a/b/c.css` do pacote                       |
+| `model/*`, `DataStore` | Contrato fixo. Campo novo só com acordo dos 3 (afecta serialização)             |
+| `README.md`            | Cada pacote acrescenta só a sua secção · coluna Tarefas: cada um só a sua linha |
+| `pom.xml`              | T0. Dependência nova = proibido sem acordo (enunciado: sem frameworks)          |

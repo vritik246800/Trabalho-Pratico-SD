@@ -1,12 +1,12 @@
 # Branches
 
-| Branch | Dono | Origem | Merge para |
-|---|---|---|---|
-| `main` | Vritik | — | — |
-| `dev` | todos | `main` | `main` (só Vritik) |
-| `vd` | Vritik | `dev` | `dev` |
-| `yc` | Yannis | `dev` | `dev` |
-| `ym` | Yasin | `dev` | `dev` |
+| Branch | Dono   | Origem | Merge para         |
+| ------ | ------ | ------ | ------------------ |
+| `main` | Vritik | —      | —                  |
+| `dev`  | todos  | `main` | `main` (só Vritik) |
+| `vd`   | Vritik | `dev`  | `dev`              |
+| `yc`   | Yannis | `dev`  | `dev`              |
+| `ym`   | Yasin  | `dev`  | `dev`              |
 
 ```mermaid
 gitGraph
