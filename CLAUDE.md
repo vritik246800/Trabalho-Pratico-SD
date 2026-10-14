@@ -40,6 +40,26 @@ git config user.email "<email da conta GitHub>"
 7. Yannis/Yasin numa branch que não é a sua → `git checkout` para a própria branch antes de mais
    nada (ver "presos à própria branch").
 
+## Obrigatório: sincronizar com `dev` no início da sessão
+
+Logo depois de identificar a pessoa e **antes de escrever código**, pôr a própria branch em dia com
+`dev`. Branch atrás de `dev` = trabalhar sobre código velho e conflitos no PR.
+
+```bash
+git status --short                      # alterações por commitar? → commit primeiro (ou git stash)
+git fetch origin
+git rev-list --count HEAD..origin/dev   # > 0 → está atrás, sincronizar
+git pull origin dev                     # na própria branch (yc / ym / vd)
+git push origin <própria branch>        # yc → origin yc · ym → origin ym · vd → origin vd
+```
+
+- `git pull origin dev` apaga a pasta `.metadata/` (saiu do git, é workspace do Eclipse) :: normal,
+  o Eclipse recria-a. Pull recusado por causa dela → apagar `.metadata/` à mão e repetir o pull.
+- Conflito → resolver na própria branch, manter o código de `dev` em ficheiros que não são do seu
+  pacote; `CLAUDE.md` e `Docs/BRANCH.md` → sempre a versão de `dev`.
+- Nunca `git push origin dev`, nunca `--force`. Só push para a própria branch.
+- Depois de sincronizar → seguir para "tarefa da sessão".
+
 ## Obrigatório: regras de push
 
 Aplicar sempre, mesmo que o utilizador não fale em branches nem em push.
@@ -112,7 +132,7 @@ a branch da pessoa pode estar desactualizada.
 
 @README.md
 
-- Depois de identificar a pessoa e **antes de escrever qualquer código**, perguntar:
+- Depois de identificar a pessoa, sincronizar com `dev` e **antes de escrever qualquer código**, perguntar:
   **"Qual é a tarefa (ID do TODO) que estás a fazer?"** Não adivinhar pela branch nem pelo pedido.
 - Confirmar que a tarefa está `🔒 <essa pessoa>` na tabela **Estado** do `Docs/TODO.md` **e** na
   linha dela na coluna Tarefas do `README.md`.
