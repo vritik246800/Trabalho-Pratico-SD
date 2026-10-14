@@ -2,6 +2,10 @@
 
 Entradas desta branch. Mais recente no topo.
 
+## [Docs] Instruções para Yannis e Yasin — 2026-10-14 · Vritik
+- create: Docs/INSTRUCOES.md
+- update: CLAUDE.md (sincronizar com `dev` no início da sessão), Docs/INDEX.md, README.md
+
 ## [A6] SECURITY.md na raiz + protecção GitHub — 2026-10-14 · Vritik
 - update: Docs/SEGURANCA.md → SECURITY.md (raiz, política GitHub)
 - create: .github/dependabot.yml

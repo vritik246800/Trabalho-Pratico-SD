@@ -111,6 +111,7 @@ Deploy com systemd (Linux) :: ver [`Docs/deploy/DEPLOY.md`](Docs/deploy/DEPLOY.m
 | [Docs/Enunciado AgroGest 2026.pdf](Docs/Enunciado%20AgroGest%202026.pdf) | enunciado |
 | [Docs/TODO.md](Docs/TODO.md) | divisão do trabalho e contratos comuns |
 | [Docs/BRANCH.md](Docs/BRANCH.md) | regras de branch e merge |
+| [Docs/INSTRUCOES.md](Docs/INSTRUCOES.md) | passo a passo para Yannis e Yasin (sincronizar, PR, proibido) |
 | [SECURITY.md](SECURITY.md) | política de segurança: reportar vulnerabilidades, protecção do repo GitHub, medidas da app, limitações |
 | [Docs/CHANGELOG.md](Docs/CHANGELOG.md) | alterações (consolidado de `CHANGELOG-vd/yc/ym.md`) |
 | `Docs/Manual AgroGest.pdf` | manual de utilização (tarefa C6) |
