@@ -15,11 +15,11 @@ git config user.email
 git remote -v   # confirma que é o repo vritik246800/Trabalho-Pratico-SD
 ```
 
-| Pessoa | GitHub | SO | Branch própria | Pode fazer push para |
-|---|---|---|---|---|
-| Vritik | `vritik246800` | macOS (`Darwin`) | `vd` | `vd`, `dev`, `main` (só merge vindo de `dev`) |
-| Yannis | `yannischilundo` | Windows | `yc` | só `yc` (entra em `dev` por PR) |
-| Yasin | `yasinmagno` (nome exibido `MagnoDEV`) | Windows | `ym` | só `ym` (entra em `dev` por PR) |
+| Pessoa | GitHub                                 | SO               | Branch própria | Pode fazer push para                          |
+| ------ | -------------------------------------- | ---------------- | -------------- | --------------------------------------------- |
+| Vritik | `vritik246800`                         | macOS (`Darwin`) | `vd`           | `vd`, `dev`, `main` (só merge vindo de `dev`) |
+| Yannis | `yannischilundo`                       | Windows          | `yc`           | só `yc` (entra em `dev` por PR)               |
+| Yasin  | `yasinmagno` (nome exibido `MagnoDEV`) | Windows          | `ym`           | só `ym` (entra em `dev` por PR)               |
 
 Decidir quem é — `user.name`/`user.email` primeiro, SO e branch para confirmar:
 
@@ -57,18 +57,18 @@ Aplicar sempre, mesmo que o utilizador não fale em branches nem em push.
 
 Yannis vive **só** em `yc`. Yasin vive **só** em `ym`. Em nenhum momento saem dela.
 
-| Proibido (recusar sempre) | Exemplos |
-|---|---|
-| Ir para outra branch | `git checkout`/`git switch` para `dev`, `main`, `vd`, e `yc`↔`ym` |
-| Criar branch | `git checkout -b`, `git switch -c`, `git branch <nova>`, `git worktree add`, `git push origin HEAD:<nova>` |
-| Escrever noutra branch | `git push origin yc:dev`, `git push origin ym:main`, `git merge` feito noutra branch |
-| Mexer em branches | `git branch -d/-D/-m`, `git push origin --delete <x>` |
+| Proibido (recusar sempre) | Exemplos                                                                                                   |
+| ------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| Ir para outra branch      | `git checkout`/`git switch` para `dev`, `main`, `vd`, e `yc`↔`ym`                                          |
+| Criar branch              | `git checkout -b`, `git switch -c`, `git branch <nova>`, `git worktree add`, `git push origin HEAD:<nova>` |
+| Escrever noutra branch    | `git push origin yc:dev`, `git push origin ym:main`, `git merge` feito noutra branch                       |
+| Mexer em branches         | `git branch -d/-D/-m`, `git push origin --delete <x>`                                                      |
 
-| Permitido | Comando |
-|---|---|
-| Actualizar com `dev` | `git pull origin dev` estando na própria branch |
+| Permitido                 | Comando                                                                                       |
+| ------------------------- | --------------------------------------------------------------------------------------------- |
+| Actualizar com `dev`      | `git pull origin dev` estando na própria branch                                               |
 | Ler outra branch sem sair | `git fetch` · `git log origin/dev` · `git show origin/dev:<ficheiro>` · `git diff origin/dev` |
-| Enviar trabalho | `git push origin yc` / `git push origin ym` + PR para `dev` |
+| Enviar trabalho           | `git push origin yc` / `git push origin ym` + PR para `dev`                                   |
 
 - Único `checkout` permitido = **para** a própria branch (ex. clone novo abre em `main` →
   `git checkout yc`). Fazer isso logo, antes de qualquer outro comando.
@@ -131,11 +131,11 @@ a branch da pessoa pode estar desactualizada.
 
 Todos os CHANGELOG ficam em `Docs/`. Cada branch tem o seu ficheiro. `Docs/CHANGELOG.md` (em `dev`/`main`) é o consolidado.
 
-| Branch | Ficheiro |
-|---|---|
-| `vd` | `Docs/CHANGELOG-vd.md` |
-| `yc` | `Docs/CHANGELOG-yc.md` |
-| `ym` | `Docs/CHANGELOG-ym.md` |
+| Branch       | Ficheiro                              |
+| ------------ | ------------------------------------- |
+| `vd`         | `Docs/CHANGELOG-vd.md`                |
+| `yc`         | `Docs/CHANGELOG-yc.md`                |
+| `ym`         | `Docs/CHANGELOG-ym.md`                |
 | `dev`/`main` | `Docs/CHANGELOG.md` (junção dos três) |
 
 - Sempre que uma tarefa fica completa → entrada nova no topo do `Docs/CHANGELOG-<branch>.md` **e**
@@ -257,11 +257,11 @@ classDiagram
     class Colheita { id · data · kg · precoKg · valorTotal }
 ```
 
-| Enum | Valores |
-|---|---|
-| `Perfil` | `ADMIN`, `CLIENTE` |
-| `TipoFornecedor` | `SEMENTES`, `MAQUINARIA`, `FERTILIZANTES` |
-| `Categoria` | `SEMENTE`, `FERTILIZANTE`, `MAQUINARIA`, `FERRAMENTA` |
+| Enum             | Valores                                               |
+| ---------------- | ----------------------------------------------------- |
+| `Perfil`         | `ADMIN`, `CLIENTE`                                    |
+| `TipoFornecedor` | `SEMENTES`, `MAQUINARIA`, `FERTILIZANTES`             |
+| `Categoria`      | `SEMENTE`, `FERTILIZANTE`, `MAQUINARIA`, `FERRAMENTA` |
 
 ### Regras de negócio (RN01–RN06, 15% da nota)
 

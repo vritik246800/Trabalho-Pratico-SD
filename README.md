@@ -8,11 +8,11 @@ Java + Servlets no Apache Tomcat, **sem base de dados** (listas em memória + se
 
 ## Colaboradores
 
-| Nome | GitHub | Branch | Tarefas |
-|---|---|---|---|
-| Vritik Valabdas | [@vritik246800](https://github.com/vritik246800) | `vd` | T0, A1, A2, A3, A4, A5 |
-| Yannis Chilundo | [@yannischilundo](https://github.com/yannischilundo) | `yc` | B1, B2, B3, B4, B5, B6 |
-| Yasin Magno | [@yasinmagno](https://github.com/yasinmagno) | `ym` | C1, C2, C3, C4, C5, C6 |
+| Nome            | GitHub                                               | Branch | Tarefas                |
+| --------------- | ---------------------------------------------------- | ------ | ---------------------- |
+| Vritik Valabdas | [@vritik246800](https://github.com/vritik246800)     | `vd`   | T0, A1, A2, A3, A4, A5 |
+| Yannis Chilundo | [@yannischilundo](https://github.com/yannischilundo) | `yc`   | B1, B2, B3, B4, B5, B6 |
+| Yasin Magno     | [@yasinmagno](https://github.com/yasinmagno)         | `ym`   | C1, C2, C3, C4, C5, C6 |
 
 Tarefas :: IDs do [Docs/TODO.md](Docs/TODO.md) reservados por cada um. Reservar = `🔒 <Nome>` no
 TODO **e** ID na tua linha aqui, no mesmo commit (`update: Docs/TODO.md, README.md`).
@@ -85,11 +85,11 @@ Deploy com systemd (Linux) :: ver [`Docs/deploy/DEPLOY.md`](Docs/deploy/DEPLOY.m
 
 ## Credenciais de teste
 
-| Perfil | Email | Password |
-|---|---|---|
-| Admin | `admin@agro.mz` | `admin234` |
-| Cliente | `joao@teste.mz` | `1234` |
-| Cliente | `maria@teste.mz` · `carlos@teste.mz` · `ana@teste.mz` · `pedro@teste.mz` | `1234` |
+| Perfil  | Email                                                                    | Password   |
+| ------- | ------------------------------------------------------------------------ | ---------- |
+| Admin   | `admin@agro.mz`                                                          | `admin234` |
+| Cliente | `joao@teste.mz`                                                          | `1234`     |
+| Cliente | `maria@teste.mz` · `carlos@teste.mz` · `ana@teste.mz` · `pedro@teste.mz` | `1234`     |
 
 ## Cliente (pacote B)
 
