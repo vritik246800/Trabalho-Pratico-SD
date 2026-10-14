@@ -2,6 +2,11 @@
 
 Entradas desta branch. Mais recente no topo.
 
+## [A6] Documento de segurança — 2026-10-14 · Vritik
+- create: Docs/SEGURANCA.md
+- update: Docs/TODO.md, Docs/INDEX.md, README.md
+- medidas implementadas (hash, sessão, RN03–RN05, XSS, locks, `.ser` atómico) + limitações L1–L11
+
 ## [A1–A5] Pacote A · admin: fornecedores, produtos, listagens, relatórios, dashboard — 2026-10-12 · Vritik
 - create: AgroGest/src/main/java/mz/agrogest/service/{FornecedorService, ProdutoService, RelatorioService}.java
 - create: AgroGest/src/main/java/mz/agrogest/servlet/admin/{Fornecedor, Produto, Listagem, Relatorio, Dashboard}Servlet.java

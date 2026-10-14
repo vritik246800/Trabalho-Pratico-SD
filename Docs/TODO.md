@@ -27,6 +27,7 @@ Requisitos completos: `Docs/Enunciado AgroGest 2026.pdf`.
 | A3 | Listagens + compras detalhadas | A | ✅ Vritik |
 | A4 | Relatórios de clientes | A | ✅ Vritik |
 | A5 | Dashboard admin | A | ✅ Vritik |
+| A6 | Documento de segurança | A | ✅ Vritik |
 | B1 | Auto-registo | B | ✅ Yannis |
 | B2 | Catálogo com filtro | B | ✅ Yannis |
 | B3 | Carrinho em sessão | B | ✅ Yannis |
@@ -193,6 +194,7 @@ Ficheiros do pacote :: `service/FornecedorService`, `service/ProdutoService`,
 | A3 | `/admin/listagens?tipo=&ordem=` | `tipo` ∈ `produtos, fornecedores, clientes, armazem, compras` · `ordem` ∈ `nome, preco, stock, data, valor` | `armazem` = stock > 0 · `compras` = compras detalhadas: cliente, endereço, telefone, produtos, qtd, preço unit., subtotal, total, data |
 | A4 | `/admin/relatorios` | clientes por nome ↑ · clientes que compraram por volume (soma `total`) ↓ · mais assíduos (nº compras) ↓ · extra: clientes sem compras | só perfil `CLIENTE` · `Comparator` + streams |
 | A5 | `/admin` | contagens: fornecedores, produtos, clientes, vendas, campanhas · links para cada módulo | — |
+| A6 | `Docs/SEGURANCA.md` | medidas de segurança implementadas, configuração Tomcat, limitações conhecidas, checklist | só documentação · sem alterar código |
 
 Testar sem B :: vendas e clientes seed chegam para A3/A4.
 

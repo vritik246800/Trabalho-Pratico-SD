@@ -10,7 +10,7 @@ Java + Servlets no Apache Tomcat, **sem base de dados** (listas em memória + se
 
 | Nome            | GitHub                                               | Branch | Tarefas                |
 | --------------- | ---------------------------------------------------- | ------ | ---------------------- |
-| Vritik Valabdas | [@vritik246800](https://github.com/vritik246800)     | `vd`   | T0, A1, A2, A3, A4, A5 |
+| Vritik Valabdas | [@vritik246800](https://github.com/vritik246800)     | `vd`   | T0, A1, A2, A3, A4, A5, A6 |
 | Yannis Chilundo | [@yannischilundo](https://github.com/yannischilundo) | `yc`   | B1, B2, B3, B4, B5, B6 |
 | Yasin Magno     | [@yasinmagno](https://github.com/yasinmagno)         | `ym`   | C1, C2, C3, C4, C5, C6 |
 
@@ -111,5 +111,6 @@ Deploy com systemd (Linux) :: ver [`Docs/deploy/DEPLOY.md`](Docs/deploy/DEPLOY.m
 | [Docs/Enunciado AgroGest 2026.pdf](Docs/Enunciado%20AgroGest%202026.pdf) | enunciado |
 | [Docs/TODO.md](Docs/TODO.md) | divisão do trabalho e contratos comuns |
 | [Docs/BRANCH.md](Docs/BRANCH.md) | regras de branch e merge |
+| [Docs/SEGURANCA.md](Docs/SEGURANCA.md) | medidas de segurança e limitações conhecidas |
 | [Docs/CHANGELOG.md](Docs/CHANGELOG.md) | alterações (consolidado de `CHANGELOG-vd/yc/ym.md`) |
 | `Docs/Manual AgroGest.pdf` | manual de utilização (tarefa C6) |

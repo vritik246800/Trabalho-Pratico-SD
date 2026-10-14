@@ -2,6 +2,11 @@
 
 Consolidado de `CHANGELOG-vd.md`, `CHANGELOG-yc.md`, `CHANGELOG-ym.md`. Mais recente no topo.
 
+## [A6] Documento de segurança — 2026-10-14 · Vritik
+- create: Docs/SEGURANCA.md
+- update: Docs/TODO.md, Docs/INDEX.md, README.md
+- medidas implementadas (hash, sessão, RN03–RN05, XSS, locks, `.ser` atómico) + limitações L1–L11
+
 ## [C5] Deploy Tomcat :8081 + systemd — 2026-10-13 · Yasin
 - create: Docs/deploy/agrogest.service
 - create: Docs/deploy/DEPLOY.md
