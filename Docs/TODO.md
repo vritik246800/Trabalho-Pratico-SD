@@ -19,27 +19,27 @@ Requisitos completos: `Docs/Enunciado AgroGest 2026.pdf`.
 
 ## Estado
 
-| ID | Tarefa | Pacote | Estado |
-|---|---|---|---|
-| T0 | Base comum (bloqueante) | — | ✅ Vritik |
-| A1 | Fornecedores | A | ✅ Vritik |
-| A2 | Produtos + repor stock | A | ✅ Vritik |
-| A3 | Listagens + compras detalhadas | A | ✅ Vritik |
-| A4 | Relatórios de clientes | A | ✅ Vritik |
-| A5 | Dashboard admin | A | ✅ Vritik |
-| A6 | Documento de segurança | A | ✅ Vritik |
-| B1 | Auto-registo | B | ✅ Yannis |
-| B2 | Catálogo com filtro | B | ✅ Yannis |
-| B3 | Carrinho em sessão | B | ✅ Yannis |
-| B4 | Compra (RN01 + RN02) | B | ✅ Yannis |
-| B5 | Factura (RN03 + impressão) | B | ✅ Yannis |
-| B6 | Minhas compras | B | ✅ Yannis |
-| C1 | Campanhas | C | ✅ Yasin |
-| C2 | Cultivos | C | ✅ Yasin |
-| C3 | Colheitas | C | ✅ Yasin |
-| C4 | Persistência `.ser` | C | ✅ Yasin |
-| C5 | Deploy Tomcat :8081 + systemd | C | ✅ Yasin |
-| C6 | Manual de utilização PDF | C | 🔒 Yasin |
+| ID  | Tarefa                         | Pacote | Estado   |
+| --- | ------------------------------ | ------ | -------- |
+| T0  | Base comum (bloqueante)        | —      | ✅ Vritik |
+| A1  | Fornecedores                   | A      | ✅ Vritik |
+| A2  | Produtos + repor stock         | A      | ✅ Vritik |
+| A3  | Listagens + compras detalhadas | A      | ✅ Vritik |
+| A4  | Relatórios de clientes         | A      | ✅ Vritik |
+| A5  | Dashboard admin                | A      | ✅ Vritik |
+| A6  | Documento de segurança         | A      | ✅ Vritik |
+| B1  | Auto-registo                   | B      | ✅ Yannis |
+| B2  | Catálogo com filtro            | B      | ✅ Yannis |
+| B3  | Carrinho em sessão             | B      | ✅ Yannis |
+| B4  | Compra (RN01 + RN02)           | B      | ✅ Yannis |
+| B5  | Factura (RN03 + impressão)     | B      | ✅ Yannis |
+| B6  | Minhas compras                 | B      | ✅ Yannis |
+| C1  | Campanhas                      | C      | ✅ Yasin  |
+| C2  | Cultivos                       | C      | ✅ Yasin  |
+| C3  | Colheitas                      | C      | ✅ Yasin  |
+| C4  | Persistência `.ser`            | C      | ✅ Yasin  |
+| C5  | Deploy Tomcat :8081 + systemd  | C      | ✅ Yasin  |
+| C6  | Manual de utilização PDF       | C      | 🔒 Yasin |
 
 Carga aproximada :: A = 5 ecrãs admin · B = fluxo cliente completo (mais lógica) · C = 3 ecrãs
 admin + persistência + deploy + manual.

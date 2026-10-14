@@ -7,6 +7,7 @@ Consolidado de `CHANGELOG-vd.md`, `CHANGELOG-yc.md`, `CHANGELOG-ym.md`. Mais rec
 - create: .github/dependabot.yml
 - update: .github/workflows/main-only-from-dev.yml (`permissions: {}`)
 - delete: .metadata/ do índice git (`git rm -r --cached`, já estava no `.gitignore`)
+- update: SECURITY.md (secção GitHub só com o que funciona em repo privado + conta grátis)
 - update: Docs/TODO.md, Docs/INDEX.md, README.md
 
 ## [A6] Documento de segurança — 2026-10-14 · Vritik

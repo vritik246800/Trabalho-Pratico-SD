@@ -16,8 +16,8 @@ e limitações conhecidas. Estado do branch `dev` em 2026-10-14.
 >[!question] Encontraste uma falha de segurança?
 >Não abrir issue pública nem PR com o exploit. Reportar em privado.
 
-1. Separador **Security** → **Report a vulnerability**
-   (`https://github.com/vritik246800/Trabalho-Pratico-SD/security/advisories/new`).
+1. Contactar o Vritik ([@vritik246800](https://github.com/vritik246800)) em privado · repo privado em
+   conta grátis :: o botão "Report a vulnerability" do GitHub não existe aqui.
 2. Incluir :: rota afectada, passos para reproduzir, impacto, versão/commit.
 3. Resposta em até 7 dias · correcção em `dev` → `main` · crédito no `Docs/CHANGELOG.md` se quiseres.
 
@@ -39,19 +39,24 @@ e limitações conhecidas. Estado do branch `dev` em 2026-10-14.
 | `.gitignore` | `*.ser`, `target/`, `*.class` :: dados de utilizadores e builds nunca entram no git · `/.metadata/` :: workspace do Eclipse (logs com caminhos locais) fora do git |
 | `SECURITY.md` | esta política · aparece em **Security → Policy** |
 
-### Activar nas definições (só o dono — `Settings`)
+### Definições do repositório
 
-| Onde | Definição | Porquê |
+Repo **privado** em conta GitHub **grátis** :: só o que funciona neste plano.
+
+| Onde | Definição | Estado |
 |---|---|---|
-| `Settings → Rules → Rulesets` (ou `Branches`) · `main` | require PR · 1 aprovação · require review from Code Owners · require status check `check-source` · block force push · restrict deletions | só `dev → main`, sem reescrever histórico |
-| idem · `dev` | require PR (bypass só Vritik) · block force push · restrict deletions | `yc`/`ym` entram só por PR |
-| `Settings → Code security` | **Private vulnerability reporting** ON | activa o botão "Report a vulnerability" |
-| idem | **Dependabot alerts** + **Dependabot security updates** ON | aviso de CVE nas dependências |
-| idem | **Secret scanning** + **Push protection** ON | bloqueia push com tokens/passwords |
-| idem | **Code scanning** · CodeQL default setup | análise estática Java · grátis em repo público |
-| `Settings → Actions → General` | workflow permissions = **Read repository contents** · não deixar Actions aprovar PRs | token mínimo por omissão |
 | `Settings → Collaborators` | `yannischilundo`, `yasinmagno` com **Write** (não Admin) | não mudam regras nem settings |
+| `Settings → Code security` | **Dependabot alerts** + **Dependabot security updates** ON | aviso de CVE nas dependências |
+| `Settings → Actions → General` | workflow permissions = **Read repository contents** | token mínimo por omissão |
 | Conta de cada colaborador | 2FA activo | conta roubada = push no repo |
+
+| Não disponível (privado + grátis) | Substituído por |
+|---|---|
+| Rulesets / branch protection (não aplicados) | regras de branch em `Docs/BRANCH.md` · workflow `main-only-from-dev` · `CODEOWNERS` · merges só pelo Vritik |
+| Private vulnerability reporting | contacto directo com o Vritik |
+| Secret scanning · push protection · CodeQL | regras abaixo + revisão do PR pelo Vritik |
+
+>[!tip] Passam a funcionar com GitHub Pro (grátis no GitHub Student Developer Pack) ou repo público. Não é requisito do trabalho.
 
 ### Regras para quem contribui
 
