@@ -194,7 +194,7 @@ Ficheiros do pacote :: `service/FornecedorService`, `service/ProdutoService`,
 | A3 | `/admin/listagens?tipo=&ordem=` | `tipo` ∈ `produtos, fornecedores, clientes, armazem, compras` · `ordem` ∈ `nome, preco, stock, data, valor` | `armazem` = stock > 0 · `compras` = compras detalhadas: cliente, endereço, telefone, produtos, qtd, preço unit., subtotal, total, data |
 | A4 | `/admin/relatorios` | clientes por nome ↑ · clientes que compraram por volume (soma `total`) ↓ · mais assíduos (nº compras) ↓ · extra: clientes sem compras | só perfil `CLIENTE` · `Comparator` + streams |
 | A5 | `/admin` | contagens: fornecedores, produtos, clientes, vendas, campanhas · links para cada módulo | — |
-| A6 | `Docs/SEGURANCA.md` | medidas de segurança implementadas, configuração Tomcat, limitações conhecidas, checklist | só documentação · sem alterar código |
+| A6 | `SECURITY.md` (raiz) | política GitHub (reportar, versões, protecção do repo) · medidas da app · config Tomcat · limitações · checklist | `.github/dependabot.yml` · workflow com `permissions: {}` · sem alterar código Java |
 
 Testar sem B :: vendas e clientes seed chegam para A3/A4.
 

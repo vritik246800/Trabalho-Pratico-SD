@@ -1,0 +1,18 @@
+version: 2
+updates:
+  - package-ecosystem: maven
+    directory: /AgroGest
+    schedule:
+      interval: weekly
+    target-branch: dev
+    ignore:
+      # Tomcat 10.1 = Servlet 6.0 / JSP 3.1 — versões novas destas APIs não correm lá
+      - dependency-name: jakarta.servlet:jakarta.servlet-api
+        update-types: ["version-update:semver-major", "version-update:semver-minor"]
+      - dependency-name: jakarta.servlet.jsp:jakarta.servlet.jsp-api
+        update-types: ["version-update:semver-major", "version-update:semver-minor"]
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    target-branch: dev

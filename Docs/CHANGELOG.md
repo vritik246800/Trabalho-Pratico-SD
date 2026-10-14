@@ -2,6 +2,12 @@
 
 Consolidado de `CHANGELOG-vd.md`, `CHANGELOG-yc.md`, `CHANGELOG-ym.md`. Mais recente no topo.
 
+## [A6] SECURITY.md na raiz + protecção GitHub — 2026-10-14 · Vritik
+- update: Docs/SEGURANCA.md → SECURITY.md (raiz, política GitHub)
+- create: .github/dependabot.yml
+- update: .github/workflows/main-only-from-dev.yml (`permissions: {}`)
+- update: Docs/TODO.md, Docs/INDEX.md, README.md
+
 ## [A6] Documento de segurança — 2026-10-14 · Vritik
 - create: Docs/SEGURANCA.md
 - update: Docs/TODO.md, Docs/INDEX.md, README.md

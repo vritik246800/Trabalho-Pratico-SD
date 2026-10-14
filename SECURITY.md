@@ -1,6 +1,68 @@
-# Segurança — AgroGest
+# Política de segurança — AgroGest
 
-Medidas implementadas, onde estão no código e limitações conhecidas. Estado do branch `dev` em 2026-10-14.
+Como reportar vulnerabilidades, como o repositório está protegido, medidas de segurança da aplicação
+e limitações conhecidas. Estado do branch `dev` em 2026-10-14.
+
+## Versões suportadas
+
+| Versão | Branch | Suportada |
+|---|---|---|
+| `1.0` (`pom.xml`) | `main` | ✅ |
+| desenvolvimento | `dev` | ✅ correcções entram aqui primeiro |
+| branches pessoais | `vd`, `yc`, `ym` | ❌ |
+
+## Reportar uma vulnerabilidade
+
+>[!question] Encontraste uma falha de segurança?
+>Não abrir issue pública nem PR com o exploit. Reportar em privado.
+
+1. Separador **Security** → **Report a vulnerability**
+   (`https://github.com/vritik246800/Trabalho-Pratico-SD/security/advisories/new`).
+2. Incluir :: rota afectada, passos para reproduzir, impacto, versão/commit.
+3. Resposta em até 7 dias · correcção em `dev` → `main` · crédito no `Docs/CHANGELOG.md` se quiseres.
+
+| Fora de âmbito | Motivo |
+|---|---|
+| Credenciais de teste do `README.md` (`admin@agro.mz` / `admin234`, clientes `1234`) | exigidas pelo enunciado, só para demo |
+| L1–L11 da secção [Limitações conhecidas](#limitações-conhecidas) | já documentadas |
+| Ataques que exigem acesso de escrita ao servidor ou ao disco | fora do modelo de ameaça |
+
+## Segurança do repositório GitHub
+
+### Aplicado por ficheiro (já no repositório)
+
+| Ficheiro | O que faz |
+|---|---|
+| `.github/CODEOWNERS` | `* @vritik246800` :: todo PR pede revisão do dono |
+| `.github/workflows/main-only-from-dev.yml` | PR para `main` só aceite vindo de `dev` · `permissions: {}` (token sem permissões) |
+| `.github/dependabot.yml` | actualizações semanais de dependências Maven (`AgroGest/`) e GitHub Actions, PR para `dev` · ignora saltos de Servlet/JSP API (Tomcat 10.1 = Servlet 6.0) |
+| `.gitignore` | `*.ser`, `target/`, `*.class` :: dados de utilizadores e builds nunca entram no git · `/.metadata/` está no `.gitignore` mas ainda é seguido (logs do Eclipse com caminhos locais) → `git rm -r --cached .metadata` |
+| `SECURITY.md` | esta política · aparece em **Security → Policy** |
+
+### Activar nas definições (só o dono — `Settings`)
+
+| Onde | Definição | Porquê |
+|---|---|---|
+| `Settings → Rules → Rulesets` (ou `Branches`) · `main` | require PR · 1 aprovação · require review from Code Owners · require status check `check-source` · block force push · restrict deletions | só `dev → main`, sem reescrever histórico |
+| idem · `dev` | require PR (bypass só Vritik) · block force push · restrict deletions | `yc`/`ym` entram só por PR |
+| `Settings → Code security` | **Private vulnerability reporting** ON | activa o botão "Report a vulnerability" |
+| idem | **Dependabot alerts** + **Dependabot security updates** ON | aviso de CVE nas dependências |
+| idem | **Secret scanning** + **Push protection** ON | bloqueia push com tokens/passwords |
+| idem | **Code scanning** · CodeQL default setup | análise estática Java · grátis em repo público |
+| `Settings → Actions → General` | workflow permissions = **Read repository contents** · não deixar Actions aprovar PRs | token mínimo por omissão |
+| `Settings → Collaborators` | `yannischilundo`, `yasinmagno` com **Write** (não Admin) | não mudam regras nem settings |
+| Conta de cada colaborador | 2FA activo | conta roubada = push no repo |
+
+### Regras para quem contribui
+
+- Nunca commitar :: passwords reais, tokens, chaves (`*.pem`, `*.key`), `.env`, ficheiros `.ser` com dados.
+- Segredo commitado por engano :: **rodar o segredo primeiro** (apagar do histórico não chega), avisar o Vritik.
+- Push por SSH ou HTTPS com token · nunca a password da conta.
+- Dependência nova só com acordo do grupo (`pom.xml` é ficheiro partilhado) e versão fixa.
+
+---
+
+# Segurança da aplicação
 
 >[!question] O que protege o AgroGest, e contra quê?
 >Contas (hash), rotas (filtro + perfil), dados de outros clientes (RN03), stock (locks), ficheiro `.ser` (escrita atómica) e HTML (escape).

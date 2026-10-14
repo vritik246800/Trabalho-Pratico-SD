@@ -2,6 +2,7 @@ name: main-only-from-dev
 on:
   pull_request:
     branches: [main]
+permissions: {}
 jobs:
   check-source:
     runs-on: ubuntu-latest
