@@ -2,6 +2,12 @@
 
 Consolidado de `CHANGELOG-vd.md`, `CHANGELOG-yc.md`, `CHANGELOG-ym.md`. Mais recente no topo.
 
+## [A7] Abrir pasta do .ser no Finder / Explorador — 2026-10-15 · Vritik
+- update: AgroGest/src/main/java/mz/agrogest/repo/Persistencia.java
+- update: AgroGest/src/main/java/mz/agrogest/servlet/admin/PersistenciaServlet.java
+- update: AgroGest/src/main/webapp/WEB-INF/views/admin/persistencia.jsp
+- caminho do .ser visível · botão abre `open -R` (macOS) / `explorer /select,` (Windows)
+
 ## [Docs] Instruções para Yannis e Yasin — 2026-10-14 · Vritik
 - create: Docs/INSTRUCOES.md
 - update: CLAUDE.md (sincronizar com `dev` no início da sessão), Docs/INDEX.md, README.md

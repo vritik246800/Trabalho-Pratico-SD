@@ -14,6 +14,15 @@
 
 <div class="acoes-persistencia">
     <section class="card">
+        <h2 class="sem-margem">Localização</h2>
+        <p><code>${caminho}</code></p>
+        <form method="post" action="${ctx}/admin/persistencia">
+            <input type="hidden" name="acao" value="abrir">
+            <button class="btn" type="submit">Abrir no Finder / Explorador</button>
+        </form>
+    </section>
+
+    <section class="card">
         <h2 class="sem-margem">Gravar agora</h2>
         <p>Guarda o estado actual em disco imediatamente, sem reiniciar o servidor.</p>
         <form method="post" action="${ctx}/admin/persistencia">

@@ -17,7 +17,7 @@ public final class Persistencia {
 
     private Persistencia() {}
 
-    private static Path caminho() {
+    public static Path caminho() {
         String base = System.getProperty("catalina.base", System.getProperty("user.home"));
         Path dir = Paths.get(base, "data");
         try {
@@ -69,5 +69,20 @@ public final class Persistencia {
         } catch (IOException e) {
             LOG.warning("Erro ao apagar ficheiro .ser: " + e.getMessage());
         }
+    }
+
+    /** A7 — revela o .ser no Finder (macOS) ou Explorador (Windows). Só abre na máquina do servidor. */
+    public static void abrirPasta() throws IOException {
+        Path p = caminho();
+        String os = System.getProperty("os.name").toLowerCase();
+        boolean existe = Files.exists(p);
+        if (os.contains("mac"))
+            new ProcessBuilder(existe ? new String[]{"open", "-R", p.toString()}
+                                      : new String[]{"open", p.getParent().toString()}).start();
+        else if (os.contains("win"))
+            new ProcessBuilder(existe ? new String[]{"explorer", "/select," + p}
+                                      : new String[]{"explorer", p.getParent().toString()}).start();
+        else
+            throw new IOException("Só disponível em macOS ou Windows.");
     }
 }

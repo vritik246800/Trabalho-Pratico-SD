@@ -28,6 +28,7 @@ Requisitos completos: `Docs/Enunciado AgroGest 2026.pdf`.
 | A4  | Relatórios de clientes         | A      | ✅ Vritik |
 | A5  | Dashboard admin                | A      | ✅ Vritik |
 | A6  | Documento de segurança         | A      | ✅ Vritik |
+| A7  | Abrir pasta do `.ser` no SO    | A      | ✅ Vritik |
 | B1  | Auto-registo                   | B      | ✅ Yannis |
 | B2  | Catálogo com filtro            | B      | ✅ Yannis |
 | B3  | Carrinho em sessão             | B      | ✅ Yannis |

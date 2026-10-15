@@ -18,6 +18,7 @@ public class PersistenciaServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res)
             throws ServletException, IOException {
+        req.setAttribute("caminho", Persistencia.caminho());
         req.getRequestDispatcher("/WEB-INF/views/admin/persistencia.jsp").forward(req, res);
     }
 
@@ -34,6 +35,13 @@ public class PersistenciaServlet extends HttpServlet {
                     Persistencia.apagarFicheiro();
                     req.getSession().setAttribute("flash",
                             "Ficheiro apagado. Os dados actuais permanecem em memória até à próxima paragem do Tomcat.");
+                }
+                case "abrir" -> {
+                    try {
+                        Persistencia.abrirPasta();
+                    } catch (IOException e) {
+                        throw new NegocioException("Não foi possível abrir a pasta: " + e.getMessage());
+                    }
                 }
                 default -> throw new NegocioException("Acção desconhecida.");
             }
