@@ -29,6 +29,8 @@ Requisitos completos: `Docs/Enunciado AgroGest 2026.pdf`.
 | A5  | Dashboard admin                | A      | ✅ Vritik |
 | A6  | Documento de segurança         | A      | ✅ Vritik |
 | A7  | Abrir pasta do `.ser` no SO    | A      | ✅ Vritik |
+| A8  | Produto expirado (venda + alerta) | A   | 🔒 Vritik |
+| A9  | Polimento UI/UX admin e cliente | A     | 🔒 Vritik |
 | B1  | Auto-registo                   | B      | ✅ Yannis |
 | B2  | Catálogo com filtro            | B      | ✅ Yannis |
 | B3  | Carrinho em sessão             | B      | ✅ Yannis |
@@ -196,6 +198,12 @@ Ficheiros do pacote :: `service/FornecedorService`, `service/ProdutoService`,
 | A4 | `/admin/relatorios` | clientes por nome ↑ · clientes que compraram por volume (soma `total`) ↓ · mais assíduos (nº compras) ↓ · extra: clientes sem compras | só perfil `CLIENTE` · `Comparator` + streams |
 | A5 | `/admin` | contagens: fornecedores, produtos, clientes, vendas, campanhas · links para cada módulo | — |
 | A6 | `SECURITY.md` (raiz) | política GitHub (reportar, versões, protecção do repo) · medidas da app · config Tomcat · limitações · checklist | `.github/dependabot.yml` · workflow com `permissions: {}` · sem alterar código Java |
+
+| A8 | `/catalogo`, `/carrinho`, `/compra`, `/admin`, `/admin/produtos` | cliente não compra produto com `validade` < hoje · admin vê alerta de expirados no dashboard e na lista de produtos | `Produto.isExpirado()` (getter calculado, sem campo novo) · bloqueio em `VendaService` (RN01: adicionar, actualizar, finalizar) |
+| A9 | todas | polimento visual: menu com página activa, cartões, tabelas, forms, alertas, responsivo | só CSS/JSP · sem frameworks · mesmo layout |
+
+A8/A9 tocam ficheiros do pacote B (`VendaService`, `catalogo.jsp`, `cliente-b.css`) e partilhados
+(`Produto`, `_header.jspf`, `style.css`) :: B já ✅, decisão do Vritik (dono do repo).
 
 Testar sem B :: vendas e clientes seed chegam para A3/A4.
 
