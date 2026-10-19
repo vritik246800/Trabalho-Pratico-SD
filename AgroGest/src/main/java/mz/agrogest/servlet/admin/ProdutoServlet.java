@@ -16,7 +16,7 @@ import mz.agrogest.service.NegocioException;
 import mz.agrogest.service.ProdutoService;
 import mz.agrogest.service.RelatorioService;
 
-/** A2 — criar, listar, repor stock, remover produtos. */
+/** A2 — criar, listar, repor stock, remover · A10 editar. ?novo=1 / ?editar=id abrem o painel do formulário. */
 @WebServlet("/admin/produtos")
 public class ProdutoServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
@@ -31,6 +31,15 @@ public class ProdutoServlet extends HttpServlet {
         req.setAttribute("fornecedores", fornecedores.listar());
         req.setAttribute("fornecedorPorId", relatorios.fornecedoresPorId());
         req.setAttribute("categorias", Categoria.values());
+        // painel de edição: ?editar=id, ou o POST editar que falhou (volta com os valores escritos)
+        String editar = "editar".equals(req.getParameter("acao")) ? req.getParameter("id") : req.getParameter("editar");
+        if (editar != null) {
+            try {
+                req.setAttribute("emEdicao", service.produto(Integer.parseInt(editar.trim())));
+            } catch (NumberFormatException e) {
+                // id mal escrito: lista sem painel
+            }
+        }
         req.getRequestDispatcher("/WEB-INF/views/admin/produtos.jsp").forward(req, res);
     }
 
@@ -40,13 +49,12 @@ public class ProdutoServlet extends HttpServlet {
             String acao = String.valueOf(req.getParameter("acao"));
             switch (acao) {
                 case "criar" -> {
-                    Produto p = service.criar(req.getParameter("nome"), categoria(req.getParameter("categoria")),
-                            inteiro(req.getParameter("fornecedorId"), "Fornecedor"),
-                            decimal(req.getParameter("preco"), "Preço"),
-                            inteiro(req.getParameter("quantidade"), "Quantidade"),
-                            req.getParameter("unidade"), req.getParameter("descricao"), req.getParameter("foto"),
-                            data(req.getParameter("validade")));
+                    Produto p = service.criar(formulario(req));
                     req.getSession().setAttribute("flash", "Produto \"" + p.getNome() + "\" criado.");
+                }
+                case "editar" -> {
+                    Produto p = service.editar(inteiro(req.getParameter("id"), "Produto"), formulario(req));
+                    req.getSession().setAttribute("flash", "Produto \"" + p.getNome() + "\" guardado.");
                 }
                 case "repor" -> {
                     Produto p = service.reporStock(inteiro(req.getParameter("id"), "Produto"),
@@ -65,6 +73,16 @@ public class ProdutoServlet extends HttpServlet {
             req.setAttribute("erro", e.getMessage());
             doGet(req, res);
         }
+    }
+
+    /** Campos do formulário criar/editar, ainda por validar no service. */
+    private static Produto formulario(HttpServletRequest req) {
+        return new Produto(req.getParameter("nome"), categoria(req.getParameter("categoria")),
+                inteiro(req.getParameter("fornecedorId"), "Fornecedor"),
+                decimal(req.getParameter("preco"), "Preço"),
+                inteiro(req.getParameter("quantidade"), "Quantidade"),
+                req.getParameter("unidade"), req.getParameter("descricao"), req.getParameter("foto"),
+                data(req.getParameter("validade")));
     }
 
     private static Categoria categoria(String v) {

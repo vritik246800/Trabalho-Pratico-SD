@@ -2,6 +2,26 @@
 
 Entradas desta branch. Mais recente no topo.
 
+## [A11] Redesign completo da UI (sidebar, wizard, login, SVG) — 2026-10-19 · Vritik
+- create: AgroGest/src/main/webapp/WEB-INF/views/_icones.jspf, _alertas.jspf, _broto.jspf, _campo.jspf, _fluxo.jspf
+- create: AgroGest/src/main/webapp/js/app.js, AgroGest/src/main/webapp/img/logo.svg
+- update: AgroGest/src/main/webapp/WEB-INF/views/_header.jspf, _footer.jspf, login.jsp, registo.jsp, 403.jsp, catalogo.jsp, carrinho.jsp, compra.jsp, factura.jsp, minhas-compras.jsp
+- update: AgroGest/src/main/webapp/WEB-INF/views/admin/dashboard.jsp, fornecedores.jsp, produtos.jsp, listagens.jsp, relatorios.jsp, campanhas.jsp, cultivos.jsp, colheitas.jsp, persistencia.jsp
+- update: AgroGest/src/main/webapp/css/style.css, admin-a.css, admin-c.css, cliente-b.css
+- paleta terra/savana :: creme `#F4EFE6`, oliva `#3C4A2A`, terracota `#C8692C`, milho `#D9A441` · Fraunces (títulos) + Inter (texto), fallback Georgia/system-ui sem internet
+- sidebar escura com grupos (Catálogo, Produção, Vendas, Sistema) · botão de menu recolhe para ícones (desktop, lembrado em `localStorage`) ou abre gaveta (≤1000 px)
+- login e registo :: ecrã dividido com paisagem SVG animada (sol a nascer, sulcos a desenhar, brotos a crescer)
+- wizard :: produto (criar/editar, painel lateral) e registo, com passo "Rever" · sem JS os passos ficam todos visíveis
+- passos da compra (Carrinho → Confirmar → Factura) · flash de sucesso como toast · botões de envio com spinner e sem duplo envio
+- ícones SVG próprios em sprite · zero emoji · `prefers-reduced-motion` respeitado · CSS/JS com `?v=11` contra cache antigo
+
+## [A10] Editar produto — 2026-10-19 · Vritik
+- update: AgroGest/src/main/java/mz/agrogest/service/ProdutoService.java
+- update: AgroGest/src/main/java/mz/agrogest/servlet/admin/ProdutoServlet.java
+- update: AgroGest/src/main/webapp/WEB-INF/views/admin/produtos.jsp
+- `ProdutoService.editar(id, dados)` :: todos os campos, mesmas validações do `criar` (`validar` partilhado), lock do `DataStore`
+- `POST /admin/produtos acao=editar` · `GET ?editar=id` abre o painel com os valores · erro volta ao painel com o que foi escrito
+
 ## [A9] Polimento UI/UX admin e cliente — 2026-10-19 · Vritik
 - update: AgroGest/src/main/webapp/WEB-INF/views/_header.jspf
 - update: AgroGest/src/main/webapp/css/style.css

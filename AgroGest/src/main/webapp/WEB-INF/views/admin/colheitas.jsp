@@ -5,21 +5,27 @@
 <c:set var="titulo" value="Colheitas"/>
 <c:set var="estilos" value="${['admin-c.css']}"/>
 <%@ include file="../_header.jspf" %>
-<h1>Colheitas</h1>
+<header class="cabeca">
+    <div class="cabeca-texto">
+        <p class="olho"><svg class="ic"><use href="#i-colheita"/></svg>Produção</p>
+        <h1>Colheitas</h1>
+        <p>O valor total é calculado: kg × preço por kg.</p>
+    </div>
+</header>
 
 <%-- Selector de cultivo agrupado por campanha --%>
 <section class="card sel-cultivo">
     <form method="get" action="${ctx}/admin/colheitas" class="form-inline-sel">
-        <label><strong>Cultivo:</strong>
-            <select name="cultivo" onchange="this.form.submit()" class="sel-campo">
-                <option value="">— seleccionar —</option>
+        <label><svg class="ic"><use href="#i-cultivo"/></svg><strong>Cultivo</strong>
+            <select name="cultivo" onchange="this.form.submit()" class="sel-campo campo-solto">
+                <option value="">Escolha…</option>
                 <c:forEach var="camp" items="${campanhas}">
                     <c:if test="${not empty camp.cultivos}">
                         <optgroup label="${fn:escapeXml(camp.nome)}${camp.fechada ? ' (fechada)' : ''}">
                             <c:forEach var="cv" items="${camp.cultivos}">
                                 <option value="${cv.id}"
                                         ${cultivoId == cv.id ? 'selected' : ''}>
-                                    #${cv.id} — <c:out value="${cv.cultura}"/> (<c:out value="${cv.variedade}"/>)
+                                    #${cv.id} · <c:out value="${cv.cultura}"/> (<c:out value="${cv.variedade}"/>)
                                 </option>
                             </c:forEach>
                         </optgroup>
@@ -31,11 +37,14 @@
     </form>
 </section>
 
+<c:if test="${empty cultivoId}">
+    <section class="card vazio"><%@ include file="../_broto.jspf" %><p>Escolha um cultivo para ver as colheitas e registar novas.</p></section>
+</c:if>
 <c:if test="${not empty cultivoId && not empty cultivoSel}">
     <%-- Formulário nova colheita --%>
     <section class="card">
-        <h2 class="sem-margem">
-            Nova colheita — <c:out value="${cultivoSel.cultura}"/> (<c:out value="${cultivoSel.variedade}"/>)
+        <h2 class="sem-margem titulo-ic">
+            <svg class="ic"><use href="#i-mais"/></svg>Nova colheita · <c:out value="${cultivoSel.cultura}"/> (<c:out value="${cultivoSel.variedade}"/>)
         </h2>
         <form class="form" method="post" action="${ctx}/admin/colheitas">
             <input type="hidden" name="acao" value="criar">
@@ -56,7 +65,7 @@
                            value="${param.acao == 'criar' ? fn:escapeXml(param.precoKg) : ''}">
                 </label>
             </div>
-            <div><button class="btn" type="submit">Registar colheita</button></div>
+            <div class="form-fim"><button class="btn btn-acento" type="submit"><svg class="ic"><use href="#i-mais"/></svg>Registar colheita</button></div>
         </form>
     </section>
 
@@ -79,7 +88,7 @@
             <c:set var="totalKg" value="${totalKg + col.kg}"/>
             <c:set var="totalVal" value="${totalVal + col.valorTotal}"/>
             <tr>
-                <td>${col.id}</td>
+                <td class="id">${col.id}</td>
                 <td>${col.dataFmt}</td>
                 <td class="num"><fmt:formatNumber value="${col.kg}" minFractionDigits="1" maxFractionDigits="1"/></td>
                 <td class="num"><fmt:formatNumber value="${col.precoKg}" minFractionDigits="2" maxFractionDigits="2"/></td>
@@ -90,13 +99,13 @@
                         <input type="hidden" name="acao" value="remover">
                         <input type="hidden" name="id" value="${col.id}">
                         <input type="hidden" name="cultivoId" value="${cultivoId}">
-                        <button class="btn btn-danger btn-peq" type="submit">Remover</button>
+                        <button class="btn-icone btn-peq perigo" type="submit" aria-label="Remover"><svg class="ic"><use href="#i-remover"/></svg></button>
                     </form>
                 </td>
             </tr>
         </c:forEach>
         <c:if test="${empty colheitas}">
-            <tr><td colspan="6" class="nota">Sem colheitas registadas para este cultivo.</td></tr>
+            <tr><td colspan="6" class="vazio-linha">Sem colheitas registadas para este cultivo.</td></tr>
         </c:if>
         </tbody>
         <c:if test="${not empty colheitas}">

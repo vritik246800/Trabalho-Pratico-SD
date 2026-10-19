@@ -1,90 +1,49 @@
-/* Pacote C · admin: campanhas, cultivos, colheitas, persistência */
+/* Pacote C · admin: campanhas, cultivos, colheitas, persistência (A11) */
 
-.sem-margem { margin-top: 0; }
+.titulo-ic { display: flex; align-items: center; gap: 10px; }
+.titulo-ic .ic { color: var(--terracota); }
 
-/* ── Selectores de campanha/cultivo ──────────────────────────────────────── */
-
-.sel-campanha,
-.sel-cultivo {
-    padding: 14px 20px;
-    margin-bottom: 16px;
-}
-
-.form-inline-sel {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    flex-wrap: wrap;
-}
-
-.form-inline-sel label {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: .95rem;
-}
-
+/* selector de campanha / cultivo */
+.sel-campanha, .sel-cultivo { padding: 14px 20px; }
+.form-inline-sel { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin: 0; }
+.form-inline-sel label { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; font-size: .95rem; color: var(--oliva-noite); }
+.form-inline-sel label .ic { color: var(--terracota); }
 .sel-campo {
-    font: inherit;
-    padding: 6px 10px;
-    border: 1px solid var(--borda);
-    border-radius: 6px;
-    background: var(--branco);
-    min-width: 280px;
-    max-width: 500px;
+    font: inherit; min-height: 42px; padding: 8px 12px; min-width: min(320px, 100%); max-width: 100%;
+    border: 1px solid var(--argila-forte); border-radius: var(--raio-peq); background: #fff;
 }
+.sel-campo:focus { outline: 0; border-color: var(--oliva); box-shadow: 0 0 0 4px rgba(60, 74, 42, .14); }
 
-.sel-campo:focus { outline: 2px solid var(--verde); border-color: var(--verde); }
-
-/* ── Etiquetas de estado ──────────────────────────────────────────────────── */
-
-.etiqueta {
-    display: inline-block;
-    font-size: .75rem;
-    font-weight: 600;
-    letter-spacing: .02em;
-    padding: 2px 8px;
-    border-radius: 999px;
-}
-
-.estado-aberta {
-    background: var(--ok-fundo);
-    color: var(--verde-escuro);
-    border: 1px solid var(--verde);
-}
-
-.estado-fechada {
-    background: #f0f0f0;
-    color: #555;
-    border: 1px solid #ccc;
-}
-
-/* ── Valores monetários ───────────────────────────────────────────────────── */
+/* campanhas como fichas de época */
+.campanhas { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+.campanhas > .card { margin: 0; }
+.campanha { display: flex; flex-direction: column; justify-content: space-between; gap: 18px; border-top: 4px solid var(--oliva); }
+.campanha.fechada { border-top-color: var(--argila-forte); background: #F7F3EB; }
+.campanha-topo { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
+.campanha h2 { margin: 0 0 4px; font-size: 1.2rem; }
+.campanha .nota { display: flex; align-items: center; gap: 6px; margin: 0; }
+.campanha .nota .ic { width: 16px; height: 16px; }
+.campanha-fim { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; padding-top: 14px; border-top: 1px dashed var(--argila-forte); }
+.campanha-n { display: inline-flex; align-items: center; gap: 6px; color: var(--oliva); text-decoration: none; font-weight: 500; }
+.campanha-n strong { font-family: var(--serif); font-size: 1.3rem; }
+.campanha-accoes { display: flex; gap: 6px; }
+.campanha-accoes form { margin: 0; }
+.ponto-vivo { width: 8px; height: 8px; border-radius: 50%; background: var(--ok); box-shadow: 0 0 0 0 rgba(75, 106, 43, .5); animation: vivo 2s infinite; }
+@keyframes vivo { 70% { box-shadow: 0 0 0 7px rgba(75, 106, 43, 0); } 100% { box-shadow: 0 0 0 0 rgba(75, 106, 43, 0); } }
 
 .valor-total { font-variant-numeric: tabular-nums; }
 
-.tabela tfoot td { border-bottom: 0; }
-.tabela tfoot .total td { font-weight: 700; border-top: 2px solid var(--borda); }
-
-/* ── Página de persistência ──────────────────────────────────────────────── */
-
-.aviso-persistencia {
-    border-left: 4px solid var(--terra);
-    background: #fdf8f3;
+/* persistência */
+.ficheiro { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
+.ficheiro > div { flex: 1; min-width: 220px; }
+.ficheiro .olho { margin-bottom: 4px; }
+.ficheiro-ic {
+    width: 52px; height: 52px; padding: 12px; flex: none; border-radius: 14px;
+    background: var(--oliva-claro); color: var(--oliva);
+    fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round;
 }
-
-.aviso-persistencia code {
-    background: #eee;
-    padding: 1px 5px;
-    border-radius: 4px;
-    font-family: monospace;
-    font-size: .9em;
-}
-
-.acoes-persistencia {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 16px;
-}
-
-.card-perigo { border-left: 4px solid var(--erro); }
+.caminho { display: block; padding: 8px 12px; overflow-wrap: anywhere; background: #EFE8DA; }
+.acoes-persistencia { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; }
+.acoes-persistencia .card { margin: 0; display: flex; flex-direction: column; }
+.acoes-persistencia form { margin-top: auto; }
+.card-perigo { border-top: 4px solid var(--erro); }

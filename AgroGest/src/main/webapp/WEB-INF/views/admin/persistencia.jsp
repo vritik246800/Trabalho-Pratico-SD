@@ -3,45 +3,46 @@
 <c:set var="titulo" value="Persistência"/>
 <c:set var="estilos" value="${['admin-c.css']}"/>
 <%@ include file="../_header.jspf" %>
-<h1>Persistência de Dados</h1>
+<header class="cabeca">
+    <div class="cabeca-texto">
+        <p class="olho"><svg class="ic"><use href="#i-persistencia"/></svg>Sistema</p>
+        <h1>Persistência de dados</h1>
+        <p>Os dados vivem em memória e são gravados no ficheiro <code>agrogest.ser</code> quando o Tomcat pára.
+            Aqui pode gravar já ou apagar o ficheiro para o próximo arranque começar com os dados de exemplo.</p>
+    </div>
+</header>
 
-<div class="card aviso-persistencia">
-    <p>Os dados da aplicação são mantidos em memória e gravados automaticamente no ficheiro
-    <code>data/agrogest.ser</code> quando o Tomcat é parado.</p>
-    <p>Pode forçar a gravação agora (útil antes de operações de manutenção) ou apagar o ficheiro
-    para que a próxima reinicialização comece com os dados de exemplo (<em>seed</em>).</p>
-</div>
+<section class="card ficheiro">
+    <svg class="ficheiro-ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-persistencia"/></svg>
+    <div>
+        <p class="olho">Ficheiro de dados</p>
+        <code class="caminho">${fn:escapeXml(caminho)}</code>
+    </div>
+    <form method="post" action="${ctx}/admin/persistencia">
+        <input type="hidden" name="acao" value="abrir">
+        <button class="btn btn-sec" type="submit"><svg class="ic"><use href="#i-pasta"/></svg>Abrir pasta</button>
+    </form>
+</section>
 
 <div class="acoes-persistencia">
     <section class="card">
-        <h2 class="sem-margem">Localização</h2>
-        <p><code>${caminho}</code></p>
-        <form method="post" action="${ctx}/admin/persistencia">
-            <input type="hidden" name="acao" value="abrir">
-            <button class="btn" type="submit">Abrir no Finder / Explorador</button>
-        </form>
-    </section>
-
-    <section class="card">
-        <h2 class="sem-margem">Gravar agora</h2>
-        <p>Guarda o estado actual em disco imediatamente, sem reiniciar o servidor.</p>
+        <h2 class="titulo-ic"><svg class="ic"><use href="#i-gravar"/></svg>Gravar agora</h2>
+        <p class="nota">Guarda o estado actual em disco, sem reiniciar o servidor. Útil antes de manutenção.</p>
         <form method="post" action="${ctx}/admin/persistencia">
             <input type="hidden" name="acao" value="gravar">
-            <button class="btn" type="submit">Gravar dados agora</button>
+            <button class="btn" type="submit"><svg class="ic"><use href="#i-gravar"/></svg>Gravar dados agora</button>
         </form>
     </section>
 
     <section class="card card-perigo">
-        <h2 class="sem-margem">Apagar ficheiro</h2>
-        <p>Remove o ficheiro <code>.ser</code> do disco.
-           Os dados actuais <strong>permanecem em memória</strong> até ao próximo reinício.
-           Na próxima inicialização do Tomcat, os dados de exemplo (<em>seed</em>) serão carregados.</p>
+        <h2 class="titulo-ic"><svg class="ic"><use href="#i-remover"/></svg>Apagar ficheiro</h2>
+        <p class="nota">Remove o <code>.ser</code> do disco. Os dados actuais <strong>ficam em memória</strong> até ao próximo
+            reinício; aí arrancam os dados de exemplo.</p>
         <form method="post" action="${ctx}/admin/persistencia"
               onsubmit="return confirm('Apagar o ficheiro de dados? O sistema voltará ao estado inicial no próximo reinício.')">
             <input type="hidden" name="acao" value="apagar">
-            <button class="btn btn-danger" type="submit">Apagar ficheiro .ser</button>
+            <button class="btn btn-danger" type="submit"><svg class="ic"><use href="#i-remover"/></svg>Apagar ficheiro .ser</button>
         </form>
     </section>
 </div>
-
 <%@ include file="../_footer.jspf" %>

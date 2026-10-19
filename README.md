@@ -21,7 +21,7 @@ TODO **e** ID na tua linha aqui, no mesmo commit (`update: Docs/TODO.md, README.
 
 | Perfil | Módulos |
 |---|---|
-| Administrador | fornecedores · produtos (repor stock) · campanhas · cultivos · colheitas · listagens com ordenação · compras detalhadas · relatórios de clientes · dashboard · persistência manual |
+| Administrador | fornecedores · produtos (editar, repor stock, alerta de expirados) · campanhas · cultivos · colheitas · listagens com ordenação · compras detalhadas · relatórios de clientes · dashboard · persistência manual |
 | Cliente | auto-registo · catálogo com filtro por categoria · carrinho · compra · factura `FT-<ano>-<n>` com IVA 16 % · histórico |
 
 Regras de negócio :: RN01 sem venda acima do stock · RN02 venda atómica (tudo ou nada) ·

@@ -1,0 +1,9 @@
+<%@ page pageEncoding="UTF-8" %>
+<%-- A11 — estado vazio: sol, chão lavrado e um broto que cresce (animação CSS em style.css) --%>
+<svg class="broto" viewBox="0 0 120 96" aria-hidden="true">
+    <circle class="sol" cx="92" cy="22" r="10"/>
+    <path class="chao" d="M10 80c22-8 78-8 100 0M24 90c16-5 56-5 72 0"/>
+    <path class="caule" d="M60 79V46"/>
+    <path class="folha folha-e" d="M60 58c-2-11-10-17-22-17 1 11 9 17 22 17z"/>
+    <path class="folha folha-d" d="M60 50c2-12 11-19 24-19-1 12-10 19-24 19z"/>
+</svg>

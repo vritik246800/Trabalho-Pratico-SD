@@ -9,23 +9,30 @@
 <c:if test="${tipo == 'clientes'}"><c:set target="${rotOrdem}" property="data" value="Última compra"/><c:set target="${rotOrdem}" property="valor" value="Total comprado"/></c:if>
 <c:if test="${tipo == 'compras'}"><c:set target="${rotOrdem}" property="nome" value="Cliente"/></c:if>
 
-<h1>Listagens</h1>
-<nav class="separadores">
+<c:set var="icTipo" value="${{'produtos':'i-produto', 'fornecedores':'i-fornecedor', 'clientes':'i-utilizador', 'armazem':'i-stock', 'compras':'i-factura'}}"/>
+<header class="cabeca">
+    <div class="cabeca-texto">
+        <p class="olho"><svg class="ic"><use href="#i-listagem"/></svg>Vendas</p>
+        <h1>Listagens</h1>
+        <p>Escolha o que listar e a ordem. Clicar de novo na mesma ordem inverte-a.</p>
+    </div>
+</header>
+<nav class="separadores" aria-label="O que listar">
     <c:forEach var="t" items="${tipos}">
-        <a class="${t == tipo ? 'activo' : ''}" href="${ctx}/admin/listagens?tipo=${t}">${rotTipo[t]}</a>
+        <a class="${t == tipo ? 'activo' : ''}" href="${ctx}/admin/listagens?tipo=${t}"><svg class="ic"><use href="#${icTipo[t]}"/></svg>${rotTipo[t]}</a>
     </c:forEach>
 </nav>
 
 <div class="ordenar">
-    <span class="nota">Ordenar por:</span>
+    <span class="nota">Ordenar por</span>
     <c:forEach var="o" items="${ordens}">
         <c:set var="esta" value="${o == ordem}"/>
         <a class="btn btn-peq ${esta ? '' : 'btn-sec'}"
            href="${ctx}/admin/listagens?tipo=${tipo}&amp;ordem=${o}&amp;dir=${esta and not desc ? 'desc' : 'asc'}">
-            ${rotOrdem[o]}<c:if test="${esta}"> ${desc ? '↓' : '↑'}</c:if>
+            ${rotOrdem[o]}<c:if test="${esta}"><svg class="ic" aria-label="${desc ? 'descendente' : 'ascendente'}"><use href="#${desc ? 'i-baixo' : 'i-cima'}"/></svg></c:if>
         </a>
     </c:forEach>
-    <span class="nota">${fn:length(linhas)} registo(s)</span>
+    <span class="nota conta">${fn:length(linhas)} registo(s)</span>
 </div>
 
 <c:choose>
@@ -35,14 +42,14 @@
         <thead><tr><th>ID</th><th>Nome</th><th>Categoria</th><th>Fornecedor</th><th class="num">Preço</th><th class="num">Stock</th><th>Validade</th></tr></thead>
         <tbody>
         <c:forEach var="p" items="${linhas}">
-            <tr class="${p.quantidade == 0 ? 'sem-stock' : ''}">
-                <td>${p.id}</td>
+            <tr class="${p.expirado ? 'linha-expirado' : ''}">
+                <td class="id">${p.id}</td>
                 <td><c:out value="${p.nome}"/></td>
                 <td><span class="etiqueta">${p.categoria}</span></td>
                 <td><c:out value="${fornecedorPorId[p.fornecedorId].nome}" default="—"/></td>
                 <td class="num"><fmt:formatNumber value="${p.preco}" minFractionDigits="2" maxFractionDigits="2"/> MT</td>
                 <td class="num">${p.quantidade} <c:out value="${p.unidade}"/></td>
-                <td>${empty p.validade ? '—' : p.validadeFmt}</td>
+                <td>${empty p.validade ? '—' : p.validadeFmt}<c:if test="${p.expirado}"> <span class="etiqueta etiqueta-expirado">Expirado</span></c:if></td>
             </tr>
         </c:forEach>
         </tbody>
@@ -55,7 +62,7 @@
         <tbody>
         <c:forEach var="f" items="${linhas}">
             <tr>
-                <td>${f.id}</td>
+                <td class="id">${f.id}</td>
                 <td><c:out value="${f.nome}"/></td>
                 <td><span class="etiqueta">${f.tipo}</span></td>
                 <td><c:out value="${f.contacto}"/></td>
@@ -72,7 +79,7 @@
         <tbody>
         <c:forEach var="s" items="${linhas}">
             <tr>
-                <td>${s.cliente.id}</td>
+                <td class="id">${s.cliente.id}</td>
                 <td><c:out value="${s.cliente.nome}"/></td>
                 <td><c:out value="${s.cliente.email}"/></td>
                 <td><c:out value="${s.cliente.telefone}"/></td>
@@ -97,7 +104,7 @@
                     <div><c:out value="${cli.nome}" default="Cliente removido"/></div>
                     <div class="nota"><c:out value="${cli.endereco}"/> · <c:out value="${cli.telefone}"/></div>
                 </div>
-                <a class="btn btn-sec btn-peq" href="${ctx}/factura?id=${v.id}">Ver factura</a>
+                <a class="btn btn-sec btn-peq" href="${ctx}/factura?id=${v.id}"><svg class="ic"><use href="#i-factura"/></svg>Ver factura</a>
             </header>
             <div class="tabela-wrap"><table class="tabela">
                 <thead><tr><th>Produto</th><th class="num">Qtd</th><th class="num">Preço unit.</th><th class="num">Subtotal</th></tr></thead>
@@ -121,5 +128,5 @@
     </c:forEach>
 </c:otherwise>
 </c:choose>
-<c:if test="${empty linhas}"><p class="nota">Sem registos.</p></c:if>
+<c:if test="${empty linhas}"><section class="card vazio"><%@ include file="../_broto.jspf" %><p>Nada para mostrar nesta listagem.</p></section></c:if>
 <%@ include file="../_footer.jspf" %>

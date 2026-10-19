@@ -1,0 +1,8 @@
+<%@ page pageEncoding="UTF-8" %>
+<c:if test="${not empty sessionScope.flash}">
+    <div class="alerta alerta-ok" role="status"><svg class="ic"><use href="#i-ok"/></svg><div><c:out value="${sessionScope.flash}"/></div></div>
+    <c:remove var="flash" scope="session"/>
+</c:if>
+<c:if test="${not empty erro}">
+    <div class="alerta alerta-erro" role="alert"><svg class="ic"><use href="#i-erro"/></svg><div><c:out value="${erro}"/></div></div>
+</c:if>

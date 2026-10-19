@@ -7,57 +7,85 @@
 <c:set var="eu" value="${sessionScope.utilizador}"/>
 <%-- página actual (URL original, não a JSP do forward) → link do menu em destaque --%>
 <c:set var="aqui" value="${fn:substringAfter(empty requestScope['jakarta.servlet.forward.request_uri'] ? pageContext.request.requestURI : requestScope['jakarta.servlet.forward.request_uri'], ctx)}"/>
+<c:set var="activo" value=' class="nav-link activo" aria-current="page"'/>
+<c:set var="normal" value=' class="nav-link"'/>
+<%-- ?v= muda a cada redesenho: o browser não usa CSS/JS antigo da cache --%>
 <!DOCTYPE html>
 <html lang="pt">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#262F1A">
     <title>AgroGest<c:if test="${not empty titulo}"> · <c:out value="${titulo}"/></c:if></title>
-    <link rel="stylesheet" href="${ctx}/css/style.css">
-    <c:forEach var="css" items="${estilos}"><link rel="stylesheet" href="${ctx}/css/${css}"></c:forEach>
+    <link rel="icon" href="${ctx}/img/logo.svg" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..600&family=Inter:wght@400;500;600;700&display=swap">
+    <link rel="stylesheet" href="${ctx}/css/style.css?v=11">
+    <c:forEach var="css" items="${estilos}"><link rel="stylesheet" href="${ctx}/css/${css}?v=11"></c:forEach>
+    <%-- antes do primeiro desenho: sem "salto" do menu recolhido nem do wizard --%>
+    <script>document.documentElement.classList.add('js');try{if(localStorage.getItem('agro-menu')==='recolhido')document.documentElement.classList.add('menu-recolhido')}catch(e){}</script>
+    <script src="${ctx}/js/app.js?v=11" defer></script>
 </head>
-<body>
-<header class="topo">
-    <div class="container topo-barra">
-        <a class="marca" href="${ctx}/">🌱 AgroGest</a>
-        <input type="checkbox" id="menu-toggle" class="menu-toggle">
-        <label for="menu-toggle" class="menu-botao" aria-label="Abrir menu">☰</label>
-        <nav class="menu">
+<body class="${empty eu ? 'publico' : 'app'}">
+<%@ include file="_icones.jspf" %>
+<c:choose>
+<c:when test="${empty eu}">
+<main class="publico-main">
+</c:when>
+<c:otherwise>
+<div class="shell">
+    <aside class="lateral" id="lateral" aria-label="Menu principal">
+        <a class="marca" href="${ctx}/">
+            <svg class="marca-logo" aria-hidden="true"><use href="#i-logo"/></svg>
+            <span class="marca-nome">Agro<em>Gest</em></span>
+        </a>
+        <nav class="nav">
             <c:choose>
                 <c:when test="${eu.admin}">
-                    <a href="${ctx}/admin"${aqui == '/admin' ? ' class="activo" aria-current="page"' : ''}>Dashboard</a>
-                    <a href="${ctx}/admin/fornecedores"${aqui == '/admin/fornecedores' ? ' class="activo" aria-current="page"' : ''}>Fornecedores</a>
-                    <a href="${ctx}/admin/produtos"${aqui == '/admin/produtos' ? ' class="activo" aria-current="page"' : ''}>Produtos</a>
-                    <a href="${ctx}/admin/campanhas"${aqui == '/admin/campanhas' ? ' class="activo" aria-current="page"' : ''}>Campanhas</a>
-                    <a href="${ctx}/admin/cultivos"${aqui == '/admin/cultivos' ? ' class="activo" aria-current="page"' : ''}>Cultivos</a>
-                    <a href="${ctx}/admin/colheitas"${aqui == '/admin/colheitas' ? ' class="activo" aria-current="page"' : ''}>Colheitas</a>
-                    <a href="${ctx}/admin/listagens"${aqui == '/admin/listagens' ? ' class="activo" aria-current="page"' : ''}>Listagens</a>
-                    <a href="${ctx}/admin/relatorios"${aqui == '/admin/relatorios' ? ' class="activo" aria-current="page"' : ''}>Relatórios</a>
-                    <a href="${ctx}/admin/persistencia"${aqui == '/admin/persistencia' ? ' class="activo" aria-current="page"' : ''}>Persistência</a>
-                    <a href="${ctx}/factura"${aqui == '/factura' ? ' class="activo" aria-current="page"' : ''}>Facturas</a>
-                </c:when>
-                <c:when test="${not empty eu}">
-                    <a href="${ctx}/catalogo"${aqui == '/catalogo' ? ' class="activo" aria-current="page"' : ''}>Catálogo</a>
-                    <a href="${ctx}/carrinho"${aqui == '/carrinho' ? ' class="activo" aria-current="page"' : ''}>Carrinho<c:if test="${not empty sessionScope.carrinho}"> <span class="contador">${fn:length(sessionScope.carrinho)}</span></c:if></a>
-                    <a href="${ctx}/minhas-compras"${aqui == '/minhas-compras' ? ' class="activo" aria-current="page"' : ''}>Minhas compras</a>
+                    <a href="${ctx}/admin"${aqui == '/admin' ? activo : normal}><svg class="ic"><use href="#i-painel"/></svg><span>Painel</span></a>
+                    <p class="nav-grupo">Catálogo</p>
+                    <a href="${ctx}/admin/fornecedores"${aqui == '/admin/fornecedores' ? activo : normal}><svg class="ic"><use href="#i-fornecedor"/></svg><span>Fornecedores</span></a>
+                    <a href="${ctx}/admin/produtos"${aqui == '/admin/produtos' ? activo : normal}><svg class="ic"><use href="#i-produto"/></svg><span>Produtos</span></a>
+                    <p class="nav-grupo">Produção</p>
+                    <a href="${ctx}/admin/campanhas"${aqui == '/admin/campanhas' ? activo : normal}><svg class="ic"><use href="#i-campanha"/></svg><span>Campanhas</span></a>
+                    <a href="${ctx}/admin/cultivos"${aqui == '/admin/cultivos' ? activo : normal}><svg class="ic"><use href="#i-cultivo"/></svg><span>Cultivos</span></a>
+                    <a href="${ctx}/admin/colheitas"${aqui == '/admin/colheitas' ? activo : normal}><svg class="ic"><use href="#i-colheita"/></svg><span>Colheitas</span></a>
+                    <p class="nav-grupo">Vendas</p>
+                    <a href="${ctx}/factura"${aqui == '/factura' ? activo : normal}><svg class="ic"><use href="#i-factura"/></svg><span>Facturas</span></a>
+                    <a href="${ctx}/admin/listagens"${aqui == '/admin/listagens' ? activo : normal}><svg class="ic"><use href="#i-listagem"/></svg><span>Listagens</span></a>
+                    <a href="${ctx}/admin/relatorios"${aqui == '/admin/relatorios' ? activo : normal}><svg class="ic"><use href="#i-relatorio"/></svg><span>Relatórios</span></a>
+                    <p class="nav-grupo">Sistema</p>
+                    <a href="${ctx}/admin/persistencia"${aqui == '/admin/persistencia' ? activo : normal}><svg class="ic"><use href="#i-persistencia"/></svg><span>Persistência</span></a>
                 </c:when>
                 <c:otherwise>
-                    <a href="${ctx}/login"${aqui == '/login' ? ' class="activo" aria-current="page"' : ''}>Entrar</a>
-                    <a href="${ctx}/registo"${aqui == '/registo' ? ' class="activo" aria-current="page"' : ''}>Registar</a>
+                    <a href="${ctx}/catalogo"${aqui == '/catalogo' ? activo : normal}><svg class="ic"><use href="#i-catalogo"/></svg><span>Catálogo</span></a>
+                    <a href="${ctx}/carrinho"${fn:startsWith(aqui, '/carrinho') || aqui == '/compra' ? activo : normal}><svg class="ic"><use href="#i-carrinho"/></svg><span>Carrinho</span><c:if test="${not empty sessionScope.carrinho}"><b class="contador">${fn:length(sessionScope.carrinho)}</b></c:if></a>
+                    <a href="${ctx}/minhas-compras"${aqui == '/minhas-compras' || aqui == '/factura' ? activo : normal}><svg class="ic"><use href="#i-compras"/></svg><span>Minhas compras</span></a>
                 </c:otherwise>
             </c:choose>
-            <c:if test="${not empty eu}">
-                <span class="menu-user" title="${eu.admin ? 'Administrador' : 'Cliente'}">👤 <c:out value="${eu.nome}"/></span>
-                <a href="${ctx}/logout">Sair</a>
-            </c:if>
         </nav>
-    </div>
-</header>
-<main class="container">
-<c:if test="${not empty sessionScope.flash}">
-    <div class="alerta alerta-ok"><c:out value="${sessionScope.flash}"/></div>
-    <c:remove var="flash" scope="session"/>
-</c:if>
-<c:if test="${not empty erro}">
-    <div class="alerta alerta-erro"><c:out value="${erro}"/></div>
-</c:if>
+        <div class="lateral-fim">
+            <div class="quem" title="${fn:escapeXml(eu.email)}">
+                <span class="avatar" aria-hidden="true">${fn:escapeXml(fn:toUpperCase(fn:substring(eu.nome, 0, 1)))}</span>
+                <span class="quem-texto"><strong><c:out value="${eu.nome}"/></strong><small>${eu.admin ? 'Administrador' : 'Cliente'}</small></span>
+            </div>
+            <a class="nav-link" href="${ctx}/logout"><svg class="ic"><use href="#i-sair"/></svg><span>Sair</span></a>
+        </div>
+    </aside>
+    <div class="fundo-gaveta" data-menu></div>
+    <div class="area">
+        <header class="barra">
+            <button class="btn-icone botao-menu" type="button" data-menu aria-controls="lateral" aria-label="Mostrar ou esconder o menu">
+                <svg class="ic"><use href="#i-menu"/></svg>
+            </button>
+            <p class="barra-trilho"><span>${eu.admin ? 'Administração' : 'Loja'}</span><c:if test="${not empty titulo}"><svg class="ic"><use href="#i-seta-dir"/></svg><c:out value="${titulo}"/></c:if></p>
+            <c:if test="${not eu.admin}">
+                <a class="btn btn-sec btn-peq barra-carrinho" href="${ctx}/carrinho"><svg class="ic"><use href="#i-carrinho"/></svg><span>Carrinho</span><c:if test="${not empty sessionScope.carrinho}"><b class="contador">${fn:length(sessionScope.carrinho)}</b></c:if></a>
+            </c:if>
+        </header>
+<main class="conteudo">
+</c:otherwise>
+</c:choose>
+<%-- páginas públicas (login, registo) mostram os alertas dentro do formulário --%>
+<c:if test="${not empty eu}"><%@ include file="_alertas.jspf" %></c:if>

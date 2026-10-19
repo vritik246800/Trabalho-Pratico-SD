@@ -1,6 +1,9 @@
+<%@ page pageEncoding="UTF-8" %>
 </main>
-<footer class="rodape">
-    <div class="container">AgroGest · Sistemas Distribuídos 2026 · Grupo 13</div>
-</footer>
+<c:if test="${not empty eu}">
+        <footer class="rodape">AgroGest · Sistemas Distribuídos 2026 · Grupo 13 · Nampula</footer>
+    </div>
+</div>
+</c:if>
 </body>
 </html>

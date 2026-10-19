@@ -1,0 +1,7 @@
+<%@ page pageEncoding="UTF-8" %>
+<%-- A11 — passos da compra (carrinho → confirmar → factura). passoCompra = 1, 2 ou 3 --%>
+<ol class="passos fluxo nao-imprimir" aria-label="Passos da compra">
+    <li class="${passoCompra > 1 ? 'feito' : 'actual'}"><span class="passo-marca"><b>1</b><svg class="ic"><use href="#i-ok"/></svg></span>Carrinho</li>
+    <li class="${passoCompra > 2 ? 'feito' : passoCompra == 2 ? 'actual' : ''}"><span class="passo-marca"><b>2</b><svg class="ic"><use href="#i-ok"/></svg></span>Confirmar</li>
+    <li class="${passoCompra == 3 ? 'actual' : ''}"><span class="passo-marca"><b>3</b><svg class="ic"><use href="#i-ok"/></svg></span>Factura</li>
+</ol>

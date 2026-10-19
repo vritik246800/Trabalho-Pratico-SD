@@ -1,6 +1,5 @@
 package mz.agrogest.service;
 
-import java.time.LocalDate;
 import java.util.Comparator;
 import java.util.List;
 
@@ -11,33 +10,63 @@ import mz.agrogest.repo.DataStore;
 /** A2 — produtos e reposição de stock. Escrita sob o lock do DataStore (o mesmo da venda). */
 public class ProdutoService {
 
+    /** null se não existe. */
+    public Produto produto(int id) {
+        return DataStore.get().produto(id);
+    }
+
     public List<Produto> listar() {
         List<Produto> l = DataStore.copia(DataStore.get().produtos);
         l.sort(Comparator.comparing(Produto::getNome, String.CASE_INSENSITIVE_ORDER));
         return l;
     }
 
-    public Produto criar(String nome, Categoria categoria, int fornecedorId, double preco, int quantidade,
-            String unidade, String descricao, String foto, LocalDate validade) {
-        nome = FornecedorService.obrigatorio(nome, "Nome");
-        unidade = FornecedorService.obrigatorio(unidade, "Unidade");
-        if (categoria == null) throw new NegocioException("Categoria obrigatória.");
-        if (!(preco > 0)) throw new NegocioException("O preço tem de ser maior que 0.");
-        if (quantidade < 0) throw new NegocioException("A quantidade não pode ser negativa.");
-        foto = foto == null ? "" : foto.trim();
-        // só http(s): impede "javascript:" no <img src>
-        if (!foto.isEmpty() && !foto.matches("(?i)https?://\\S+"))
-            throw new NegocioException("A foto tem de ser um URL http:// ou https://.");
-
+    /** dados = produto ainda sem id, com o que veio do formulário. */
+    public Produto criar(Produto dados) {
+        Produto p = validar(dados);
         DataStore ds = DataStore.get();
         synchronized (ds) {
-            if (ds.fornecedor(fornecedorId) == null) throw new NegocioException("Fornecedor não existe.");
-            Produto p = new Produto(nome, categoria, fornecedorId, preco, quantidade, unidade,
-                    descricao == null ? "" : descricao.trim(), foto, validade);
+            if (ds.fornecedor(p.getFornecedorId()) == null) throw new NegocioException("Fornecedor não existe.");
             p.setId(ds.nextProdutoId());
             ds.produtos.add(p);
             return p;
         }
+    }
+
+    /** A10 — troca todos os campos do produto id pelos de dados. Mesmas validações do criar. */
+    public Produto editar(int id, Produto dados) {
+        Produto v = validar(dados);
+        DataStore ds = DataStore.get();
+        synchronized (ds) {
+            Produto p = ds.produto(id);
+            if (p == null) throw new NegocioException("Produto não existe.");
+            if (ds.fornecedor(v.getFornecedorId()) == null) throw new NegocioException("Fornecedor não existe.");
+            p.setNome(v.getNome());
+            p.setCategoria(v.getCategoria());
+            p.setFornecedorId(v.getFornecedorId());
+            p.setPreco(v.getPreco());
+            p.setQuantidade(v.getQuantidade());
+            p.setUnidade(v.getUnidade());
+            p.setDescricao(v.getDescricao());
+            p.setFoto(v.getFoto());
+            p.setValidade(v.getValidade());
+            return p;
+        }
+    }
+
+    /** Produto novo (sem id) com os campos limpos e validados. */
+    private static Produto validar(Produto d) {
+        String nome = FornecedorService.obrigatorio(d.getNome(), "Nome");
+        String unidade = FornecedorService.obrigatorio(d.getUnidade(), "Unidade");
+        if (d.getCategoria() == null) throw new NegocioException("Categoria obrigatória.");
+        if (!(d.getPreco() > 0)) throw new NegocioException("O preço tem de ser maior que 0.");
+        if (d.getQuantidade() < 0) throw new NegocioException("A quantidade não pode ser negativa.");
+        String foto = d.getFoto() == null ? "" : d.getFoto().trim();
+        // só http(s): impede "javascript:" no <img src>
+        if (!foto.isEmpty() && !foto.matches("(?i)https?://\\S+"))
+            throw new NegocioException("A foto tem de ser um URL http:// ou https://.");
+        return new Produto(nome, d.getCategoria(), d.getFornecedorId(), d.getPreco(), d.getQuantidade(), unidade,
+                d.getDescricao() == null ? "" : d.getDescricao().trim(), foto, d.getValidade());
     }
 
     /** A8 — produtos com validade passada, para o alerta do admin. Mais antigo primeiro. */

@@ -2,16 +2,21 @@
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <c:set var="titulo" value="${empty venda ? 'Factura' : venda.numeroFactura}"/>
 <c:set var="estilos" value="${['cliente-b.css']}"/>
+<%-- antes do cabeçalho apagar o flash: veio agora do POST /compra → mostra os passos da compra --%>
+<c:set var="acabouDeComprar" value="${not empty sessionScope.flash}"/>
 <%@ include file="_header.jspf" %>
 <c:set var="voltar" value="${eu.admin ? '/factura' : '/minhas-compras'}"/>
+<c:set var="passoCompra" value="3"/>
 
 <c:choose>
 <c:when test="${empty venda}">
     <%-- 403 (RN03: factura de outro cliente) ou 404 --%>
-    <section class="card card-estreito">
+    <section class="card card-estreito negado">
+        <svg class="negado-ic" viewBox="0 0 24 24" aria-hidden="true"><use href="#${negado ? 'i-cadeado' : 'i-factura'}"/></svg>
         <c:choose>
             <c:when test="${negado}">
-                <h1>403 · Acesso negado</h1>
+                <p class="olho">Erro 403</p>
+                <h1>Acesso negado</h1>
                 <p>Esta factura não é sua. Cada cliente só pode ver as suas facturas.</p>
             </c:when>
             <c:otherwise>
@@ -23,15 +28,16 @@
     </section>
 </c:when>
 <c:otherwise>
-    <div class="botoes-fim botoes-topo nao-imprimir">
-        <a class="btn btn-sec" href="${ctx}${voltar}">← ${eu.admin ? 'Todas as facturas' : 'Minhas compras'}</a>
-        <button class="btn" type="button" onclick="window.print()">Imprimir</button>
+    <c:if test="${not eu.admin and acabouDeComprar}"><%@ include file="_fluxo.jspf" %></c:if>
+    <div class="botoes-topo nao-imprimir">
+        <a class="btn btn-sec" href="${ctx}${voltar}"><svg class="ic"><use href="#i-seta-esq"/></svg>${eu.admin ? 'Todas as facturas' : 'Minhas compras'}</a>
+        <button class="btn btn-acento" type="button" onclick="window.print()"><svg class="ic"><use href="#i-imprimir"/></svg>Imprimir</button>
     </div>
 
     <article class="card factura">
         <header class="factura-topo">
             <div>
-                <div class="factura-marca">🌱 AgroGest</div>
+                <div class="factura-marca"><svg class="marca-logo" aria-hidden="true"><use href="#i-logo"/></svg><span>Agro<em>Gest</em></span></div>
                 <div class="nota">Sistema de Gestão Agrícola · Nampula, Moçambique</div>
             </div>
             <div class="factura-num">

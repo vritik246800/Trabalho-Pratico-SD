@@ -4,14 +4,20 @@
 <c:set var="titulo" value="Cultivos"/>
 <c:set var="estilos" value="${['admin-c.css']}"/>
 <%@ include file="../_header.jspf" %>
-<h1>Cultivos</h1>
+<header class="cabeca">
+    <div class="cabeca-texto">
+        <p class="olho"><svg class="ic"><use href="#i-cultivo"/></svg>Produção</p>
+        <h1>Cultivos</h1>
+        <p>Culturas plantadas em cada campanha. Cultivo com colheitas não pode ser removido.</p>
+    </div>
+</header>
 
 <%-- Selector de campanha --%>
 <section class="card sel-campanha">
     <form method="get" action="${ctx}/admin/cultivos" class="form-inline-sel">
-        <label><strong>Campanha:</strong>
-            <select name="campanha" onchange="this.form.submit()" class="sel-campo">
-                <option value="">— seleccionar —</option>
+        <label><svg class="ic"><use href="#i-campanha"/></svg><strong>Campanha</strong>
+            <select name="campanha" onchange="this.form.submit()" class="sel-campo campo-solto">
+                <option value="">Escolha…</option>
                 <c:forEach var="camp" items="${campanhas}">
                     <option value="${camp.id}"
                             ${campanhaId == camp.id ? 'selected' : ''}>
@@ -25,11 +31,14 @@
     </form>
 </section>
 
+<c:if test="${empty campanhaId}">
+    <section class="card vazio"><%@ include file="../_broto.jspf" %><p>Escolha uma campanha para ver os cultivos e registar novos.</p></section>
+</c:if>
 <c:if test="${not empty campanhaId}">
     <%-- Formulário novo cultivo — só para campanhas abertas --%>
     <c:if test="${not empty campanhaSel && !campanhaSel.fechada}">
     <section class="card">
-        <h2 class="sem-margem">Novo cultivo — <c:out value="${campanhaSel.nome}"/></h2>
+        <h2 class="sem-margem titulo-ic"><svg class="ic"><use href="#i-mais"/></svg>Novo cultivo · <c:out value="${campanhaSel.nome}"/></h2>
         <form class="form" method="post" action="${ctx}/admin/cultivos">
             <input type="hidden" name="acao" value="criar">
             <input type="hidden" name="campanhaId" value="${campanhaId}">
@@ -51,12 +60,12 @@
                            value="${param.acao == 'criar' ? fn:escapeXml(param.plantio) : ''}">
                 </label>
             </div>
-            <div><button class="btn" type="submit">Registar cultivo</button></div>
+            <div class="form-fim"><button class="btn btn-acento" type="submit"><svg class="ic"><use href="#i-mais"/></svg>Registar cultivo</button></div>
         </form>
     </section>
     </c:if>
     <c:if test="${not empty campanhaSel && campanhaSel.fechada}">
-        <div class="alerta alerta-ok">Campanha fechada — não é possível adicionar cultivos.</div>
+        <div class="alerta alerta-info"><svg class="ic"><use href="#i-cadeado"/></svg><div>Campanha fechada: não aceita cultivos novos. Reabra-a em Campanhas para registar mais.</div></div>
     </c:if>
 
     <%-- Tabela de cultivos --%>
@@ -72,7 +81,7 @@
         <tbody>
         <c:forEach var="cv" items="${cultivos}">
             <tr>
-                <td>${cv.id}</td>
+                <td class="id">${cv.id}</td>
                 <td><c:out value="${cv.cultura}"/></td>
                 <td><c:out value="${cv.variedade}"/></td>
                 <td class="num">${cv.hectares}</td>
@@ -86,14 +95,14 @@
                         <input type="hidden" name="acao" value="remover">
                         <input type="hidden" name="id" value="${cv.id}">
                         <input type="hidden" name="campanhaId" value="${campanhaId}">
-                        <button class="btn btn-danger btn-peq" type="submit"
-                                ${not empty cv.colheitas ? 'title="Tem colheitas associadas" disabled' : ''}>Remover</button>
+                        <button class="btn-icone btn-peq perigo" type="submit" aria-label="Remover"
+                                ${not empty cv.colheitas ? 'title="Tem colheitas associadas" disabled' : ''}><svg class="ic"><use href="#i-remover"/></svg></button>
                     </form>
                 </td>
             </tr>
         </c:forEach>
         <c:if test="${empty cultivos}">
-            <tr><td colspan="7" class="nota">Sem cultivos nesta campanha.</td></tr>
+            <tr><td colspan="7" class="vazio-linha">Sem cultivos nesta campanha.</td></tr>
         </c:if>
         </tbody>
     </table>

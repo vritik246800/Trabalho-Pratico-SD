@@ -1,24 +1,76 @@
-/* Pacote A · admin: dashboard, fornecedores, produtos, listagens, relatórios */
+/* Pacote A · admin: painel, fornecedores, produtos, listagens, relatórios (A11) */
 
-.sem-margem { margin-top: 0; }
+/* painel: as contagens como um livro de registos, uma régua só */
+.razao {
+    display: grid; grid-template-columns: repeat(5, minmax(0, 1fr));
+    margin-bottom: 22px; overflow: hidden;
+    border: 1px solid var(--argila); border-radius: var(--raio); background: var(--papel); box-shadow: var(--sombra);
+}
+.razao a {
+    position: relative; display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 4px 10px;
+    padding: 20px 22px 22px; color: inherit; text-decoration: none;
+    border-left: 1px solid var(--argila); transition: background .2s;
+}
+.razao a:first-child { border-left: 0; }
+.razao a:hover { background: #F6F1E7; }
+.razao a::after { /* sublinhado que cresce ao passar */
+    content: ""; position: absolute; left: 22px; right: 22px; bottom: 0; height: 3px;
+    background: var(--terracota); transform: scaleX(0); transform-origin: left; transition: transform .3s var(--mola);
+}
+.razao a:hover::after { transform: scaleX(1); }
+.razao .ic { color: var(--terracota); }
+.razao-rotulo { font-size: .78rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--folha); }
+.razao strong {
+    grid-column: 1 / -1; font-family: var(--serif); font-weight: 500; font-size: 2.8rem; line-height: 1;
+    color: var(--oliva-noite); font-variant-numeric: tabular-nums; font-variation-settings: "opsz" 144;
+}
 
-.kpi { display: flex; flex-direction: column; text-decoration: none; color: inherit; border-top: 4px solid var(--verde); }
-.kpi:hover, .atalho:hover { border-color: var(--verde); }
-.kpi-num { font-size: 2.2rem; font-weight: 700; color: var(--verde); line-height: 1.1; }
-.kpi-rotulo { color: var(--suave); }
-.atalho { display: flex; flex-direction: column; gap: 4px; text-decoration: none; color: inherit; }
-.atalho span { color: var(--suave); font-size: .9rem; }
+.modulos { grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); }
+.modulo { display: flex !important; flex-direction: column; gap: 4px; margin-bottom: 0; }
+.modulo strong { font-family: var(--serif); font-size: 1.1rem; font-weight: 600; color: var(--oliva-noite); }
+.modulo > span:last-child { color: var(--folha); font-size: .88rem; }
+.modulo-ic {
+    display: grid; place-items: center; width: 44px; height: 44px; margin-bottom: 10px;
+    border-radius: 12px; background: var(--oliva-claro); color: var(--oliva); transition: background .25s, color .25s, transform .4s var(--mola);
+}
+.modulo:hover .modulo-ic { background: var(--terracota); color: #fff; transform: rotate(-6deg); }
 
-.etiqueta { display: inline-block; font-size: .75rem; font-weight: 600; letter-spacing: .02em; padding: 2px 8px; border-radius: 999px; background: var(--verde-claro); color: var(--verde-escuro); }
-.mini { width: 40px; height: 40px; object-fit: cover; border-radius: 4px; }
-.sem-stock td { color: var(--suave); }
-.repor input { width: 80px; padding: 4px 6px; border: 1px solid var(--borda); border-radius: 6px; font: inherit; }
+/* produtos */
+.prod { display: flex; align-items: center; gap: 12px; min-width: 220px; }
+.prod-foto {
+    position: relative; display: grid; place-items: center; width: 44px; height: 44px; flex: none; overflow: hidden;
+    border-radius: 10px; background: var(--oliva-claro); color: var(--oliva);
+}
+.prod-foto img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.repor { display: inline-flex !important; align-items: center; gap: 6px; }
+.repor .campo-solto { width: 86px; min-height: 34px; padding: 4px 10px; border: 1px solid var(--argila-forte); border-radius: 8px; font: inherit; font-size: .88rem; background: #fff; }
 
-.separadores { display: flex; flex-wrap: wrap; gap: 4px; border-bottom: 2px solid var(--borda); margin-bottom: 16px; }
-.separadores a { padding: 8px 14px; text-decoration: none; color: var(--suave); border-bottom: 2px solid transparent; margin-bottom: -2px; }
-.separadores a.activo, .separadores a:hover { color: var(--verde); border-color: var(--verde); }
-.ordenar { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-bottom: 16px; }
+/* listagens */
+.ordenar { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin-bottom: 18px; }
+.ordenar .ic { width: 14px; height: 14px; }
+.ordenar .conta { margin-left: auto; }
+.compra { padding: 0; overflow: hidden; }
+.compra-topo { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; padding: 18px 22px; border-bottom: 1px solid var(--argila); }
+.compra-topo strong { font-family: var(--serif); font-size: 1.1rem; }
+.compra .tabela-wrap { border: 0; border-radius: 0; margin: 0; }
 
-.compra-topo { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 12px; }
-.tabela tfoot td { border-bottom: 0; }
-.tabela tfoot .total td { font-weight: 700; border-top: 2px solid var(--borda); }
+/* relatórios: posição no ranking */
+.posicao {
+    display: inline-grid; place-items: center; width: 28px; height: 28px; border-radius: 50%;
+    background: var(--argila); color: var(--oliva-noite); font-family: var(--serif); font-weight: 600; font-size: .9rem;
+}
+tr:nth-child(1) .posicao { background: var(--milho); color: #fff; }
+tr:nth-child(2) .posicao { background: #B8B09A; color: #fff; }
+tr:nth-child(3) .posicao { background: var(--terracota); color: #fff; }
+.relatorios { display: grid; grid-template-columns: repeat(auto-fit, minmax(420px, 1fr)); gap: 18px; }
+.relatorios .card { margin: 0; scroll-margin-top: 80px; }
+.relatorios .largo { grid-column: 1 / -1; }
+
+@media (max-width: 900px) {
+    .razao { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .razao a { border-left: 0; border-top: 1px solid var(--argila); }
+    .razao a:nth-child(-n+2) { border-top: 0; }
+    .razao a:nth-child(even) { border-left: 1px solid var(--argila); }
+    .razao strong { font-size: 2.2rem; }
+    .relatorios { grid-template-columns: 1fr; }
+}
