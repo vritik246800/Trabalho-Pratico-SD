@@ -31,6 +31,8 @@ Requisitos completos: `Docs/Enunciado AgroGest 2026.pdf`.
 | A7  | Abrir pasta do `.ser` no SO    | A      | ✅ Vritik |
 | A8  | Produto expirado (venda + alerta) | A   | ✅ Vritik |
 | A9  | Polimento UI/UX admin e cliente | A     | ✅ Vritik |
+| A10 | Editar produto (todos os campos) | A    | 🔒 Vritik |
+| A11 | Redesign completo da UI (sidebar, wizard, login, SVG) | A | 🔒 Vritik |
 | B1  | Auto-registo                   | B      | ✅ Yannis |
 | B2  | Catálogo com filtro            | B      | ✅ Yannis |
 | B3  | Carrinho em sessão             | B      | ✅ Yannis |
@@ -201,8 +203,10 @@ Ficheiros do pacote :: `service/FornecedorService`, `service/ProdutoService`,
 
 | A8 | `/catalogo`, `/carrinho`, `/compra`, `/admin`, `/admin/produtos` | cliente não compra produto com `validade` < hoje · admin vê alerta de expirados no dashboard e na lista de produtos | `Produto.isExpirado()` (getter calculado, sem campo novo) · bloqueio em `VendaService` (RN01: adicionar, actualizar, finalizar) |
 | A9 | todas | polimento visual: menu com página activa, cartões, tabelas, forms, alertas, responsivo | só CSS/JSP · sem frameworks · mesmo layout |
+| A10 | `POST /admin/produtos` `acao=editar` | editar todos os campos do produto (nome, categoria, fornecedor, preço, stock, unidade, validade, foto, descrição) | mesmas validações do criar · escrita `synchronized` no lock do `DataStore` |
+| A11 | todas | redesign completo: paleta terra/savana, sidebar retráctil com botão de menu, login novo, wizard em produto/registo/compra, ícones SVG (animados), sem emoji | só CSS/JSP/JS próprio · sem frameworks |
 
-A8/A9 tocam ficheiros do pacote B (`VendaService`, `catalogo.jsp`, `cliente-b.css`) e partilhados
+A8–A11 tocam ficheiros do pacote B (`VendaService`, `catalogo.jsp`, `cliente-b.css`) e partilhados
 (`Produto`, `_header.jspf`, `style.css`) :: B já ✅, decisão do Vritik (dono do repo).
 
 Testar sem B :: vendas e clientes seed chegam para A3/A4.
