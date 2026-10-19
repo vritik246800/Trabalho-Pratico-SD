@@ -40,6 +40,14 @@ public class ProdutoService {
         }
     }
 
+    /** A8 — produtos com validade passada, para o alerta do admin. Mais antigo primeiro. */
+    public List<Produto> expirados() {
+        return DataStore.copia(DataStore.get().produtos).stream()
+                .filter(Produto::isExpirado)
+                .sorted(Comparator.comparing(Produto::getValidade))
+                .toList();
+    }
+
     /** Soma qtd ao stock actual. */
     public Produto reporStock(int id, int qtd) {
         if (qtd <= 0) throw new NegocioException("A quantidade a repor tem de ser maior que 0.");

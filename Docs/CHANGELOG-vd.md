@@ -2,6 +2,28 @@
 
 Entradas desta branch. Mais recente no topo.
 
+## [A9] Polimento UI/UX admin e cliente — 2026-10-19 · Vritik
+- update: AgroGest/src/main/webapp/WEB-INF/views/_header.jspf
+- update: AgroGest/src/main/webapp/css/style.css
+- update: AgroGest/src/main/webapp/css/cliente-b.css
+- menu :: página activa em destaque (`aria-current`), contador do carrinho em badge, nome do utilizador
+- topo sticky com sombra · cartões com sombra e hover · tabelas com moldura, cabeçalho compacto, zebra
+- forms com anel de foco · `:focus-visible` · `.alerta-aviso` novo · mobile: tabela-cartões sem moldura dupla
+
+## [A8] Produto expirado: sem venda + alerta no admin — 2026-10-19 · Vritik
+- update: AgroGest/src/main/java/mz/agrogest/model/Produto.java
+- update: AgroGest/src/main/java/mz/agrogest/service/VendaService.java
+- update: AgroGest/src/main/java/mz/agrogest/service/ProdutoService.java
+- update: AgroGest/src/main/java/mz/agrogest/servlet/admin/DashboardServlet.java
+- update: AgroGest/src/main/java/mz/agrogest/servlet/admin/ProdutoServlet.java
+- update: AgroGest/src/main/webapp/WEB-INF/views/catalogo.jsp
+- update: AgroGest/src/main/webapp/WEB-INF/views/admin/dashboard.jsp
+- update: AgroGest/src/main/webapp/WEB-INF/views/admin/produtos.jsp
+- `Produto.isExpirado()` :: `validade < hoje` (getter calculado, sem campo novo → `.ser` compatível)
+- RN01 :: `VendaService` recusa adicionar/actualizar/finalizar produto expirado (mensagem na JSP, stock intacto)
+- catálogo :: selo "Expirado" na foto, botão "Fora da validade" desactivado
+- admin :: alerta com lista de expirados no dashboard · alerta + linha/etiqueta vermelha em Produtos
+
 ## [A7] Abrir pasta do .ser no Finder / Explorador — 2026-10-15 · Vritik
 - update: AgroGest/src/main/java/mz/agrogest/repo/Persistencia.java
 - update: AgroGest/src/main/java/mz/agrogest/servlet/admin/PersistenciaServlet.java

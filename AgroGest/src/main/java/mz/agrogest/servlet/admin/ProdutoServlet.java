@@ -27,6 +27,7 @@ public class ProdutoServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         req.setAttribute("produtos", service.listar());
+        req.setAttribute("expirados", service.expirados());
         req.setAttribute("fornecedores", fornecedores.listar());
         req.setAttribute("fornecedorPorId", relatorios.fornecedoresPorId());
         req.setAttribute("categorias", Categoria.values());

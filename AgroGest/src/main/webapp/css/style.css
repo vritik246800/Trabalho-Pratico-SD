@@ -13,7 +13,11 @@
     --erro: #b42318;
     --erro-fundo: #fdecea;
     --ok-fundo: #e7f4ea;
-    --raio: 8px;
+    --aviso: #8a5a00;
+    --aviso-fundo: #fff6e0;
+    --raio: 10px;
+    --sombra: 0 1px 2px rgba(31, 42, 34, .06), 0 2px 8px rgba(31, 42, 34, .05);
+    --sombra-alta: 0 4px 16px rgba(31, 42, 34, .12);
 }
 
 * { box-sizing: border-box; }
@@ -31,20 +35,23 @@ body {
 }
 
 main { flex: 1; padding-top: 24px; padding-bottom: 32px; }
-h1 { font-size: 1.6rem; margin: 0 0 16px; }
-h2 { font-size: 1.25rem; margin: 24px 0 12px; }
+h1 { font-size: 1.7rem; margin: 0 0 20px; letter-spacing: -.01em; }
+h2 { font-size: 1.2rem; margin: 28px 0 12px; }
 a { color: var(--verde); }
+:focus-visible { outline: 3px solid #7fb48a; outline-offset: 2px; }
 
 .container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 16px; }
 
 /* --- topo e menu --- */
-.topo { background: var(--verde); color: var(--branco); }
+.topo { background: linear-gradient(90deg, var(--verde-escuro), var(--verde)); color: var(--branco); position: sticky; top: 0; z-index: 10; box-shadow: 0 2px 8px rgba(0, 0, 0, .15); }
 .topo-barra { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; min-height: 56px; }
 .marca { color: var(--branco); font-weight: 700; font-size: 1.2rem; text-decoration: none; margin-right: auto; }
 .menu { display: flex; flex-wrap: wrap; align-items: center; gap: 4px; }
-.menu a { color: var(--branco); text-decoration: none; padding: 6px 10px; border-radius: 6px; }
-.menu a:hover { background: var(--verde-escuro); }
-.menu-user { opacity: .8; padding: 0 8px; font-size: .9rem; }
+.menu a { color: var(--branco); text-decoration: none; padding: 6px 10px; border-radius: 6px; font-size: .95rem; transition: background .15s; }
+.menu a:hover { background: rgba(255, 255, 255, .14); }
+.menu a.activo { background: var(--branco); color: var(--verde-escuro); font-weight: 600; }
+.menu-user { opacity: .85; padding: 0 8px 0 12px; margin-left: 4px; font-size: .9rem; border-left: 1px solid rgba(255, 255, 255, .3); }
+.contador { display: inline-block; min-width: 20px; padding: 0 6px; border-radius: 999px; background: var(--terra); color: var(--branco); font-size: .75rem; font-weight: 700; text-align: center; }
 .menu-toggle, .menu-botao { display: none; }
 
 /* --- grelha e cartões --- */
@@ -55,8 +62,11 @@ a { color: var(--verde); }
     border-radius: var(--raio);
     padding: 20px;
     margin-bottom: 16px;
+    box-shadow: var(--sombra);
 }
-.card-estreito { max-width: 420px; margin: 40px auto; }
+a.card { transition: box-shadow .15s, transform .15s; }
+a.card:hover { box-shadow: var(--sombra-alta); transform: translateY(-2px); }
+.card-estreito { max-width: 420px; margin: 48px auto; padding: 28px; border-top: 4px solid var(--verde); }
 
 /* --- botões --- */
 .btn {
@@ -67,9 +77,12 @@ a { color: var(--verde); }
     border-radius: 6px;
     padding: 9px 16px;
     font: inherit;
+    font-weight: 600;
     text-decoration: none;
     cursor: pointer;
+    transition: background .15s, box-shadow .15s;
 }
+.btn:active { transform: translateY(1px); }
 .btn:hover { background: var(--verde-escuro); }
 .btn-danger { background: var(--erro); }
 .btn-danger:hover { background: #8f1c13; }
@@ -78,11 +91,14 @@ a { color: var(--verde); }
 .btn-peq { padding: 4px 10px; font-size: .875rem; }
 
 /* --- tabelas (scroll horizontal em ecrã pequeno) --- */
-.tabela-wrap { overflow-x: auto; }
+.tabela-wrap { overflow-x: auto; border: 1px solid var(--borda); border-radius: var(--raio); box-shadow: var(--sombra); background: var(--branco); margin-bottom: 16px; }
 .tabela { width: 100%; border-collapse: collapse; background: var(--branco); }
-.tabela th, .tabela td { padding: 8px 10px; border-bottom: 1px solid var(--borda); text-align: left; vertical-align: top; }
-.tabela th { background: var(--verde-claro); white-space: nowrap; }
-.tabela tr:hover td { background: #fafbf9; }
+.tabela th, .tabela td { padding: 10px 12px; border-bottom: 1px solid var(--borda); text-align: left; vertical-align: middle; }
+.tabela th { background: var(--verde-claro); white-space: nowrap; font-size: .8rem; text-transform: uppercase; letter-spacing: .04em; color: var(--verde-escuro); }
+.tabela tbody tr:last-child td { border-bottom: 0; }
+.tabela tbody tr:nth-child(even) td { background: #fbfcfa; }
+.tabela tr:hover td { background: #f1f6f1; }
+.tabela .num { font-variant-numeric: tabular-nums; }
 .tabela .num { text-align: right; white-space: nowrap; }
 .tabela .acoes { white-space: nowrap; }
 .tabela form { display: inline; }
@@ -99,27 +115,37 @@ a { color: var(--verde); }
     background: var(--branco);
     width: 100%;
 }
-.form input:focus, .form select:focus, .form textarea:focus { outline: 2px solid var(--verde); border-color: var(--verde); }
+.form input:focus, .form select:focus, .form textarea:focus { outline: 0; border-color: var(--verde); box-shadow: 0 0 0 3px rgba(47, 107, 58, .2); }
+.form input:invalid:not(:placeholder-shown):not(:focus) { border-color: var(--erro); }
 .form-linha { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
 
 /* --- mensagens --- */
 .alerta { padding: 12px 16px; border-radius: 6px; margin-bottom: 16px; border-left: 4px solid; }
 .alerta-erro { background: var(--erro-fundo); border-color: var(--erro); color: var(--erro); }
 .alerta-ok { background: var(--ok-fundo); border-color: var(--verde); color: var(--verde-escuro); }
+.alerta-aviso { background: var(--aviso-fundo); border-color: #d89b00; color: var(--aviso); }
+.alerta-aviso a { color: var(--aviso); font-weight: 600; }
+.lista-alerta { margin: 8px 0; padding-left: 20px; }
 .nota { color: var(--suave); font-size: .9rem; }
 
-.rodape { background: var(--branco); border-top: 1px solid var(--borda); color: var(--suave); font-size: .85rem; padding: 16px 0; }
+.rodape { background: var(--branco); border-top: 1px solid var(--borda); color: var(--suave); font-size: .85rem; padding: 16px 0; text-align: center; }
+
+/* A8 — produto fora da validade */
+.etiqueta-expirado { background: var(--erro-fundo) !important; color: var(--erro) !important; }
+.linha-expirado td, .tabela tbody tr.linha-expirado:nth-child(even) td { background: var(--erro-fundo); }
 
 /* --- telemóvel: menu recolhido --- */
 @media (max-width: 760px) {
     .menu-botao { display: block; cursor: pointer; font-size: 1.5rem; padding: 4px 8px; }
     .menu { display: none; width: 100%; flex-direction: column; align-items: stretch; padding-bottom: 8px; }
     .menu-toggle:checked ~ .menu { display: flex; }
+    .menu-user { border-left: 0; padding: 8px 10px 0; margin: 0; }
     h1 { font-size: 1.35rem; }
 }
 
 @media print {
     .topo, .rodape, .btn, .nao-imprimir { display: none !important; }
+    .card, .tabela-wrap { box-shadow: none; border: 0; }
     body { background: var(--branco); }
     .card { border: 0; padding: 0; }
 }

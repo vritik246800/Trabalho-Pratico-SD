@@ -29,9 +29,10 @@
 <c:forEach var="p" items="${produtos}">
     <c:set var="noCarrinho" value="${empty carrinho[p.id] ? 0 : carrinho[p.id]}"/>
     <c:set var="podeJuntar" value="${p.quantidade - noCarrinho}"/>
-    <article class="card produto ${p.quantidade == 0 ? 'esgotado' : ''}" id="p${p.id}">
+    <article class="card produto ${p.quantidade == 0 || p.expirado ? 'esgotado' : ''}" id="p${p.id}">
         <%-- sem foto (ou foto que não carrega) mostra o ícone da categoria --%>
         <div class="produto-foto" data-icone="${icone[p.categoria.name()]}">
+            <c:if test="${p.expirado}"><span class="selo-foto selo-expirado">Expirado</span></c:if>
             <c:if test="${not empty p.foto}">
                 <img src="${fn:escapeXml(p.foto)}" alt="${fn:escapeXml(p.nome)}" loading="lazy" onerror="this.remove()">
             </c:if>
@@ -54,7 +55,7 @@
                     </c:choose>
                 </dd>
                 <dt>Validade</dt>
-                <dd>${empty p.validade ? '—' : p.validadeFmt}</dd>
+                <dd class="${p.expirado ? 'texto-erro' : ''}">${empty p.validade ? '—' : p.validadeFmt}</dd>
             </dl>
             <c:if test="${noCarrinho > 0}">
                 <p class="no-carrinho">No carrinho: ${noCarrinho}&nbsp;<c:out value="${p.unidade}"/></p>
@@ -62,6 +63,9 @@
 
             <c:choose>
                 <c:when test="${eu.admin}"></c:when>
+                <c:when test="${p.expirado}">
+                    <button class="btn" type="button" disabled>Fora da validade</button>
+                </c:when>
                 <c:when test="${p.quantidade == 0}">
                     <button class="btn" type="button" disabled>Esgotado</button>
                 </c:when>

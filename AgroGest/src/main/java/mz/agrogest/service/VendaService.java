@@ -240,6 +240,7 @@ public class VendaService {
     static String problema(Produto p, int qtd) {
         if (p == null) return "já não está à venda";
         if (qtd <= 0) return "quantidade inválida";
+        if (p.isExpirado()) return "fora da validade (expirou a " + p.getValidadeFmt() + ")"; // A8
         if (p.getQuantidade() == 0) return "esgotado";
         if (qtd > p.getQuantidade())
             return "pediu " + qtd + " " + p.getUnidade() + ", só há " + p.getQuantidade() + " " + p.getUnidade() + " em stock";
@@ -247,6 +248,8 @@ public class VendaService {
     }
 
     private static void exigirStock(Produto p, long qtd, int jaTem) {
+        if (p.isExpirado()) // A8
+            throw new NegocioException("\"" + p.getNome() + "\" está fora da validade (expirou a " + p.getValidadeFmt() + ").");
         if (p.getQuantidade() == 0) throw new NegocioException("\"" + p.getNome() + "\" está esgotado.");
         if (qtd > p.getQuantidade())
             throw new NegocioException("Stock insuficiente para \"" + p.getNome() + "\": só há " + p.getQuantidade() + " "

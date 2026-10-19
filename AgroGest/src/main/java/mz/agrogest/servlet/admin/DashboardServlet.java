@@ -7,6 +7,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import mz.agrogest.service.ProdutoService;
 import mz.agrogest.service.RelatorioService;
 
 /** A5 — /admin: contagens + atalhos para os módulos. */
@@ -14,10 +15,12 @@ import mz.agrogest.service.RelatorioService;
 public class DashboardServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private final RelatorioService service = new RelatorioService();
+    private final ProdutoService produtos = new ProdutoService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         req.setAttribute("contagens", service.contagens());
+        req.setAttribute("expirados", produtos.expirados()); // A8
         req.getRequestDispatcher("/WEB-INF/views/admin/dashboard.jsp").forward(req, res);
     }
 }

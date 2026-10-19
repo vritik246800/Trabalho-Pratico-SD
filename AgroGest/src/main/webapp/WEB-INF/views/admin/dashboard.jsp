@@ -4,6 +4,17 @@
 <c:set var="estilos" value="${['admin-a.css']}"/>
 <%@ include file="../_header.jspf" %>
 <h1>Dashboard</h1>
+<c:if test="${not empty expirados}">
+    <div class="alerta alerta-aviso">
+        <strong>⚠ ${fn:length(expirados)} produto(s) fora da validade</strong> — os clientes já não os podem comprar.
+        <ul class="lista-alerta">
+            <c:forEach var="p" items="${expirados}">
+                <li><c:out value="${p.nome}"/> · expirou a ${p.validadeFmt} · ${p.quantidade}&nbsp;<c:out value="${p.unidade}"/> em stock</li>
+            </c:forEach>
+        </ul>
+        <a href="${ctx}/admin/produtos">Ver produtos</a>
+    </div>
+</c:if>
 <div class="grid">
     <a class="card kpi" href="${ctx}/admin/fornecedores"><span class="kpi-num">${contagens.fornecedores}</span><span class="kpi-rotulo">Fornecedores</span></a>
     <a class="card kpi" href="${ctx}/admin/produtos"><span class="kpi-num">${contagens.produtos}</span><span class="kpi-rotulo">Produtos</span></a>

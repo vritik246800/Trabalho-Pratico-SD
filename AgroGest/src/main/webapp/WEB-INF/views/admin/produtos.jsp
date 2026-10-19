@@ -4,6 +4,12 @@
 <c:set var="estilos" value="${['admin-a.css']}"/>
 <%@ include file="../_header.jspf" %>
 <h1>Produtos</h1>
+<c:if test="${not empty expirados}">
+    <div class="alerta alerta-aviso">
+        <strong>⚠ ${fn:length(expirados)} produto(s) fora da validade</strong> (assinalados na tabela). Os clientes já não os podem comprar:
+        remova-os ou crie o produto de novo com a validade do lote novo.
+    </div>
+</c:if>
 
 <c:set var="voltou" value="${param.acao == 'criar'}"/>
 <section class="card">
@@ -53,7 +59,7 @@
     <thead><tr><th>ID</th><th></th><th>Nome</th><th>Categoria</th><th>Fornecedor</th><th class="num">Preço</th><th class="num">Stock</th><th>Validade</th><th>Repor stock</th><th></th></tr></thead>
     <tbody>
     <c:forEach var="p" items="${produtos}">
-        <tr class="${p.quantidade == 0 ? 'sem-stock' : ''}">
+        <tr class="${p.expirado ? 'linha-expirado' : p.quantidade == 0 ? 'sem-stock' : ''}">
             <td>${p.id}</td>
             <td><c:if test="${not empty p.foto}"><img class="mini" src="${fn:escapeXml(p.foto)}" alt="" loading="lazy"></c:if></td>
             <td><strong><c:out value="${p.nome}"/></strong><c:if test="${not empty p.descricao}"><br><span class="nota"><c:out value="${p.descricao}"/></span></c:if></td>
@@ -61,7 +67,7 @@
             <td><c:out value="${fornecedorPorId[p.fornecedorId].nome}" default="—"/></td>
             <td class="num"><fmt:formatNumber value="${p.preco}" minFractionDigits="2" maxFractionDigits="2"/> MT</td>
             <td class="num">${p.quantidade} <c:out value="${p.unidade}"/></td>
-            <td>${empty p.validade ? '—' : p.validadeFmt}</td>
+            <td>${empty p.validade ? '—' : p.validadeFmt}<c:if test="${p.expirado}"> <span class="etiqueta etiqueta-expirado">Expirado</span></c:if></td>
             <td class="acoes">
                 <form class="repor" method="post" action="${ctx}/admin/produtos">
                     <input type="hidden" name="acao" value="repor">

@@ -117,4 +117,9 @@ public class Produto implements Serializable {
     public String getValidadeFmt() {
         return Datas.fmt(validade);
     }
+
+    /** A8 — validade já passou (no próprio dia ainda vende). Sem validade = nunca expira. */
+    public boolean isExpirado() {
+        return validade != null && validade.isBefore(LocalDate.now());
+    }
 }
