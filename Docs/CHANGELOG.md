@@ -2,6 +2,17 @@
 
 Consolidado de `CHANGELOG-vd.md`, `CHANGELOG-yc.md`, `CHANGELOG-ym.md`. Mais recente no topo.
 
+## [C6] Manual de utilização — 2026-10-21 · Vritik
+- create: Docs/MANUAL.md, Docs/img/manual/*.png (20 screenshots)
+- update: Docs/INDEX.md, README.md (Documentação → MANUAL.md)
+- C6 reatribuída de Yasin para Vritik · manual em Markdown em vez de PDF
+- sistema (rotas, RN01–RN06, credenciais) · passo a passo admin (painel → persistência) e cliente (registo → factura → histórico) · 403 e vista telemóvel
+
+## [A12] Script war.sh — 2026-10-21 · Vritik
+- create: war.sh
+- update: README.md (Instalação e deploy usa `./war.sh`, menciona `run.sh`)
+- verifica Java 17+ e Maven · `mvn clean package` · confirma JSTL em `WEB-INF/lib` e servlet-api fora do WAR · imprime tamanho e sha256
+
 ## [A11] Redesign completo da UI (sidebar, wizard, login, SVG) — 2026-10-19 · Vritik
 - create: AgroGest/src/main/webapp/WEB-INF/views/_icones.jspf, _alertas.jspf, _broto.jspf, _campo.jspf, _fluxo.jspf
 - create: AgroGest/src/main/webapp/js/app.js, AgroGest/src/main/webapp/img/logo.svg
