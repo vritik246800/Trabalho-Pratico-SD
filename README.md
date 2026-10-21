@@ -72,13 +72,13 @@ AgroGest/src/main/
 ## Instalação e deploy
 
 ```bash
-cd AgroGest
-mvn package                                   # gera target/agrogest.war
-cp target/agrogest.war $CATALINA_HOME/webapps/
+./war.sh                                      # mvn clean package + verifica o WAR → AgroGest/target/agrogest.war
+cp AgroGest/target/agrogest.war $CATALINA_HOME/webapps/
 $CATALINA_HOME/bin/startup.sh
 ```
 
 Abrir `http://localhost:8081/agrogest/`.
+Desenvolvimento local :: `./run.sh` compila, descarrega Tomcat 10.1 se faltar, publica e arranca em `:8081`.
 Tomcat na porta 8081 — alterar `conf/server.xml`: `port="8080"` → `port="8081"`.
 
 Deploy com systemd (Linux) :: ver [`Docs/deploy/DEPLOY.md`](Docs/deploy/DEPLOY.md) e [`Docs/deploy/agrogest.service`](Docs/deploy/agrogest.service).
@@ -114,4 +114,4 @@ Deploy com systemd (Linux) :: ver [`Docs/deploy/DEPLOY.md`](Docs/deploy/DEPLOY.m
 | [Docs/INSTRUCOES.md](Docs/INSTRUCOES.md) | passo a passo para Yannis e Yasin (sincronizar, PR, proibido) |
 | [SECURITY.md](SECURITY.md) | política de segurança: reportar vulnerabilidades, protecção do repo GitHub, medidas da app, limitações |
 | [Docs/CHANGELOG.md](Docs/CHANGELOG.md) | alterações (consolidado de `CHANGELOG-vd/yc/ym.md`) |
-| `Docs/Manual AgroGest.pdf` | manual de utilização (tarefa C6) |
+| [Docs/MANUAL.md](Docs/MANUAL.md) | manual de utilização admin + cliente, com screenshots (`Docs/img/manual/`) |

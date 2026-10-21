@@ -33,7 +33,7 @@ Requisitos completos: `Docs/Enunciado AgroGest 2026.pdf`.
 | A9  | Polimento UI/UX admin e cliente | A     | ✅ Vritik |
 | A10 | Editar produto (todos os campos) | A    | ✅ Vritik |
 | A11 | Redesign completo da UI (sidebar, wizard, login, SVG) | A | ✅ Vritik |
-| A12 | Script `war.sh` (WAR pronto a publicar) | A | 🔒 Vritik |
+| A12 | Script `war.sh` (WAR pronto a publicar) | A | ✅ Vritik |
 | B1  | Auto-registo                   | B      | ✅ Yannis |
 | B2  | Catálogo com filtro            | B      | ✅ Yannis |
 | B3  | Carrinho em sessão             | B      | ✅ Yannis |
@@ -45,7 +45,7 @@ Requisitos completos: `Docs/Enunciado AgroGest 2026.pdf`.
 | C3  | Colheitas                      | C      | ✅ Yasin  |
 | C4  | Persistência `.ser`            | C      | ✅ Yasin  |
 | C5  | Deploy Tomcat :8081 + systemd  | C      | ✅ Yasin  |
-| C6  | Manual de utilização (`Docs/MANUAL.md`) | C | 🔒 Vritik |
+| C6  | Manual de utilização (`Docs/MANUAL.md`) | C | ✅ Vritik |
 
 Carga aproximada :: A = 5 ecrãs admin · B = fluxo cliente completo (mais lógica) · C = 3 ecrãs
 admin + persistência + deploy + manual.
