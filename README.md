@@ -81,6 +81,8 @@ Abrir `http://localhost:8081/agrogest/`.
 Desenvolvimento local :: `./run.sh` compila, descarrega Tomcat 10.1 se faltar, publica e arranca em `:8081`.
 Tomcat na porta 8081 — alterar `conf/server.xml`: `port="8080"` → `port="8081"`.
 
+Release :: `git tag v1.0.0 && git push origin v1.0.0` → GitHub Actions compila e publica `agrogest.war` (+ `.sha256`) em *Releases*.
+
 Deploy com systemd (Linux) :: ver [`Docs/deploy/DEPLOY.md`](Docs/deploy/DEPLOY.md) e [`Docs/deploy/agrogest.service`](Docs/deploy/agrogest.service).
 
 ## Credenciais de teste

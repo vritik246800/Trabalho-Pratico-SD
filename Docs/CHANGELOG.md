@@ -2,6 +2,12 @@
 
 Consolidado de `CHANGELOG-vd.md`, `CHANGELOG-yc.md`, `CHANGELOG-ym.md`. Mais recente no topo.
 
+## [A13] Release no GitHub — 2026-10-21 · Vritik
+- create: .github/workflows/release.yml
+- update: README.md (Instalação e deploy → como publicar release)
+- tag `v*` → Java 17 Temurin + cache Maven → `mvn package` → `gh release create` com `agrogest.war`, `agrogest.war.sha256` e notas geradas
+- `permissions: {}` no topo, `contents: write` só no job
+
 ## [C6] Manual de utilização — 2026-10-21 · Vritik
 - create: Docs/MANUAL.md, Docs/img/manual/*.png (20 screenshots)
 - update: Docs/INDEX.md, README.md (Documentação → MANUAL.md)

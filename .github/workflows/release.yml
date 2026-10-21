@@ -1,0 +1,30 @@
+name: release
+# git tag v1.0.0 && git push origin v1.0.0 → compila o WAR e publica um GitHub Release
+on:
+  push:
+    tags: ['v*']
+permissions: {}
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: maven
+      - name: Compilar WAR
+        run: mvn -B -q -f AgroGest/pom.xml clean package
+      - name: Checksum
+        working-directory: AgroGest/target
+        run: sha256sum agrogest.war > agrogest.war.sha256
+      - name: Publicar release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "$GITHUB_REF_NAME" \
+            AgroGest/target/agrogest.war AgroGest/target/agrogest.war.sha256 \
+            --title "AgroGest $GITHUB_REF_NAME" --generate-notes
