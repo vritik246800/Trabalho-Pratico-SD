@@ -34,6 +34,7 @@ Requisitos completos: `Docs/Enunciado AgroGest 2026.pdf`.
 | A10 | Editar produto (todos os campos) | A    | ✅ Vritik |
 | A11 | Redesign completo da UI (sidebar, wizard, login, SVG) | A | ✅ Vritik |
 | A12 | Script `war.sh` (WAR pronto a publicar) | A | ✅ Vritik |
+| A13 | Release no GitHub (`.github/workflows/release.yml`) | A | 🔒 Vritik |
 | B1  | Auto-registo                   | B      | ✅ Yannis |
 | B2  | Catálogo com filtro            | B      | ✅ Yannis |
 | B3  | Carrinho em sessão             | B      | ✅ Yannis |
@@ -207,6 +208,7 @@ Ficheiros do pacote :: `service/FornecedorService`, `service/ProdutoService`,
 | A10 | `POST /admin/produtos` `acao=editar` | editar todos os campos do produto (nome, categoria, fornecedor, preço, stock, unidade, validade, foto, descrição) | mesmas validações do criar · escrita `synchronized` no lock do `DataStore` |
 | A11 | todas | redesign completo: paleta terra/savana, sidebar retráctil com botão de menu, login novo, wizard em produto/registo/compra, ícones SVG (animados), sem emoji | só CSS/JSP/JS próprio · sem frameworks |
 | A12 | `war.sh` (raiz) | `mvn clean package` → `agrogest.war` pronto a copiar para `webapps/` | Java 17+ e Maven verificados · sem tocar em código Java |
+| A13 | `.github/workflows/release.yml` | tag `v*` → `mvn package` (Java 17) → GitHub Release com `agrogest.war` + `.sha256` + notas geradas | `permissions: {}` no topo, `contents: write` só no job |
 
 A8–A11 tocam ficheiros do pacote B (`VendaService`, `catalogo.jsp`, `cliente-b.css`) e partilhados
 (`Produto`, `_header.jspf`, `style.css`) :: B já ✅, decisão do Vritik (dono do repo).
