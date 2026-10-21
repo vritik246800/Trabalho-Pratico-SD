@@ -33,6 +33,7 @@ Requisitos completos: `Docs/Enunciado AgroGest 2026.pdf`.
 | A9  | Polimento UI/UX admin e cliente | A     | ✅ Vritik |
 | A10 | Editar produto (todos os campos) | A    | ✅ Vritik |
 | A11 | Redesign completo da UI (sidebar, wizard, login, SVG) | A | ✅ Vritik |
+| A12 | Script `war.sh` (WAR pronto a publicar) | A | 🔒 Vritik |
 | B1  | Auto-registo                   | B      | ✅ Yannis |
 | B2  | Catálogo com filtro            | B      | ✅ Yannis |
 | B3  | Carrinho em sessão             | B      | ✅ Yannis |
@@ -44,7 +45,7 @@ Requisitos completos: `Docs/Enunciado AgroGest 2026.pdf`.
 | C3  | Colheitas                      | C      | ✅ Yasin  |
 | C4  | Persistência `.ser`            | C      | ✅ Yasin  |
 | C5  | Deploy Tomcat :8081 + systemd  | C      | ✅ Yasin  |
-| C6  | Manual de utilização PDF       | C      | 🔒 Yasin |
+| C6  | Manual de utilização (`Docs/MANUAL.md`) | C | 🔒 Vritik |
 
 Carga aproximada :: A = 5 ecrãs admin · B = fluxo cliente completo (mais lógica) · C = 3 ecrãs
 admin + persistência + deploy + manual.
@@ -205,6 +206,7 @@ Ficheiros do pacote :: `service/FornecedorService`, `service/ProdutoService`,
 | A9 | todas | polimento visual: menu com página activa, cartões, tabelas, forms, alertas, responsivo | só CSS/JSP · sem frameworks · mesmo layout |
 | A10 | `POST /admin/produtos` `acao=editar` | editar todos os campos do produto (nome, categoria, fornecedor, preço, stock, unidade, validade, foto, descrição) | mesmas validações do criar · escrita `synchronized` no lock do `DataStore` |
 | A11 | todas | redesign completo: paleta terra/savana, sidebar retráctil com botão de menu, login novo, wizard em produto/registo/compra, ícones SVG (animados), sem emoji | só CSS/JSP/JS próprio · sem frameworks |
+| A12 | `war.sh` (raiz) | `mvn clean package` → `agrogest.war` pronto a copiar para `webapps/` | Java 17+ e Maven verificados · sem tocar em código Java |
 
 A8–A11 tocam ficheiros do pacote B (`VendaService`, `catalogo.jsp`, `cliente-b.css`) e partilhados
 (`Produto`, `_header.jspf`, `style.css`) :: B já ✅, decisão do Vritik (dono do repo).
@@ -247,7 +249,7 @@ Ficheiros do pacote :: `service/CampanhaService`, `repo/Persistencia`, `listener
 | C3 | `/admin/colheitas?cultivo=` | registar `data, kg, precoKg` | `valorTotal = kg × precoKg` calculado no service · kg > 0, precoKg > 0 |
 | C4 | `/admin/persistencia` | botões "gravar agora" e "apagar ficheiro" · `AppListener`: init carrega `.ser` (senão `seed()`), garante admin; destroy grava | escrita atómica `.tmp` → `Files.move(ATOMIC_MOVE, REPLACE_EXISTING)` · ficheiro corrompido → log + `seed()`, não rebenta o arranque · caminho do `.ser` em `${catalina.base}/data/agrogest.ser` |
 | C5 | — | Tomcat 10.1 `server.xml` porta **8081** · `Docs/deploy/agrogest.service` (systemd: `User=tomcat`, `ExecStart/ExecStop` com `startup.sh`/`shutdown.sh`, `Restart=on-failure`) · secção Deploy no `README.md` | testar `systemctl stop` grava o `.ser` (contextDestroyed) |
-| C6 | — | `Docs/Manual AgroGest.pdf` :: passo a passo admin (fluxo do enunciado secção VIII) + cliente (registo → factura → histórico), com screenshots | **no fim**, depois de A e B em `dev` |
+| C6 | — | `Docs/MANUAL.md` (reatribuída a Vritik) :: passo a passo admin (fluxo do enunciado secção VIII) + cliente (registo → factura → histórico), com screenshots | **no fim**, depois de A e B em `dev` |
 
 Testar C4 sem A/B :: gravar com dados seed, reiniciar Tomcat, confirmar que IDs continuam a
 partir do último (contadores restaurados).

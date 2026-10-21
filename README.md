@@ -10,9 +10,9 @@ Java + Servlets no Apache Tomcat, **sem base de dados** (listas em memória + se
 
 | Nome            | GitHub                                               | Branch | Tarefas                |
 | --------------- | ---------------------------------------------------- | ------ | ---------------------- |
-| Vritik Valabdas | [@vritik246800](https://github.com/vritik246800)     | `vd`   | T0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11 |
+| Vritik Valabdas | [@vritik246800](https://github.com/vritik246800)     | `vd`   | T0, A1, A2, A3, A4, A5, A6, A7, A8, A9, A10, A11, A12, C6 |
 | Yannis Chilundo | [@yannischilundo](https://github.com/yannischilundo) | `yc`   | B1, B2, B3, B4, B5, B6 |
-| Yasin Magno     | [@yasinmagno](https://github.com/yasinmagno)         | `ym`   | C1, C2, C3, C4, C5, C6 |
+| Yasin Magno     | [@yasinmagno](https://github.com/yasinmagno)         | `ym`   | C1, C2, C3, C4, C5 |
 
 Tarefas :: IDs do [Docs/TODO.md](Docs/TODO.md) reservados por cada um. Reservar = `🔒 <Nome>` no
 TODO **e** ID na tua linha aqui, no mesmo commit (`update: Docs/TODO.md, README.md`).
