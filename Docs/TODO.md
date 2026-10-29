@@ -35,6 +35,7 @@ Requisitos completos: `Docs/Enunciado AgroGest 2026.pdf`.
 | A11 | Redesign completo da UI (sidebar, wizard, login, SVG) | A | ✅ Vritik |
 | A12 | Script `war.sh` (WAR pronto a publicar) | A | ✅ Vritik |
 | A13 | Release no GitHub (`.github/workflows/release.yml`) | A | ✅ Vritik |
+| A14 | UI animada: GSAP, modelos 3D `.glb`, imagens `.webp` (ffmpeg), transições | A | 🔒 Vritik |
 | B1  | Auto-registo                   | B      | ✅ Yannis |
 | B2  | Catálogo com filtro            | B      | ✅ Yannis |
 | B3  | Carrinho em sessão             | B      | ✅ Yannis |
