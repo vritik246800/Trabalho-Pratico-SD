@@ -1,4 +1,4 @@
-/* AgroGest · A11 — menu lateral, wizard de formulários, botões de envio. Sem bibliotecas.
+/* AgroGest · A11 — menu lateral, wizard de formulários, botões de envio. Sem bibliotecas (o movimento A14 está em motion.js).
    Tudo funciona sem JS: menu aberto, passos do wizard todos visíveis. */
 (function () {
     'use strict';
@@ -136,4 +136,27 @@
     }
 
     Array.prototype.forEach.call(document.querySelectorAll('form.wizard'), wizard);
+
+    // --- A14: foto do produto por URL — pré-visualização; sem foto válida o catálogo mostra o modelo 3D ---
+    var foto = document.querySelector('input[name=foto]');
+    if (foto) {
+        var previa = document.createElement('span');
+        previa.className = 'foto-previa';
+        previa.setAttribute('aria-live', 'polite');
+        previa.innerHTML = '<img alt="" hidden><span class="ajuda"></span>';
+        foto.after(previa);
+        var img = previa.firstChild, msg = previa.lastChild, espera;
+        var mostrar = function (texto, ok) { msg.textContent = texto; img.hidden = !ok; };
+        img.onload = function () { mostrar('Pré-visualização da foto.', true); };
+        img.onerror = function () { mostrar('Não foi possível carregar a imagem deste URL. Sem foto, o catálogo mostra o modelo 3D da categoria.', false); };
+        var ver = function () {
+            var v = foto.value.trim();
+            if (!v) return mostrar('Sem foto: o catálogo mostra o modelo 3D da categoria.', false);
+            if (!/^https?:\/\/\S+$/i.test(v)) return mostrar('O URL tem de começar por http:// ou https://.', false);
+            mostrar('A carregar a imagem…', false);
+            img.src = v;
+        };
+        foto.addEventListener('input', function () { clearTimeout(espera); espera = setTimeout(ver, 400); });
+        ver();
+    }
 })();

@@ -1,0 +1,51 @@
+/* AgroGest · A14 — cortina entre páginas, modelos 3D e estados iniciais do GSAP (js/motion.js, js/cena3d.js). */
+
+/* antes do GSAP correr: esconder o que vai entrar. O <head> põe .a-entrar e tira-o sozinho ao fim de 3 s */
+.a-entrar:not(.nav-leve) .conteudo > :not(.painel):not(.painel-fundo):not([role=status]),
+.a-entrar:not(.nav-leve) .auth-arte-texto,
+.a-entrar:not(.nav-leve) .auth-caixa { opacity: 0; }
+.motion .produto { animation: none; } /* a entrada dos cartões passa para o GSAP */
+
+/* ================================================================ cortina */
+
+.cortina {
+    position: fixed; inset: 0; z-index: 80;
+    display: grid; place-content: center; justify-items: center; gap: 16px;
+    background: var(--oliva-noite); color: var(--milho);
+    visibility: hidden; pointer-events: none;
+}
+.app .cortina { left: var(--lateral); }
+.menu-recolhido .app .cortina { left: var(--lateral-mini); }
+.cortina-tudo .cortina, .nav-entrada .cortina { left: 0; z-index: 90; }
+.nav-painel .cortina, .nav-entrada .cortina { visibility: visible; }
+.cortina-logo { width: 72px; height: 72px; stroke-width: 1.2; }
+.cortina-ola { display: none; margin: 0; font-family: var(--serif); font-size: clamp(1.5rem, 3vw, 2.2rem); color: var(--creme); }
+.nav-entrada .cortina-ola, .com-ola .cortina-ola { display: block; }
+@media (max-width: 1000px) { .app .cortina { left: 0; } }
+
+/* ================================================================ modelos 3D */
+
+.cena-3d { position: relative; flex: none; width: 190px; height: 132px; margin: -12px 0 -8px auto; }
+.cena-canvas { display: block; width: 100%; height: 100%; touch-action: pan-y; cursor: grab; }
+.cena-canvas:active { cursor: grabbing; }
+.auth-arte .cena-3d { position: absolute; right: 3%; bottom: 4%; z-index: 1; width: min(44%, 360px); height: auto; aspect-ratio: 1; margin: 0; }
+
+.produto-foto .cena-canvas, .prod-foto .cena-canvas { position: absolute; inset: 0; cursor: default; }
+.tem-3d > .produto-ic, .tem-3d > .ic { visibility: hidden; }
+
+@media (max-width: 860px) { .auth-arte .cena-3d { display: none; } }
+@media (max-width: 640px) { .cabeca .cena-3d { display: none; } }
+
+/* ================================================================ gestos */
+
+.produto-voa { position: fixed; z-index: 70; margin: 0; pointer-events: none; border-radius: var(--raio); box-shadow: var(--sombra-alta); }
+.barra-carrinho { will-change: transform; }
+
+/* relatórios: barra do volume comprado */
+#volume td.num { position: relative; }
+.barra-valor {
+    position: absolute; right: 12px; bottom: 5px; width: min(160px, calc(100% - 24px)); height: 3px;
+    border-radius: 2px; background: var(--milho); transform-origin: right;
+}
+
+@media print { .cortina, .cena-3d, .barra-valor { display: none !important; } }

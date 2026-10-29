@@ -21,14 +21,21 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..600&family=Inter:wght@400;500;600;700&display=swap">
-    <link rel="stylesheet" href="${ctx}/css/style.css?v=11">
-    <c:forEach var="css" items="${estilos}"><link rel="stylesheet" href="${ctx}/css/${css}?v=11"></c:forEach>
+    <link rel="stylesheet" href="${ctx}/css/style.css?v=12">
+    <c:forEach var="css" items="${estilos}"><link rel="stylesheet" href="${ctx}/css/${css}?v=12"></c:forEach>
     <%-- antes do primeiro desenho: sem "salto" do menu recolhido nem do wizard --%>
-    <script>document.documentElement.classList.add('js');try{if(localStorage.getItem('agro-menu')==='recolhido')document.documentElement.classList.add('menu-recolhido')}catch(e){}</script>
-    <script src="${ctx}/js/app.js?v=11" defer></script>
+    <link rel="stylesheet" href="${ctx}/css/motion.css?v=12">
+    <%-- antes do primeiro desenho: sem "salto" do menu recolhido nem do wizard; A14: esconder o que o GSAP vai animar
+         (e a cortina, se se veio de outro painel) — tira-se sozinho ao fim de 3 s se o motion.js não correr --%>
+    <script>(function(h){h.classList.add('js');try{if(localStorage.getItem('agro-menu')==='recolhido')h.classList.add('menu-recolhido');if(!matchMedia('(prefers-reduced-motion: reduce)').matches){var n=sessionStorage.getItem('agro-nav');h.classList.add('a-entrar');if(n)h.classList.add('nav-'+n);setTimeout(function(){h.classList.remove('a-entrar','nav-painel','nav-entrada','nav-leve')},3000)}}catch(e){}})(document.documentElement)</script>
+    <script src="${ctx}/js/app.js?v=12" defer></script>
+    <script src="${ctx}/js/vendor/gsap.min.js?v=3.15.0" defer></script>
+    <script src="${ctx}/js/motion.js?v=12" defer></script>
+    <script type="module" src="${ctx}/js/cena3d.js?v=12"></script>
 </head>
-<body class="${empty eu ? 'publico' : 'app'}">
+<body class="${empty eu ? 'publico' : 'app'}" data-pagina="${fn:escapeXml(aqui)}">
 <%@ include file="_icones.jspf" %>
+<div class="cortina" aria-hidden="true"><svg class="ic cortina-logo"><use href="#i-logo"/></svg><c:if test="${not empty eu}"><p class="cortina-ola">Olá, <c:out value="${fn:split(eu.nome, ' ')[0]}"/></p></c:if></div>
 <c:choose>
 <c:when test="${empty eu}">
 <main class="publico-main">

@@ -36,6 +36,7 @@ cliente exigem sessão · RN06 IDs sequenciais via `AtomicInteger`.
 | Servidor | Apache Tomcat 10.1 (porta **8081**) |
 | Controladores / filtros / listeners | Jakarta Servlets 6.0 (`@WebServlet`, `@WebFilter`, `@WebListener`) |
 | Vista | JSP + JSTL 3.0 + EL · HTML5 + CSS3 próprio |
+| Movimento e 3D (só UI) | GSAP 3.15 + three.js 0.186 em `js/vendor/` (sem CDN, funciona offline) · modelos `.glb` low-poly feitos no Blender (`blender/modelos.py`) |
 | Dados | `ArrayList` / `Map` / `Collections.synchronizedList` |
 | Persistência | `ObjectOutputStream` / `ObjectInputStream` → ficheiro `.ser` (escrita atómica) |
 | Build | Apache Maven (WAR) |
@@ -80,6 +81,10 @@ $CATALINA_HOME/bin/startup.sh
 Abrir `http://localhost:8081/agrogest/`.
 Desenvolvimento local :: `./run.sh` compila, descarrega Tomcat 10.1 se faltar, publica e arranca em `:8081`.
 Tomcat na porta 8081 — alterar `conf/server.xml`: `port="8080"` → `port="8081"`.
+
+Fotos de produto :: campo "Foto (URL)" aceita qualquer imagem `https://…`. Para servir a foto a partir da app,
+`./img.sh <url> <nome>` baixa e reduz com ffmpeg (480px, < 40 KB) para `AgroGest/src/main/webapp/img/produtos/`
+e imprime o URL a colar. Produto sem foto, ou com URL que falha → modelo 3D da categoria.
 
 Release :: `git tag v1.0.0 && git push origin v1.0.0` → GitHub Actions compila e publica `agrogest.war` (+ `.sha256`) em *Releases*.
 
