@@ -2,6 +2,18 @@
 
 Consolidado de `CHANGELOG-vd.md`, `CHANGELOG-yc.md`, `CHANGELOG-ym.md`. Mais recente no topo.
 
+## [A14] UI animada: GSAP, modelos 3D, imagens, transições — 2026-10-29 · Vritik
+- create: AgroGest/src/main/webapp/js/{motion.js, cena3d.js}, js/vendor/{gsap.min.js, three-agro.min.js}, css/motion.css
+- create: AgroGest/src/main/webapp/modelos/*.glb (12), img/produtos/{semente-milho, enxada}.jpg, blender/modelos.py, img.sh
+- update: AgroGest/src/main/webapp/WEB-INF/views/_header.jspf (scripts, cortina, `data-pagina`, `?v=12`), js/app.js, css/admin-a.css, README.md
+- só UI: nenhum servlet, service, model ou JSP de página alterado · tudo é melhoria progressiva (sem JS, sem WebGL ou com "reduzir movimento" a app fica como em A11)
+- login/registo → caixa sai, cortina com logo, "Olá, Nome", menu e conteúdo entram · logout e troca de painel → cortina só sobre a área do conteúdo
+- entrada de cada página com stagger · painel: contagens sobem · relatórios: barra do volume · produtos expirados piscam · cartões inclinam-se para o rato · catálogo: foto voa para o carrinho
+- 3D: um modelo por painel no cabeçalho (arrastar roda, clique dá uma volta) · produto sem foto ou com URL partido → modelo da categoria · um só `WebGLRenderer` partilhado (limite de ~16 contextos WebGL)
+- `three-agro.min.js` = bundle esbuild só com o que se usa (600 KB, 155 KB gzip) · modelos 12 × 10–85 KB, carregados só na página que os usa
+- formulário de produto: pré-visualização do URL da foto · `img.sh`: curl + ffmpeg → `.jpg` 480px < 40 KB (o ffmpeg do brew não tem libwebp)
+- fotos Wikimedia Commons :: `semente-milho.jpg` = `Corn_kernels.jpg`, Danielgrad, CC BY-SA 3.0 · `enxada.jpg` = `Hoe.jpg`, S.Jasmine jeno, CC0
+
 ## [A13] Release no GitHub — 2026-10-21 · Vritik
 - create: .github/workflows/release.yml
 - update: README.md (Instalação e deploy → como publicar release)
