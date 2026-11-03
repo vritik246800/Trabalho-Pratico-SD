@@ -122,3 +122,5 @@ Deploy com systemd (Linux) :: ver [`Docs/deploy/DEPLOY.md`](Docs/deploy/DEPLOY.m
 | [SECURITY.md](SECURITY.md) | política de segurança: reportar vulnerabilidades, protecção do repo GitHub, medidas da app, limitações |
 | [Docs/CHANGELOG.md](Docs/CHANGELOG.md) | alterações (consolidado de `CHANGELOG-vd/yc/ym.md`) |
 | [Docs/MANUAL.md](Docs/MANUAL.md) | manual de utilização admin + cliente, com screenshots (`Docs/img/manual/`) |
+
+> Trabalho Prático de Sistemas Distribuídos.
